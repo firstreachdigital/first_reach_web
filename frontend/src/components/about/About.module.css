@@ -1,0 +1,139 @@
+.aboutSection {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 0.95fr;
+  gap: 3rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 5rem 4rem 6rem;
+  overflow: hidden;
+}
+
+.aboutSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(5, 202, 242, 0.08), transparent 35%);
+  pointer-events: none;
+}
+
+.aboutIntro {
+  position: relative;
+  z-index: 1;
+}
+
+.sectionLabel {
+  display: inline-flex;
+  font-size: 0.85rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.8s ease;
+}
+
+.aboutTitle {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 5rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
+  background: linear-gradient(90deg, rgba(5, 202, 242, 1), rgba(255, 255, 255, 1));
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 220% 100%;
+  background-position: left center;
+  transition: all 1s ease;
+  margin-bottom: 1.8rem;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.aboutCopy {
+  color: #b9b9c9;
+  font-size: 1rem;
+  line-height: 1.9;
+  max-width: 640px;
+  margin-bottom: 1.1rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.aboutCards {
+  display: grid;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.aboutCard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2rem;
+  padding: 2rem;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.22);
+  transition: transform 0.4s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.aboutCard:hover {
+  transform: translateY(-10px);
+  border-color: rgba(5, 202, 242, 0.35);
+  box-shadow: 0 45px 100px rgba(0, 0, 0, 0.25);
+}
+
+.cardIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.35rem;
+  color: var(--accent);
+  font-size: 1.2rem;
+  background: rgba(5, 202, 242, 0.12);
+}
+
+.aboutCard h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.85rem;
+}
+
+.aboutCard p {
+  color: #d0d0da;
+  line-height: 1.8;
+}
+
+.inView {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.inView.aboutTitle {
+  color: var(--white);
+  -webkit-text-stroke: 0;
+  background-position: right center;
+}
+
+@media (max-width: 980px) {
+  .aboutSection {
+    grid-template-columns: 1fr;
+    padding: 4rem 2rem 5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .aboutTitle {
+    font-size: clamp(2.4rem, 10vw, 3.4rem);
+  }
+
+  .aboutCard {
+    padding: 1.7rem;
+  }
+}
