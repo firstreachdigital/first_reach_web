@@ -6,6 +6,8 @@ import './App.css'
 import Navbar from './components/navbar/Navbar'
 import Hero from './components/hero/Hero'
 import About from './components/about/About'
+import Services from './components/services/Services'
+import WhyUs from './components/whyus/whyUs'
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
       <Navbar />
       <Hero />
       <About />
+      <Services />
+      <WhyUs />
     </>
   )
 }

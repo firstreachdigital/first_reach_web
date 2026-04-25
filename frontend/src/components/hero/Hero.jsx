@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './Hero.module.css'
 import elephantImg from '../../assets/First reach digital website homepage copy.jpg.jpeg'
-import { FaWhatsapp, FaLinkedinIn, FaInstagram, FaFacebookF, FaArrowRight } from 'react-icons/fa'
+import { FaWhatsapp, FaLinkedinIn, FaInstagram, FaFacebookF, FaArrowRight, FaPlay } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 
 const marqueeItems = [
@@ -115,16 +115,6 @@ export default function Hero() {
           />
         </div>
 
-        {/* <div className={styles.socialBar}>
-          <div className={styles.socialRing}>
-            <a href="#" className={styles.socialLink}>𝕏</a>
-            <a href="#" className={styles.socialLink}>in</a>
-            <a href="#" className={styles.socialLink}>⊙</a>
-            <a href="#" className={styles.socialLink}>f</a>
-          </div>
-          <span className={styles.asterisk}>✳</span>
-        </div> */}
-
         {/* Social Sidebar */}
 <div className={styles.socialBar}>
   <span className={styles.asterisk}>✳</span>
@@ -157,7 +147,7 @@ export default function Hero() {
 
           <div className={styles.bottomRow} data-animate>
             <button className={styles.playBtn}>
-              <span className={styles.playIcon}>▶</span>
+              <span className={styles.playIcon}><FaPlay /></span>
             </button>
             <p className={styles.desc}>
               We design digital solutions that elevate your brand

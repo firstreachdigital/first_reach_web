@@ -1,0 +1,456 @@
+.whyUs {
+  position: relative;
+  background: #080808;
+  padding: 6rem 2rem;
+  overflow: hidden;
+}
+
+.bgGlow {
+  position: absolute;
+  top: 30%; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(5, 202, 242, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ── HEADER ── */
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto 2.5rem;
+  align-items: end;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #666;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s ease;
+}
+
+.labelDot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px rgba(5, 202, 242, 0.7);
+}
+
+.titleWrap { position: relative; }
+
+.titleBase {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #222;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+  margin: 0;
+}
+
+.titleFill {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  position: absolute;
+  top: 0; left: 0;
+  margin: 0;
+  width: 100%;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.04s linear;
+  pointer-events: none;
+}
+
+.headerDesc {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  max-width: 360px;
+  align-self: end;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s ease 0.2s;
+}
+
+/* ── BENTO GRID ── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── BASE CARD ── */
+.card {
+  position: relative;
+  border-radius: 1.5rem;
+  /* overflow: hidden; */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s;
+}
+
+
+.card:hover {
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+/* ── CARD SIZES / POSITIONS ── */
+.cardSmall {
+  min-height: 120px;
+  overflow: hidden;
+}
+
+.cardTall {
+  min-height: 600px;
+  grid-row: 1 / 2;
+  overflow: hidden;
+  
+}
+
+.cardWide {
+  grid-column: 1 / 3;
+  min-height: 120px;
+}
+
+/* ── IMAGE CARDS ── */
+.cardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  transition: transform 0.6s ease;
+  filter: brightness(0.6);
+}
+
+.card:hover .cardImg {
+  transform: scale(1.05);
+}
+
+.cardImgOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(8, 8, 8, 0.85) 0%,
+    rgba(8, 8, 8, 0.2) 50%,
+    transparent 100%
+  );
+}
+
+.cardContent {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1.8rem;
+  z-index: 2;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+}
+
+.cardDesc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+}
+
+/* ── OVERLAY BOX (card 2) ── */
+.overlayBox {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  right: 1.2rem;
+  background: rgba(15, 15, 15, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 2;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.overlayIcon {
+  font-size: 1.2rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.overlayTitle {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+
+/* ── DARK CARDS ── */
+.cardDark {
+  background: #111;
+  border: 1px solid #1e1e1e;
+  min-height: 200px;
+  overflow: visible !important;
+}
+
+.cardSmall.cardDark {
+  min-height: 220px;
+}
+
+.cardDark:hover {
+  border-color: rgba(5, 202, 242, 0.2);
+}
+
+/* ── STATS CARD ── */
+.statsWrap {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  height: 100%;
+}
+
+.statsLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.stars {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.star {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.statNum {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 0.88rem;
+  color: #555;
+  letter-spacing: 0.05em;
+}
+
+.divider {
+  width: 1px;
+  height: 60px;
+  background: #222;
+  flex-shrink: 0;
+}
+
+.avatarStack {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #111;
+  margin-left: -12px;
+  transition: transform 0.2s;
+}
+
+.avatar:first-child { margin-left: 0; }
+.avatar:hover { transform: translateY(-4px); }
+
+/* ── TURNAROUND CARD ── */
+.turnaroundWrap {
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.turnaroundTop {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.turnaroundIcon {
+  font-size: 1.4rem;
+  color: var(--accent);
+}
+
+.turnaroundTitle {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+
+/* Clock */
+/* Clock */
+.clockWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.clock {
+  width: 110px;
+  height: 110px;
+}
+
+.clockFace {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid #ccc;
+  position: relative;
+  background: radial-gradient(circle at 40% 35%, #ffffff, #d0d0d0);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.2), 0 4px 20px rgba(0,0,0,0.5);
+  overflow: visible;
+}
+
+.turnaroundCard {
+  overflow: hidden; /* only this card clips */
+}
+
+/* Tick marks */
+.tick {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 50%;
+  transform-origin: bottom center;
+  margin-left: -1px;
+}
+
+.tickMark {
+  width: 1px;
+  height: 4px;
+  background: #aaa;
+  margin: 0 auto;
+}
+
+.tickBig {
+  width: 2px;
+  height: 7px;
+  background: #555;
+}
+
+/* Numbers */
+.clockNum {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 0.45rem;
+  font-weight: 700;
+  color: #333;
+  line-height: 1;
+}
+
+/* Hands */
+.hourHand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  width: 3px;
+  height: 28px;
+  background: #222;
+  transform-origin: bottom center;
+  transform: translateX(-50%) rotate(0deg);
+  border-radius: 3px 3px 0 0;
+}
+
+.minHand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  width: 2px;
+  height: 36px;
+  background: #111;
+  transform-origin: bottom center;
+  transform: translateX(-50%) rotate(0deg);
+  border-radius: 2px 2px 0 0;
+}
+
+.secHand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  width: 1px;
+  height: 38px;
+  background: #e00;
+  transform-origin: bottom center;
+  transform: translateX(-50%) rotate(0deg);
+  border-radius: 1px;
+}
+
+.clockCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  background: #e00;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+/* ── INVIEW ── */
+.inView {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+  .cardWide { grid-column: 1 / 3; }
+  .header { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .whyUs { padding: 4rem 1rem; }
+  .grid { grid-template-columns: 1fr; }
+  .cardWide { grid-column: 1; }
+  .cardTall { min-height: 280px; }
+  .cardSmall { min-height: 280px; }
+}
