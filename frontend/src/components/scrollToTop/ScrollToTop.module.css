@@ -1,0 +1,41 @@
+.btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 8px;
+  border: 1px solid rgba(5, 202, 242, 0.4);
+
+  background: #0f0f0f;
+  color: #fff;
+
+  display: grid;
+  place-items: center;
+
+  font-size: 18px;
+  cursor: pointer;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+/* SHOW */
+.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* HOVER EFFECT */
+.btn:hover {
+  background: #05caf2;
+  color: #000;
+  box-shadow: 0 0 15px rgba(5, 202, 242, 0.5);
+  transform: translateY(-3px);
+}

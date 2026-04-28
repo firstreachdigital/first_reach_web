@@ -1,0 +1,323 @@
+/* src/pages/TeamMemberPage.module.css */
+
+.page {
+  background: var(--black);
+  color: var(--white);
+  min-height: 100vh;
+  padding-top: 120px;
+}
+
+/* ── Top nav ── */
+.topNav {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 4rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: #555;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: color 0.2s;
+  padding: 0;
+}
+.backLink:hover { color: var(--accent); }
+
+.breadcrumb {
+  font-size: 0.78rem;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.breadcrumb a { color: #555; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--accent); }
+
+/* ── Container ── */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 4rem 6rem;
+}
+
+/* ── Card ── */
+.card {
+  position: relative;
+  background: #0d0d0d;
+  border: 1px solid #1a1a1a;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(5, 202, 242, 0.06),
+    0 24px 80px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.4s ease;
+}
+
+.card:hover {
+  box-shadow:
+    0 0 0 1px rgba(5, 202, 242, 0.15),
+    0 30px 100px rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(5, 202, 242, 0.06);
+}
+
+.glowLeft {
+  position: absolute;
+  top: -60px; left: -60px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(5, 202, 242, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.glowRight {
+  position: absolute;
+  bottom: -40px; right: 260px;
+  width: 250px; height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(5, 100, 200, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  min-height: 480px;
+}
+
+/* ── Left content ── */
+.content {
+  padding: 3rem 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 0.4rem;
+}
+
+.role {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 0.6rem;
+  box-shadow: 0 0 12px rgba(5, 202, 242, 0.7);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+.bio {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.para {
+  font-size: 0.875rem;
+  color: #666;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: var(--accent);
+  color: #000;
+  padding: 0.7rem 1.4rem 0.7rem 0.75rem;
+  border-radius: 3rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+.ctaBtn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(5, 202, 242, 0.3);
+}
+
+.ctaIcon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #000;
+  color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.socialLink {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1px solid #222;
+  display: flex; align-items: center; justify-content: center;
+  color: #555;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+}
+.socialLink:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(5, 202, 242, 0.08);
+  transform: translateY(-2px);
+}
+
+/* ── Right: image ── */
+.imageWrap {
+  position: relative;
+  overflow: hidden;
+  border-left: 1px solid #1a1a1a;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.card:hover .image { transform: scale(1.03); }
+
+.imageGlow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(13, 13, 13, 0.5) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+/* ── Prev / Next nav ── */
+.memberNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.memberNavBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #1e1e1e;
+  border-radius: 0.75rem;
+  background: #0a0a0a;
+  color: var(--white);
+  font-size: 0.82rem;
+  transition: all 0.2s;
+  max-width: 220px;
+}
+.memberNavBtn:hover {
+  border-color: var(--accent);
+  background: rgba(5, 202, 242, 0.05);
+  transform: translateY(-1px);
+}
+.memberNavBtnRight { flex-direction: row; }
+
+.memberNavInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.memberNavLabel {
+  font-size: 0.7rem;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.memberNavName {
+  font-weight: 600;
+  color: var(--white);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── 404 ── */
+.notFound {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: #555;
+  padding-top: 120px;
+}
+.backBtn {
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .inner { grid-template-columns: 1fr; grid-template-rows: auto 280px; }
+  .imageWrap { border-left: none; border-top: 1px solid #1a1a1a; }
+}
+
+@media (max-width: 600px) {
+  .container  { padding: 0 1.5rem 4rem; }
+  .topNav     { padding: 0 1.5rem 1.5rem; }
+  .content    { padding: 2rem 1.5rem 1.5rem; }
+  .memberNav  { flex-direction: column; }
+  .memberNavBtn { max-width: 100%; width: 100%; }
+}

@@ -1,0 +1,442 @@
+/* ═══════════════════════════════════════
+   CONTACT + FAQ SECTION
+   ═══════════════════════════════════════ */
+.section {
+  position: relative;
+  padding: 7rem 5rem;
+  background: #050505;
+  overflow: hidden;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 4rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+/* ═══════════════════════════════════════
+   LEFT — FORM CARD
+   ═══════════════════════════════════════ */
+.formCol {
+  position: sticky;
+  top: 7rem;
+  align-self: start;
+}
+
+.formCard {
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: 1.6rem;
+  padding: 2.4rem 2.2rem;
+}
+
+/* Response badge */
+.responseBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 1.4rem;
+}
+.responseDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #05caf2;
+  box-shadow: 0 0 8px rgba(5, 202, 242, 0.8);
+  flex-shrink: 0;
+}
+
+.formTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  font-weight: 800;
+  color: var(--white, #fff);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0 0 2rem;
+}
+
+/* Form fields */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.field {
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--white, #fff);
+  font-size: 0.9rem;
+  padding: 1rem 0;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.input::placeholder {
+  color: #444;
+}
+
+.input:focus {
+  color: #fff;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+/* Checkbox */
+.checkLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #666;
+  margin: 1.4rem 0 2rem;
+  user-select: none;
+}
+
+.checkInput {
+  display: none;
+}
+
+.checkBox {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1px solid #333;
+  background: transparent;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.checkBoxActive {
+  background: #05caf2 !important;
+  border-color: #05caf2 !important;
+}
+
+/* Form footer */
+.formFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.agentInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.agentAvatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid #1e1e1e;
+}
+.agentAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.agentName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--white, #fff);
+  margin: 0 0 0.1rem;
+}
+.agentRole {
+  font-size: 0.72rem;
+  color: #555;
+  margin: 0;
+}
+
+/* Submit button */
+.submitBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #05caf2;
+  color: #000;
+  border: none;
+  border-radius: 3rem;
+  padding: 0.7rem 1.4rem 0.7rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+  white-space: nowrap;
+}
+
+.submitBtn:hover {
+  background: #00b8d9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(5, 202, 242, 0.3);
+}
+
+.submitArrow {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #000;
+  color: #05caf2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════
+   RIGHT — FAQ
+   ═══════════════════════════════════════ */
+.faqCol {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 1rem;
+}
+.labelDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #05caf2;
+  box-shadow: 0 0 8px rgba(5, 202, 242, 0.8);
+  flex-shrink: 0;
+}
+
+/* Title fill */
+.titleWrap {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.titleBase {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.titleFill {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--white, #fff);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  margin: 0;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.04s linear;
+  pointer-events: none;
+}
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #1e1e1e;
+  margin-bottom: 1rem;
+}
+
+.tab {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #444;
+  padding: 0.6rem 1.2rem 0.8rem;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0; right: 0;
+  height: 2px;
+  background: #05caf2;
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+  border-radius: 2px 2px 0 0;
+}
+
+.tabActive {
+  color: #05caf2 !important;
+  font-weight: 700;
+}
+
+.tabActive::after {
+  transform: scaleX(1);
+}
+
+/* ── Accordion ── */
+.accordion {
+  display: flex;
+  flex-direction: column;
+}
+
+.accItem {
+  border-bottom: 1px solid #1a1a1a;
+  transition: background 0.25s;
+}
+
+.accItem:last-child {
+  border-bottom: none;
+}
+
+.accHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1.3rem 0;
+  text-align: left;
+}
+
+.accNum {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #333;
+  letter-spacing: 0.08em;
+  min-width: 28px;
+  flex-shrink: 0;
+}
+
+.accQ {
+  flex: 1;
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: var(--white, #fff);
+  line-height: 1.4;
+  transition: color 0.2s;
+}
+
+.accQOpen {
+  color: #05caf2 !important;
+}
+
+.accIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #2a2a2a;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  transition: background 0.25s, border-color 0.25s, transform 0.3s;
+}
+
+.accIconOpen {
+  background: #05caf2 !important;
+  border-color: #05caf2 !important;
+  color: #000 !important;
+}
+
+/* Accordion body */
+.accBody {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s ease,
+              padding 0.3s ease;
+  opacity: 0;
+  padding: 0 2.8rem;
+}
+
+.accBodyOpen {
+  max-height: 300px;
+  opacity: 1;
+  padding: 0 2.8rem 1.4rem;
+}
+
+.accA {
+  font-size: 0.88rem;
+  color: #666;
+  line-height: 1.78;
+  margin: 0;
+}
+
+.accA strong {
+  color: #05caf2;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .section {
+    padding: 5rem 2.5rem;
+  }
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .formCol {
+    position: relative;
+    top: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 4rem 1.5rem;
+  }
+  .tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .formFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+}

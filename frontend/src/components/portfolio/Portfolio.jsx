@@ -1,0 +1,179 @@
+import React, { useEffect, useRef } from "react";
+import styles from "./Portfolio.module.css";
+import ScrollStack, { ScrollStackItem } from "./ScrollStack";
+
+// ── Replace these image URLs with your actual project images ──
+// You can use images from your /assets folder like:
+// import img1 from "../../assets/project1.jpg"
+// or use any online placeholder until you have real images
+const portfolioItems = [
+  {
+    number: "01",
+    title: "Brand Identity Redesign",
+    category: "Branding & Strategy",
+    desc: "Full visual overhaul for a fintech startup — logo, color system, typography, and motion guidelines.",
+    color: "#05caf2",
+    image: "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=800&q=80",
+  },
+  {
+    number: "02",
+    title: "E-Commerce Platform",
+    category: "Web Development",
+    desc: "Custom storefront with 3D product viewer, animated cart, and 40% conversion uplift.",
+    color: "#a78bfa",
+    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80",
+  },
+  {
+    number: "03",
+    title: "SaaS Dashboard UI",
+    category: "UI / UX Design",
+    desc: "End-to-end design of a data analytics platform — dark mode, complex data viz, and responsive layout.",
+    color: "#34d399",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+  },
+  {
+    number: "04",
+    title: "Mobile App Launch",
+    category: "Product Design",
+    desc: "Zero-to-one design and dev for a wellness app. Shipped to 10k+ users in first month.",
+    color: "#fb923c",
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80",
+  },
+];
+
+export default function Portfolio() {
+  const titleFillRef = useRef(null);
+
+  useEffect(() => {
+    // Fade-in observer
+    const elements = document.querySelectorAll("[data-inview]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.inView);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    elements.forEach((el) => observer.observe(el));
+
+    // Scroll text fill-up
+    const handleScroll = () => {
+      if (!titleFillRef.current) return;
+      const rect = titleFillRef.current.getBoundingClientRect();
+      const winH = window.innerHeight;
+      const progress = Math.min(
+        Math.max((winH - rect.top) / (winH * 0.5), 0),
+        1
+      );
+      titleFillRef.current.style.clipPath = `inset(0 ${(1 - progress) * 100}% 0 0)`;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <section className={styles.portfolioSection} id="portfolio">
+      <div className={styles.bgGrid}></div>
+
+      {/* ── LEFT — your exact existing content ── */}
+      <div className={styles.content}>
+        <span className={styles.sectionLabel} data-inview>
+          <span className={styles.dot}></span> &#123;04&#125; FunFacts
+        </span>
+
+        <div className={styles.titleWrap}>
+          <h2 className={styles.titleBase}>
+            "A streamlined solution build to power business."
+          </h2>
+          <h2 className={styles.titleFill} ref={titleFillRef}>
+            "A streamlined solution build to power business."
+          </h2>
+        </div>
+
+        <p className={styles.subtitle} data-inview>
+          We're more than pixels and code — we're coffee lovers, cat people,
+          meme sharers, and design geeks.
+        </p>
+
+        <div className={styles.stats}>
+          <div className={styles.card} data-inview>
+            <h3>95%</h3>
+            <p>Customer satisfaction</p>
+          </div>
+          <div className={styles.card} data-inview>
+            <h3>12+</h3>
+            <p>Years of experience</p>
+          </div>
+          <div className={styles.card} data-inview>
+            <h3>22+</h3>
+            <p>Projects completed</p>
+          </div>
+        </div>
+      </div>
+
+      {/* ── RIGHT — ScrollStack with image cards ── */}
+      <div className={styles.stackCol}>
+        <ScrollStack
+          itemDistance={120}
+          itemScale={0.04}
+          itemStackDistance={25}
+          stackPosition="15%"
+          scaleEndPosition="8%"
+          baseScale={0.88}
+          rotationAmount={0}
+          blurAmount={1}
+          useWindowScroll={false}
+        >
+          {portfolioItems.map((item, i) => (
+            <ScrollStackItem key={i}>
+              <div
+                className={styles.stackCard}
+                style={{ "--card-accent": item.color }}
+              >
+                {/* Image */}
+                <div className={styles.stackImg}>
+                  <img src={item.image} alt={item.title} />
+                  {/* Overlay */}
+                  <div className={styles.stackImgOverlay} />
+                </div>
+
+                {/* Content over image */}
+                <div className={styles.stackContent}>
+                  <div className={styles.stackCardTop}>
+                    <span className={styles.stackNum}>{item.number}</span>
+                    <span
+                      className={styles.stackTag}
+                      style={{ color: item.color, borderColor: item.color }}
+                    >
+                      {item.category}
+                    </span>
+                  </div>
+                  <div className={styles.stackBottom}>
+                    <h3 className={styles.stackTitle}>{item.title}</h3>
+                    <p className={styles.stackDesc}>{item.desc}</p>
+                  </div>
+                </div>
+
+                {/* Bottom accent bar */}
+                <div
+                  className={styles.stackBar}
+                  style={{ background: item.color }}
+                />
+              </div>
+            </ScrollStackItem>
+          ))}
+        </ScrollStack>
+      </div>
+    </section>
+  );
+}

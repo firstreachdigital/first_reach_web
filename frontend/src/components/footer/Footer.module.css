@@ -1,0 +1,165 @@
+.footer {
+  position: relative;
+  padding: 7rem 5rem 3rem;
+  background: #050505;
+  overflow: hidden;
+}
+
+/* GRID BG */
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#141414 1px, transparent 1px),
+    linear-gradient(90deg, #141414 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.35;
+}
+
+/* ✅ MAIN CONTAINER (IMPORTANT FIX) */
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 2fr;
+  gap: 4rem;
+}
+
+/* LEFT */
+.logoWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.logoWrap img {
+  width: 42px;
+}
+
+.logoWrap h3 {
+  color: #fff;
+  font-size: 1.4rem;
+}
+
+.desc {
+  color: #aaa;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  max-width: 280px;
+}
+
+.email {
+  color: #ccc;
+  margin-bottom: 1.5rem;
+}
+
+/* AVAILABLE */
+.available {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #05caf2;
+  box-shadow: 0 0 8px rgba(5,202,242,0.8);
+}
+
+/* LINKS */
+.links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.links h4 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.links li {
+  color: #777;
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.links li:hover {
+  color: #05caf2;
+}
+
+/* SOCIAL */
+.socials {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.socials span {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #111;
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+
+.socials span:hover {
+  background: #05caf2;
+  color: #000;
+}
+
+/* ✅ BOTTOM FIX */
+.bottom {
+  max-width: 1280px;
+  margin: 3rem auto 0; /* center align */
+  padding-top: 2rem;
+  border-top: 1px solid #111;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.credit {
+  background: #0f0f0f;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1024px) {
+  .footer {
+    padding: 5rem 2.5rem 3rem;
+  }
+
+  .inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 4rem 1.5rem 2rem;
+  }
+
+  .links {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}

@@ -1,0 +1,385 @@
+/* ═══════════════════════════════════════
+   TEAM SECTION
+   ═══════════════════════════════════════ */
+.section {
+  position: relative;
+  padding: 7rem 5rem 5rem;
+  overflow: hidden;
+  background: #050505;
+}
+
+/* ── Starfield ── */
+.starsBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  animation: twinkle 3s infinite alternate ease-in-out;
+}
+@keyframes twinkle {
+  0%   { opacity: 0.1; }
+  100% { opacity: 0.7; }
+}
+
+/* ── HEADER ── */
+.header {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: end;
+  margin-bottom: 4rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 1rem;
+}
+.labelDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #05caf2;
+  box-shadow: 0 0 8px rgba(5, 202, 242, 0.8);
+  flex-shrink: 0;
+}
+
+/* Title fill */
+.titleWrap {
+  position: relative;
+}
+.titleBase {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #1a1a1a;
+  margin: 0;
+}
+.titleFill {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--white, #fff);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  margin: 0;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.04s linear;
+  pointer-events: none;
+}
+
+.desc {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  max-width: 460px;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════
+   CAROUSEL
+   ═══════════════════════════════════════ */
+.carouselWrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 520px;
+  margin-bottom: 2.5rem;
+}
+
+/* Stage holds the 5 visible cards */
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: 100%;
+}
+
+/* ── BASE card ── */
+.card {
+  position: absolute;
+  top: 0;
+  border-radius: 1.4rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    left 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.45s ease,
+    box-shadow 0.35s ease;
+  user-select: none;
+}
+
+.cardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .cardImg {
+  transform: scale(1.04);
+}
+
+/* ── SLOT POSITIONS ── */
+
+/* Center — large, straight up */
+.center {
+  width: 280px;
+  height: 440px;
+  left: 50%;
+  top: 40px;
+  transform: translateX(-50%) rotate(0deg);
+  z-index: 10;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  cursor: default;
+}
+
+/* Left — medium, tilted left */
+.left {
+  width: 240px;
+  height: 400px;
+  left: 50%;
+  top: 60px;
+  transform: translateX(-280px) rotate(-8deg);
+  z-index: 7;
+  opacity: 0.85;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+.left:hover {
+  opacity: 1;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Right — medium, tilted right */
+.right {
+  width: 240px;
+  height: 400px;
+  left: 50%;
+  top: 60px;
+  transform: translateX(40px) rotate(8deg);
+  z-index: 7;
+  opacity: 0.85;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+.right:hover {
+  opacity: 1;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Far left — small, more tilted, barely visible */
+.farLeft {
+  width: 200px;
+  height: 360px;
+  left: 50%;
+  top: 80px;
+  transform: translateX(-490px) rotate(-14deg);
+  z-index: 4;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* Far right — small, more tilted, barely visible */
+.farRight {
+  width: 200px;
+  height: 360px;
+  left: 50%;
+  top: 80px;
+  transform: translateX(230px) rotate(14deg);
+  z-index: 4;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* ── Name overlay — bottom gradient ── */
+.nameOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 1.4rem 1.4rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 100%);
+}
+
+.memberName {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.2rem;
+  letter-spacing: -0.01em;
+}
+
+.memberRole {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.55);
+  margin: 0;
+}
+
+/* ── Plus button ── */
+.plusBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: background 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+.plusBtn:hover {
+  background: #05caf2;
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* ── Arrows ── */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid #2a2a2a;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: border-color 0.25s, background 0.25s, transform 0.25s;
+}
+.arrow:hover {
+  border-color: #05caf2;
+  background: rgba(5, 202, 242, 0.12);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.arrowLeft  { left: 0; }
+.arrowRight { right: 0; }
+
+/* ── Footer link ── */
+.footerLink {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-top: 1rem;
+}
+.footerLink a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #888;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footerLink a strong {
+  color: #fff;
+  font-weight: 600;
+}
+.footerLink a:hover {
+  color: #05caf2;
+}
+.footerLink a:hover strong {
+  color: #05caf2;
+}
+.footerLink svg {
+  transition: transform 0.25s;
+}
+.footerLink a:hover svg {
+  transform: translateX(4px);
+}
+
+
+/* "View Profile" button on the center card */
+.centerViewBtn {
+  position: absolute;
+  bottom: 5.5rem; /* sits just above the name overlay */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: 3rem;
+  padding: 0.55rem 1.2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+  cursor: pointer;
+  z-index: 6;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+/* Show on hover of the center card */
+.center:hover .centerViewBtn {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .section { padding: 5rem 2rem 4rem; }
+  .header  { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 3rem; }
+
+  .center   { width: 240px; height: 380px; }
+  .left     { width: 200px; height: 340px; transform: translateX(-240px) rotate(-8deg); }
+  .right    { width: 200px; height: 340px; transform: translateX(30px) rotate(8deg); }
+  .farLeft  { transform: translateX(-420px) rotate(-14deg); }
+  .farRight { transform: translateX(190px) rotate(14deg); }
+
+  .carouselWrap { height: 440px; }
+}
+
+@media (max-width: 640px) {
+  .section { padding: 4rem 1rem 3rem; }
+
+  .center   { width: 200px; height: 320px; }
+  .left     { width: 160px; height: 280px; transform: translateX(-185px) rotate(-8deg); }
+  .right    { width: 160px; height: 280px; transform: translateX(25px) rotate(8deg); }
+  .farLeft  { opacity: 0; pointer-events: none; }
+  .farRight { opacity: 0; pointer-events: none; }
+
+  .carouselWrap { height: 360px; }
+  .arrowLeft  { left: 0.25rem; }
+  .arrowRight { right: 0.25rem; }
+}
