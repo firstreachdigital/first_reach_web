@@ -268,35 +268,20 @@
   angle: -90deg (top) to +90deg (bottom)
 */
 
-/* WhatsApp — top right (angle -70deg) */
-.socialLink:nth-child(1) {
-  top: calc(80px + 60px * sin(-70deg));
-  left: calc(80px + 60px * cos(-70deg));
-}
+/* WhatsApp  — -70° */
+.socialLink:nth-child(1) { top: -20px;  left: 48px;  }
 
-/* X — upper right (angle -35deg) */
-.socialLink:nth-child(2) {
-  top: calc(80px + 60px * sin(-35deg));
-  left: calc(80px + 60px * cos(-35deg));
-}
+/* X         — -35° */
+.socialLink:nth-child(2) { top: -7px;   left: 76px;  }
 
-/* LinkedIn — right middle (angle 0deg) */
-.socialLink:nth-child(3) {
-  top: calc(80px + 60px * sin(0deg));
-  left: calc(80px + 60px * cos(0deg));
-}
+/* LinkedIn  —   0° */
+.socialLink:nth-child(3) { top: 27px;   left: 99px;  }
 
-/* Instagram — lower right (angle 35deg) */
-.socialLink:nth-child(4) {
-  top: calc(80px + 60px * sin(35deg));
-  left: calc(80px + 60px * cos(35deg));
-}
+/* Instagram — +35° */
+.socialLink:nth-child(4) { top: 61px;   left: 96px;  }
 
-/* Facebook — bottom right (angle 70deg) */
-.socialLink:nth-child(5) {
-  top: calc(80px + 60px * sin(70deg));
-  left: calc(80px + 60px * cos(70deg));
-}
+/* Facebook  — +70° */
+.socialLink:nth-child(5) { top: 89px;   left: 77px;  }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -523,6 +508,26 @@
 @keyframes logoScroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
+}
+
+/* ── ADD THESE TO THE BOTTOM OF Hero.module.css ── */
+
+/* DecryptedText parent — inherits the heading font/size */
+.decryptedParent {
+  display: inline !important;
+  white-space: pre-wrap;
+}
+
+/* Revealed (final) characters — same as heading color */
+.decryptedRevealed {
+  color: var(--white);
+  transition: color 0.1s ease;
+}
+
+/* Encrypted (scrambling) characters — cyan accent, slightly dim */
+.decryptedEncrypted {
+  color: var(--accent);
+  opacity: 0.55;
 }
 
 @media (max-width: 768px) {

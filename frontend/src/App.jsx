@@ -18,6 +18,7 @@ import Careers from "./pages/CareersPage";
 import TeamMemberPage from "./pages/TeamMemberPage";
 import BlogPage from "./pages/BlogPage";
 
+
 function App() {
   return (
     <>
@@ -36,6 +37,8 @@ function App() {
         <Route path="/careers" element={<Careers />} />
         <Route path="/team/:slug" element={<TeamMemberPage />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:slug" element={<BlogPage />} />
+        
       </Routes>
 
       <Footer />

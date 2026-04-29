@@ -2,8 +2,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './Hero.module.css'
 import elephantImg from '../../assets/First reach digital website homepage copy.jpg.jpeg'
-import { FaWhatsapp, FaLinkedinIn, FaInstagram, FaFacebookF, FaArrowRight, FaPlay } from 'react-icons/fa'
+import { FaWhatsapp, FaLinkedinIn, FaInstagram, FaFacebookF, FaArrowRight, FaPlay, FaStarOfLife } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
+import DecryptedText from './DecryptedText' 
+import { Link } from 'react-router-dom'
 
 const marqueeItems = [
   'Brand Identity', 'Web Development', 'UI/UX Design',
@@ -17,7 +19,7 @@ export default function Hero() {
   const imageRef = useRef(null)
   const cursorRef = useRef(null)
   const cursorDotRef = useRef(null)
-  const gradientBlobRef = useRef(null)   // ← NEW
+  const gradientBlobRef = useRef(null)
   const [cursorHover, setCursorHover] = useState(false)
 
   useEffect(() => {
@@ -32,11 +34,11 @@ export default function Hero() {
     const cursor = cursorRef.current
     const dot = cursorDotRef.current
     const img = imageRef.current
-    const blob = gradientBlobRef.current  // ← NEW
+    const blob = gradientBlobRef.current
 
     let mouseX = 0, mouseY = 0
     let curX = 0, curY = 0
-    let blobX = 0, blobY = 0            // ← NEW
+    let blobX = 0, blobY = 0
 
     const onMove = (e) => {
       mouseX = e.clientX
@@ -57,7 +59,6 @@ export default function Hero() {
     }
 
     const animate = () => {
-      // Cursor smooth follow
       curX += (mouseX - curX) * 0.12
       curY += (mouseY - curY) * 0.12
       if (cursor) {
@@ -65,7 +66,6 @@ export default function Hero() {
         cursor.style.top = curY + 'px'
       }
 
-      // Gradient blob — slower follow (laggy = dreamy feel)
       blobX += (mouseX - blobX) * 0.06
       blobY += (mouseY - blobY) * 0.06
       if (blob) {
@@ -116,33 +116,62 @@ export default function Hero() {
         </div>
 
         {/* Social Sidebar */}
-<div className={styles.socialBar}>
-  <span className={styles.asterisk}>✳</span>
-  <div className={styles.socialRingWrap}>
-    {/* Outer thin circle */}
-    <div className={styles.socialOuterRing} />
-    {/* Rotating dot */}
-    <div className={styles.socialDotOrbit}>
-      <div className={styles.socialDot} />
-    </div>
-    {/* Inner filled circle with icons */}
-    <div className={styles.socialInnerCircle}>
-  <a href="#" className={styles.socialLink}><FaWhatsapp /></a>
-  <a href="#" className={styles.socialLink}><FaXTwitter /></a>
-  <a href="#" className={styles.socialLink}><FaLinkedinIn /></a>
-  <a href="#" className={styles.socialLink}><FaInstagram /></a>
-  <a href="#" className={styles.socialLink}><FaFacebookF /></a>
-</div>
-  </div>
-</div>
+        <div className={styles.socialBar}>
+          {/* <span className={styles.asterisk}>✳</span> */}
+          <span className={styles.asterisk}><FaStarOfLife /></span>
+          <div className={styles.socialRingWrap}>
+            <div className={styles.socialOuterRing} />
+            <div className={styles.socialDotOrbit}>
+              <div className={styles.socialDot} />
+            </div>
+            <div className={styles.socialInnerCircle}>
+              <a href="#" className={styles.socialLink}><FaWhatsapp /></a>
+              <a href="#" className={styles.socialLink}><FaXTwitter /></a>
+              <a href="#" className={styles.socialLink}><FaLinkedinIn /></a>
+              <a href="#" className={styles.socialLink}><FaInstagram /></a>
+              <a href="#" className={styles.socialLink}><FaFacebookF /></a>
+            </div>
+          </div>
+        </div>
 
         <div className={styles.content}>
           <h1 className={styles.heading} ref={headingRef}>
-            <span className={styles.headLine1} data-animate>First Reach</span>
+
+            {/* ── "First Reach" — decrypts sequentially from start on view ── */}
+            <span className={styles.headLine1} data-animate>
+              <DecryptedText
+                text="First Reach"
+                animateOn="view"
+                sequential
+                revealDirection="start"
+                speed={60}
+                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&"
+                className={styles.decryptedRevealed}
+                encryptedClassName={styles.decryptedEncrypted}
+                parentClassName={styles.decryptedParent}
+              />
+            </span>
+
+            {/* ── badge stays as-is ── */}
             <span className={styles.badge} data-animate>
               &#123; Best Digital Agency 2026 &#125;
             </span>
-            <span className={styles.headLine2} data-animate>Digital</span>
+
+            {/* ── "Digital" — decrypts from end, slight delay feel ── */}
+            <span className={styles.headLine2} data-animate>
+              <DecryptedText
+                text="Digital"
+                animateOn="view"
+                sequential
+                revealDirection="end"
+                speed={80}
+                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$"
+                className={styles.decryptedRevealed}
+                encryptedClassName={styles.decryptedEncrypted}
+                parentClassName={styles.decryptedParent}
+              />
+            </span>
+
           </h1>
 
           <div className={styles.bottomRow} data-animate>
@@ -150,14 +179,13 @@ export default function Hero() {
               <span className={styles.playIcon}><FaPlay /></span>
             </button>
             <p className={styles.desc}>
-              We design digital solutions that elevate your brand
-              and boost conversions. Don't settle for a site. Build
-              a powerful platform.
+              Your ONE STOP BRAND PROTECTION & PROMOTION SOLUTION.
+              We take in your vision & render it back, full of life.
             </p>
-            <a href="#about" className={styles.ctaBtn} data-cursor-hover>
+            <Link to="/about" className={styles.ctaBtn} data-cursor-hover>
               <span className={styles.ctaArrow}><FaArrowRight /></span>
               About Our Agency
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -174,19 +202,19 @@ export default function Hero() {
       </div>
 
       {/* Logo Marquee Strip */}
-<div className={styles.logosWrap}>
-  <div className={styles.logosLeft}>
-    <p className={styles.logosLabel}>Trusted by the biggest</p>
-    <p className={styles.logosLabel}>brand worldwide</p>
-  </div>
-  <div className={styles.logosMarqueeWrap}>
-    <div className={styles.logosTrack}>
-      {['Chargemap', 'ramify', 'greenly', 'GROWL', 'Teampact', 'argemap', 'Chargemap', 'ramify', 'greenly', 'GROWL', 'Teampact', 'argemap'].map((name, i) => (
-        <span key={i} className={styles.logoItem}>{name}</span>
-      ))}
-    </div>
-  </div>
-</div>
+      <div className={styles.logosWrap}>
+        <div className={styles.logosLeft}>
+          <p className={styles.logosLabel}>Trusted by the biggest</p>
+          <p className={styles.logosLabel}>brand worldwide</p>
+        </div>
+        <div className={styles.logosMarqueeWrap}>
+          <div className={styles.logosTrack}>
+            {['Chargemap', 'ramify', 'greenly', 'GROWL', 'Teampact', 'argemap', 'Chargemap', 'ramify', 'greenly', 'GROWL', 'Teampact', 'argemap'].map((name, i) => (
+              <span key={i} className={styles.logoItem}>{name}</span>
+            ))}
+          </div>
+        </div>
+      </div>
     </>
   )
 }

@@ -1,0 +1,536 @@
+/* src/components/JobApplyModal.module.css */
+
+/* ── OVERLAY ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.25s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── MODAL ── */
+.modal {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  width: 100%;
+  max-width: 900px;
+  max-height: 92vh;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 1px solid #1e1e1e;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(5, 202, 242, 0.08);
+  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+/* ── LEFT PANEL ── */
+.leftPanel {
+  background: #050505;
+  border-right: 1px solid #1a1a1a;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.leftPanel::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: -80px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(5, 202, 242, 0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* Spinning text circle */
+.spinText {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 1.5rem;
+}
+
+.spinSvg {
+  width: 120px;
+  height: 120px;
+  animation: spinAnim 12s linear infinite;
+}
+
+@keyframes spinAnim {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.spinCenter {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.6rem;
+  color: var(--accent, #05caf2);
+  animation: spinAnim 6s linear infinite reverse;
+  line-height: 1;
+}
+
+/* Big "Join Now" text */
+.joinText {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 3.8rem;
+  font-weight: 900;
+  line-height: 0.95;
+  color: var(--white, #fff);
+  letter-spacing: -0.02em;
+  margin-bottom: auto;
+}
+
+.accentLetter {
+  color: var(--accent, #05caf2);
+}
+
+/* Job info */
+.jobInfo {
+  margin-top: 2rem;
+}
+
+.jobDeptBadge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent, #05caf2);
+  background: rgba(5, 202, 242, 0.1);
+  border: 1px solid rgba(5, 202, 242, 0.2);
+  padding: 0.25rem 0.7rem;
+  border-radius: 2rem;
+  margin-bottom: 0.6rem;
+}
+
+.jobNameLeft {
+  font-family: var(--font-display, sans-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white, #fff);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.jobMetaLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: #555;
+}
+
+.dot { color: #333; }
+
+/* Decorative asterisk */
+.leftDecor {
+  position: absolute;
+  bottom: 2rem;
+  right: 1.5rem;
+}
+
+.asteriskBig {
+  font-size: 3rem;
+  color: rgba(5, 202, 242, 0.08);
+  line-height: 1;
+  user-select: none;
+}
+
+/* ── RIGHT PANEL ── */
+.rightPanel {
+  background: #080808;
+  padding: 2.5rem 2.5rem 2rem;
+  overflow-y: auto;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: #1e1e1e transparent;
+}
+
+.rightPanel::-webkit-scrollbar { width: 4px; }
+.rightPanel::-webkit-scrollbar-track { background: transparent; }
+.rightPanel::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 2px; }
+
+/* Close button */
+.closeBtn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #222;
+  background: rgba(255, 255, 255, 0.04);
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.closeBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--white, #fff);
+  border-color: #444;
+}
+
+/* Form header */
+.formHeader {
+  margin-bottom: 1.8rem;
+  padding-right: 2rem;
+}
+
+.formTitle {
+  font-family: var(--font-display, sans-serif);
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--white, #fff);
+  margin-bottom: 0.3rem;
+}
+
+.formSub {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.roleSpan {
+  color: var(--accent, #05caf2);
+  font-weight: 600;
+}
+
+/* ── FORM ── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 0.02em;
+}
+
+.optional {
+  color: #444;
+  font-weight: 400;
+}
+
+.input {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #1e1e1e;
+  border-radius: 0.6rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  color: var(--white, #fff);
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s, background 0.2s;
+  font-family: var(--font-body, sans-serif);
+  outline: none;
+}
+
+.input::placeholder { color: #333; }
+
+.input:focus {
+  border-color: rgba(5, 202, 242, 0.4);
+  background: rgba(5, 202, 242, 0.03);
+}
+
+.hasError .input,
+.hasError .phoneWrap {
+  border-color: rgba(255, 80, 80, 0.5) !important;
+}
+
+.errMsg {
+  font-size: 0.72rem;
+  color: #ff6060;
+  margin-top: 0.1rem;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.6;
+}
+
+/* Phone */
+.phoneWrap {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #1e1e1e;
+  border-radius: 0.6rem;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.phoneWrap:focus-within {
+  border-color: rgba(5, 202, 242, 0.4);
+  background: rgba(5, 202, 242, 0.03);
+}
+
+.phonePrefix {
+  font-size: 0.82rem;
+  color: #666;
+  padding: 0 0.75rem;
+  border-right: 1px solid #1e1e1e;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.phoneInput {
+  border: none !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  padding-left: 0.75rem !important;
+  flex: 1;
+}
+
+.phoneInput:focus { background: transparent !important; }
+
+/* File upload */
+.fileLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed #2a2a2a;
+  border-radius: 0.6rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fileLabel:hover {
+  border-color: rgba(5, 202, 242, 0.3);
+  background: rgba(5, 202, 242, 0.03);
+}
+
+.fileInput {
+  display: none;
+}
+
+.fileIcon {
+  font-size: 1.2rem;
+  color: var(--accent, #05caf2);
+  flex-shrink: 0;
+}
+
+.fileName {
+  flex: 1;
+  font-size: 0.82rem;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fileBrowse {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent, #05caf2);
+  background: rgba(5, 202, 242, 0.1);
+  border: 1px solid rgba(5, 202, 242, 0.2);
+  border-radius: 1rem;
+  padding: 0.2rem 0.7rem;
+  flex-shrink: 0;
+}
+
+/* Submit */
+.submitBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  background: var(--accent, #05caf2);
+  color: #000;
+  border: none;
+  border-radius: 3rem;
+  padding: 0.9rem 1.8rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  margin-top: 0.5rem;
+  font-family: var(--font-body, sans-serif);
+  min-height: 50px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: #04b8d8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(5, 202, 242, 0.35);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.submitIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #000;
+  color: var(--accent, #05caf2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+
+/* Loader spinner */
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── SUCCESS STATE ── */
+.successState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  min-height: 400px;
+  gap: 1.2rem;
+  padding: 2rem;
+}
+
+.successIcon {
+  font-size: 3.5rem;
+  color: var(--accent, #05caf2);
+  animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes popIn {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.successTitle {
+  font-family: var(--font-display, sans-serif);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--white, #fff);
+  letter-spacing: -0.02em;
+}
+
+.successSub {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.75;
+  max-width: 340px;
+}
+
+.successSub strong { color: var(--accent, #05caf2); }
+
+.doneBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--accent, #05caf2);
+  color: #000;
+  padding: 0.75rem 1.5rem 0.75rem 0.8rem;
+  border-radius: 3rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: all 0.2s;
+  font-family: var(--font-body, sans-serif);
+}
+
+.doneBtn:hover {
+  background: #04b8d8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(5, 202, 242, 0.3);
+}
+
+.doneBtnIcon {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: #000;
+  color: var(--accent, #05caf2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .modal {
+    grid-template-columns: 1fr;
+    max-height: 95vh;
+    border-radius: 1rem;
+  }
+
+  .leftPanel {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-right: none;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .spinText { width: 70px; height: 70px; flex-shrink: 0; }
+  .spinSvg  { width: 70px; height: 70px; }
+  .spinCenter { font-size: 1rem; }
+
+  .joinText { font-size: 2rem; margin-bottom: 0; }
+
+  .jobInfo { margin-top: 0; }
+  .leftDecor { display: none; }
+
+  .rightPanel { padding: 1.5rem; }
+  .row { grid-template-columns: 1fr; }
+  .formTitle { font-size: 1.7rem; }
+}

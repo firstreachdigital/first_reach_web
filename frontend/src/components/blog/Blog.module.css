@@ -294,6 +294,33 @@
   transform: translateX(3px);
 }
 
+/* ADD this to your existing Blog.module.css */
+
+/* Read time badge — bottom left of image */
+.readTime {
+  position: absolute;
+  bottom: 1.1rem;
+  left: 1.1rem;
+  background: rgba(5, 202, 242, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(5, 202, 242, 0.25);
+  color: #05caf2;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.7rem;
+  border-radius: 2rem;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+/* Show on featured/hovered cards */
+.card_featured .readTime,
+.card_big .readTime {
+  opacity: 1;
+}
+
 /* ═══════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════ */

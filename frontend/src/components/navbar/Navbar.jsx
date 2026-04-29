@@ -6,6 +6,7 @@ import logoElephant from "../../assets/FRST REACH LOGO ELEPHANT.png";
 import { FaArrowRight, FaChevronDown, FaChevronRight } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { TEAM_MEMBERS } from "../../data/teamData";
+import { BLOG_POSTS } from "../../data/blogData";
 
 const pagesMenu = [
   {
@@ -26,19 +27,20 @@ const pagesMenu = [
   {
     label: "Blog", path: "/blog", hasSubmenu: true,
     submenu: [
-      { label: "Blog Grid", path: "/blog" },
-      { label: "Blog Detail", path: "/blog/detail" },
+      { label: "Blog", path: "/blog" },
+      // { label: "Blog Detail", path: "/blog/detail" },
+      ...BLOG_POSTS.map((p) => ({ label: p.title, path: `/blog/${p.slug}` })),
     ],
   },
   { label: "Price Page",   path: "/pricing",     hasSubmenu: false },
-  { label: "FAQs page",    path: "/FAQ",          hasSubmenu: false },
   { label: "Choose Us",    path: "/choose-us",   hasSubmenu: false },
   { label: "Work Process", path: "/portfolio",   hasSubmenu: false },
-  { label: "Testimonial",  path: "/testimonial", hasSubmenu: false },
 ];
 
 const aboutMenu = [
   { label: "Careers", path: "/careers" },
+  { label: "FAQ", path: "/FAQ", hasSubmenu: false },
+  { label: "Testimonial",  path: "/testimonial", hasSubmenu: false },
 ];
 
 const navLinks = [

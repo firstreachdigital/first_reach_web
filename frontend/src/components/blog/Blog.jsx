@@ -1,35 +1,16 @@
+// src/components/blog/Blog.jsx
 import React, { useState } from "react";
 import styles from "./Blog.module.css";
+import { useNavigate } from "react-router-dom";
+import { BLOG_POSTS } from "../../data/blogData";
 
-const posts = [
-  {
-    id: 0,
-    tag: "Clock Fly Strategy",
-    date: "January 10, 2024",
-    title: 'First Reach Wins "Top Creative Agency" Award',
-    img: "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&q=80",
-  },
-  {
-    id: 1,
-    tag: "Email Marketing",
-    date: "January 10, 2024",
-    title: "First Reach Launches 10+ Digital Solutions On the Market",
-    img: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80",
-    featured: true, // center — large by default
-  },
-  {
-    id: 2,
-    tag: "Clock Fly Strategy",
-    date: "January 10, 2024",
-    title: "First Reach at the Digital Future Summit 2025",
-    img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80",
-  },
-];
+const posts = BLOG_POSTS; // swap with API later
 
 export default function Blog() {
   const [hovered, setHovered] = useState(null);
-  const titleRef = React.useRef(null);
+  const titleRef  = React.useRef(null);
   const sectionRef = React.useRef(null);
+  const navigate  = useNavigate();
 
   React.useEffect(() => {
     const handle = () => {
@@ -44,13 +25,8 @@ export default function Blog() {
     return () => window.removeEventListener("scroll", handle);
   }, []);
 
-  // Determine each card's size state
-  // If something is hovered → hovered card is "big", others are "small"
-  // If nothing hovered → center is "featured" (big), sides are normal
   const getState = (post) => {
-    if (hovered === null) {
-      return post.featured ? "featured" : "normal";
-    }
+    if (hovered === null) return post.featured ? "featured" : "normal";
     return hovered === post.id ? "big" : "small";
   };
 
@@ -91,6 +67,7 @@ export default function Blog() {
               className={`${styles.card} ${styles[`card_${state}`]}`}
               onMouseEnter={() => setHovered(post.id)}
               onMouseLeave={() => setHovered(null)}
+              onClick={() => navigate(`/blog/${post.slug}`)}
             >
               {/* Image */}
               <div className={styles.imgWrap}>
@@ -100,7 +77,10 @@ export default function Blog() {
                 {/* Tag badge */}
                 <span className={styles.tag}>{post.tag}</span>
 
-                {/* Eye icon — only on featured/big */}
+                {/* Read time badge */}
+                <span className={styles.readTime}>{post.readTime}</span>
+
+                {/* Eye icon — featured & hovered */}
                 {(state === "featured" || state === "big") && (
                   <div className={styles.eyeBtn}>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
@@ -125,7 +105,7 @@ export default function Blog() {
 
       {/* ── MORE BLOG BTN ── */}
       <div className={styles.moreBtnWrap}>
-        <a href="#" className={styles.moreBtn}>
+        <a href="/blog" className={styles.moreBtn}>
           <span className={styles.moreBtnArrow}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" strokeWidth="2.5"

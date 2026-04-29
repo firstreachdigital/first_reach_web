@@ -1,9 +1,9 @@
 // src/pages/CareersPage.jsx
 import React, { useState } from "react";
 import styles from "./CareersPage.module.css";
+import JobApplyModal from "../jobApplyModal/JobApplyModal";
 import { FaArrowRight, FaMapMarkerAlt, FaClock, FaBriefcase, FaGlobe, FaChartLine, FaPaintBrush, FaMoneyBillWave, FaUmbrellaBeach, FaTools } from "react-icons/fa";
 
-// ─── STATIC DATA (swap with API call later) ───────────────────────────────────
 const DEPARTMENTS = ["All", "Design", "Development", "Marketing", "Strategy"];
 
 const JOBS = [
@@ -14,8 +14,7 @@ const JOBS = [
     type: "Full-time",
     location: "Remote",
     experience: "2–4 years",
-    description:
-      "Craft exceptional digital experiences for our global clients. You'll own the design process from wireframes to polished, pixel-perfect interfaces.",
+    description: "Craft exceptional digital experiences for our global clients. You'll own the design process from wireframes to polished, pixel-perfect interfaces.",
     tags: ["Figma", "Prototyping", "Design Systems"],
   },
   {
@@ -25,8 +24,7 @@ const JOBS = [
     type: "Full-time",
     location: "Hybrid – Kochi",
     experience: "4–6 years",
-    description:
-      "Build fast, scalable web applications for industry-leading brands. You'll work closely with design and strategy teams to ship impactful products.",
+    description: "Build fast, scalable web applications for industry-leading brands. You'll work closely with design and strategy teams to ship impactful products.",
     tags: ["React", "Next.js", "TypeScript"],
   },
   {
@@ -36,8 +34,7 @@ const JOBS = [
     type: "Full-time",
     location: "Kochi, Kerala",
     experience: "3–5 years",
-    description:
-      "Define the voice, identity, and positioning of brands across industries. You'll lead discovery workshops and develop comprehensive brand strategies.",
+    description: "Define the voice, identity, and positioning of brands across industries. You'll lead discovery workshops and develop comprehensive brand strategies.",
     tags: ["Brand Identity", "Positioning", "Research"],
   },
   {
@@ -47,8 +44,7 @@ const JOBS = [
     type: "Contract",
     location: "Remote",
     experience: "2–3 years",
-    description:
-      "Bring brands to life through animation and motion. Create scroll animations, brand films, and micro-interactions that leave lasting impressions.",
+    description: "Bring brands to life through animation and motion. Create scroll animations, brand films, and micro-interactions that leave lasting impressions.",
     tags: ["After Effects", "Lottie", "GSAP"],
   },
   {
@@ -58,8 +54,7 @@ const JOBS = [
     type: "Full-time",
     location: "Kochi, Kerala",
     experience: "3–5 years",
-    description:
-      "Drive growth for First Reach and our clients through data-driven campaigns, SEO, and performance marketing strategies.",
+    description: "Drive growth for First Reach and our clients through data-driven campaigns, SEO, and performance marketing strategies.",
     tags: ["SEO", "Paid Media", "Analytics"],
   },
   {
@@ -69,36 +64,42 @@ const JOBS = [
     type: "Part-time",
     location: "Remote",
     experience: "1–3 years",
-    description:
-      "Develop custom themes and no-code builds for clients who need speed and flexibility. Eye for detail and design sensibility are a must.",
+    description: "Develop custom themes and no-code builds for clients who need speed and flexibility. Eye for detail and design sensibility are a must.",
     tags: ["Webflow", "WordPress", "CSS"],
   },
 ];
 
 const PERKS = [
-  { icon: <FaGlobe />, title: "Remote Friendly", desc: "Work from anywhere. Output over hours, always." },
-  { icon: <FaChartLine />, title: "Grow Fast", desc: "Real ownership, mentorship, and promotions tied to impact." },
-  { icon: <FaPaintBrush />, title: "Creative Freedom", desc: "Bring your ideas. We build what hasn't been built before." },
-  { icon: <FaMoneyBillWave />, title: "Competitive Pay", desc: "Industry-leading compensation benchmarked globally." },
-  { icon: <FaUmbrellaBeach />, title: "Flex Leaves", desc: "Unlimited PTO policy. Rest is part of the job." },
-  { icon: <FaTools />, title: "Best Tools", desc: "Every tool you need, paid for. No budget arguments." },
+  { icon: <FaGlobe />,         title: "Remote Friendly",   desc: "Work from anywhere. Output over hours, always." },
+  { icon: <FaChartLine />,     title: "Grow Fast",         desc: "Real ownership, mentorship, and promotions tied to impact." },
+  { icon: <FaPaintBrush />,    title: "Creative Freedom",  desc: "Bring your ideas. We build what hasn't been built before." },
+  { icon: <FaMoneyBillWave />, title: "Competitive Pay",   desc: "Industry-leading compensation benchmarked globally." },
+  { icon: <FaUmbrellaBeach />, title: "Flex Leaves",       desc: "Unlimited PTO policy. Rest is part of the job." },
+  { icon: <FaTools />,         title: "Best Tools",        desc: "Every tool you need, paid for. No budget arguments." },
 ];
-// ─────────────────────────────────────────────────────────────────────────────
 
 export default function CareersPage() {
-  const [activeTab, setActiveTab] = useState("All");
-  const [expanded, setExpanded] = useState(null);
+  const [activeTab, setActiveTab]   = useState("All");
+  const [expanded, setExpanded]     = useState(null);
+  const [applyJob, setApplyJob]     = useState(null); // ← modal state
 
-  const filtered =
-    activeTab === "All" ? JOBS : JOBS.filter((j) => j.department === activeTab);
+  const filtered = activeTab === "All" ? JOBS : JOBS.filter((j) => j.department === activeTab);
 
   return (
     <main className={styles.page}>
+
+      {/* ── JOB APPLY MODAL ── */}
+      {applyJob && (
+        <JobApplyModal
+          job={applyJob}
+          onClose={() => setApplyJob(null)}
+        />
+      )}
+
       {/* ── HERO ── */}
       <section className={styles.hero}>
         <div className={styles.heroBg} />
         <div className={styles.heroGrid} />
-
         <div className={styles.heroContent}>
           <span className={styles.pill}>We're Hiring</span>
           <h1 className={styles.heroTitle}>
@@ -114,7 +115,6 @@ export default function CareersPage() {
             See Open Roles
           </a>
         </div>
-
         <div className={styles.heroStat}>
           <div className={styles.statItem}>
             <span className={styles.statNum}>40+</span>
@@ -137,9 +137,7 @@ export default function CareersPage() {
       <section className={styles.perksSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>Why First Reach?</h2>
-          <p className={styles.sectionSub}>
-            We don't do average. Here's what makes working here different.
-          </p>
+          <p className={styles.sectionSub}>We don't do average. Here's what makes working here different.</p>
           <div className={styles.perksGrid}>
             {PERKS.map((p) => (
               <div key={p.title} className={styles.perkCard}>
@@ -191,15 +189,9 @@ export default function CareersPage() {
                     <span className={styles.jobDept}>{job.department}</span>
                     <h3 className={styles.jobTitle}>{job.title}</h3>
                     <div className={styles.jobPills}>
-                      <span className={styles.jobPill}>
-                        <FaClock className={styles.pillIcon} /> {job.type}
-                      </span>
-                      <span className={styles.jobPill}>
-                        <FaMapMarkerAlt className={styles.pillIcon} /> {job.location}
-                      </span>
-                      <span className={styles.jobPill}>
-                        <FaBriefcase className={styles.pillIcon} /> {job.experience}
-                      </span>
+                      <span className={styles.jobPill}><FaClock className={styles.pillIcon} /> {job.type}</span>
+                      <span className={styles.jobPill}><FaMapMarkerAlt className={styles.pillIcon} /> {job.location}</span>
+                      <span className={styles.jobPill}><FaBriefcase className={styles.pillIcon} /> {job.experience}</span>
                     </div>
                   </div>
                   <div className={`${styles.jobToggle} ${expanded === job.id ? styles.jobToggleOpen : ""}`}>
@@ -215,13 +207,14 @@ export default function CareersPage() {
                         <span key={t} className={styles.tag}>{t}</span>
                       ))}
                     </div>
-                    <a
-                      href={`mailto:careers@firstreach.in?subject=Application – ${job.title}`}
+                    {/* ── APPLY BUTTON — opens modal ── */}
+                    <button
                       className={styles.applyBtn}
+                      onClick={() => setApplyJob(job)}
                     >
                       <span className={styles.applyIcon}><FaArrowRight /></span>
                       Apply for this role
-                    </a>
+                    </button>
                   </div>
                 )}
               </div>

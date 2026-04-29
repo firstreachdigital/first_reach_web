@@ -17,7 +17,7 @@ const projects = [
     subtitle: "From idea to investment, fast.",
     tags: ["Web design", "Portfolio"],
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80",
-    color: "#fb923c",
+    color: "#05caf2",
     size: "large", // takes full right column
   },
   {
@@ -26,7 +26,7 @@ const projects = [
     subtitle: "Empowering Global Startup Growth",
     tags: ["Web design", "Portfolio"],
     image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=900&q=80",
-    color: "#a78bfa",
+    color: "#05caf2",
     size: "large",
   },
   {
@@ -35,7 +35,7 @@ const projects = [
     subtitle: "Brand Refresh & Strategy",
     tags: ["Web design", "Portfolio"],
     image: "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=900&q=80",
-    color: "#34d399",
+    color: "#05caf2",
     size: "large",
   },
 ];

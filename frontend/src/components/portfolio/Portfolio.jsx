@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Portfolio.module.css";
 import ScrollStack, { ScrollStackItem } from "./ScrollStack";
 
@@ -41,6 +41,7 @@ const portfolioItems = [
   },
 ];
 
+
 export default function Portfolio() {
   const titleFillRef = useRef(null);
 
@@ -81,6 +82,62 @@ export default function Portfolio() {
     };
   }, []);
 
+function useCountUp(target, duration = 2000, suffix = '') {
+  const ref = useRef(null)
+  const [display, setDisplay] = useState('0')
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        observer.unobserve(el)
+
+        const isDecimal = target.toString().includes('.')
+        const numericTarget = parseFloat(target)
+        const startTime = performance.now()
+
+        const tick = (now) => {
+          const elapsed = now - startTime
+          const progress = Math.min(elapsed / duration, 1)
+          // Ease out cubic
+          const eased = 1 - Math.pow(1 - progress, 3)
+          const current = eased * numericTarget
+
+          setDisplay(
+            isDecimal
+              ? current.toFixed(1)
+              : Math.floor(current).toString()
+          )
+
+          if (progress < 1) requestAnimationFrame(tick)
+          else setDisplay(target.toString())
+        }
+
+        requestAnimationFrame(tick)
+      },
+      { threshold: 0.5 }
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [target, duration])
+
+  return { ref, display }
+}
+
+function StatCard({ target, suffix, label, styles }) {
+  const { ref, display } = useCountUp(target)
+  return (
+    <div className={styles.card} ref={ref} data-inview>
+      <h3>{display}{suffix}</h3>
+      <p>{label}</p>
+    </div>
+  )
+}
+
   return (
     <section className={styles.portfolioSection} id="portfolio">
       <div className={styles.bgGrid}></div>
@@ -105,7 +162,7 @@ export default function Portfolio() {
           meme sharers, and design geeks.
         </p>
 
-        <div className={styles.stats}>
+        {/* <div className={styles.stats}>
           <div className={styles.card} data-inview>
             <h3>95%</h3>
             <p>Customer satisfaction</p>
@@ -118,6 +175,11 @@ export default function Portfolio() {
             <h3>22+</h3>
             <p>Projects completed</p>
           </div>
+        </div> */}
+        <div className={styles.stats}>
+         <StatCard target={95} suffix="%" label="Customer satisfaction" styles={styles} />
+         <StatCard target={12} suffix="+"  label="Years of experience"  styles={styles} />
+         <StatCard target={22} suffix="+"  label="Projects completed"   styles={styles} />
         </div>
       </div>
 
