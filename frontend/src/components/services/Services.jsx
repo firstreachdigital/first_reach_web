@@ -1,51 +1,79 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styles from './Services.module.css'
-import { TbCube3dSphere } from 'react-icons/tb'
-import { TbDeviceDesktopCode } from 'react-icons/tb'
-import { MdOutlineDesignServices } from 'react-icons/md'
-import { TbBrandGoogleAnalytics } from 'react-icons/tb'
-import { TbShoppingCart } from 'react-icons/tb'
-import { FaArrowRight } from "react-icons/fa";
+import { TbCube3dSphere, TbDeviceDesktopCode, TbBrandGoogleAnalytics, TbShoppingCart } from 'react-icons/tb'
+import { MdOutlineDesignServices, MdPermMedia } from 'react-icons/md'
+import { FaArrowRight, FaCopyright } from "react-icons/fa";
+import { AiOutlineFileProtect } from "react-icons/ai";
+import { LuRocket } from "react-icons/lu";
 
 const services = [
   {
     num: '1',
-    title: 'Brand Identity & Graphics',
+    title: 'Brand Development & Management',
     icon: <TbCube3dSphere />,
-    desc: 'We go beyond logos — building complete visual identities that tell your story and reflect your values. From color palettes to typography, tone of voice to brand guidelines, we shape every element to ensure your brand stands out across every touching.',
-    tags: ['Logo design', 'Typography & color systems', 'Brand guidelines', 'Art Direction', 'Motion Identity'],
+    desc: ' We takes your brand in & starts the whole deep process of understanding & analysing what’s going on inside your brand framework to completely renew its value.',
+    tags: ['Assessment of the Brand Framework', 'Examining the Current Marketing Efforts', 'Developing New Brand Strategy / Brand Messaging / Brand Design', 'Creating New Brand Guidelines, Evaluating Social Media',],
     img: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80',
   },
   {
     num: '2',
-    title: 'Web & App Development',
+    title: 'Website and App Development',
     icon: <TbDeviceDesktopCode />,
-    desc: 'We build fast, scalable, and beautiful web and mobile applications. From landing pages to full-stack platforms, every line of code is written with performance and user experience in mind.',
-    tags: ['React / Next.js', 'Mobile Apps', 'API Integration', 'CMS Development', 'Performance Optimization'],
+    desc: 'A website that clearly shows how unique your brand & how powerful your mission is; that’s what First Reach Digital promises every brand With smooth dynamics & converting design, your brand will get a great identity.',
+    tags: ['Wordpress & Shopify Development', 'Webflow Development', 'Magento & Odoo Development', 'Android and IOS App Development', 'Flutter Mobile App Development'],
     img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80',
   },
   {
-    num: '3',
-    title: 'UI/UX Design',
-    icon: <MdOutlineDesignServices />,
-    desc: 'Great design is invisible — it just works. We craft intuitive interfaces and seamless experiences that delight users and drive conversions, from wireframes to pixel-perfect final designs.',
-    tags: ['Wireframing', 'Prototyping', 'User Research', 'Design Systems', 'Interaction Design'],
-    img: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80',
-  },
+  num: '3',
+  title: 'Search Engine Optimization (SEO)',
+  icon: <LuRocket />,
+  desc: 'On top & at first is where your brand needs to be, when a potential customer looks for you. We’ll take care of that dilemma with our expert SEO measures & tactics.',
+  tags: [
+    'SEO Audit Report',
+    'On Page SEO ',
+    ' Off Page SEO',
+    'Technical SEO',
+  ],
+  img: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80',
+},
   {
     num: '4',
-    title: 'Digital Strategy & Marketing',
+    title: 'Social Media Management & Marketing',
     icon: <TbBrandGoogleAnalytics />,
-    desc: 'We help brands grow online through data-driven strategies. From SEO and content marketing to paid campaigns and analytics, we align every move with your business goals.',
-    tags: ['SEO & Content', 'Paid Advertising', 'Analytics & Reporting', 'Social Media', 'Email Marketing'],
+    desc: 'The legendary virtual world is where all your potential and future customers are spending most of their time. Be in their sight, at the right time, in the right places. We’ll take your brand across all social media platforms to get the much needed attention.',
+    tags: ['Facebook', 'Instagram', 'Linkedin', 'YouTube', 'Google', 'Others,'],
     img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80',
   },
   {
     num: '5',
-    title: 'E-Commerce Solutions',
+    title: 'Influencer Marketing',
     icon: <TbShoppingCart />,
-    desc: 'We build high-converting online stores that look great and sell more. From product pages to checkout flows, we optimize every step of the customer journey for maximum revenue.',
-    tags: ['Shopify / WooCommerce', 'Product Photography', 'Conversion Optimization', 'Payment Integration', 'Inventory Management'],
+    desc: 'Collab with iconic content creators/influencers to boost your brand’s reach, within a shorter time. Teaming up with First Reach Digital will get you closer to all these golden opportunities.',
+    tags: ['Instagram Collabs', 'Partnership campaigns', 'Reviews/Testimonials',],
+    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80',
+  },
+  {
+    num: '6',
+    title: 'Media Productions & Graphic Design',
+    icon: <MdPermMedia />,
+    desc: 'We’ll build a visual identity that tells your brand story, in a way, that’ll catch the public’s eye. From color palettes to typography,tone of voice to brand guidelines, we shape every element to ensure your brand stands out across every platform.',
+    tags: ['Videography', 'Video Editing', 'Motion & Graphic works', 'Logo & other brand assets'],
+    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80',
+  },
+   {
+    num: '7',
+    title: 'Copywriting & Content marketing',
+    icon: <FaCopyright />,
+    desc: 'A talk with your audience, in the most creative & strategic way, with excellent visualizations that reflect your brand’s identity. We craft each sentence for your brand with a purpose that brings real results in a short time.',
+    tags: ['Uniquely crafted ad copies & content', 'SEO Integrated Content Preparation',],
+    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80',
+  },
+   {
+    num: '8',
+    title: 'Brand Protection & Digital Security',
+    icon: <AiOutlineFileProtect />,
+    desc: 'We monitor where your audience is; and also where your attackers could be. Complete digital security with proven results; only with First Reach Digital.',
+    tags: ['24/7 Monitoring', 'Fake Account Detection, Removal & Fast Content Takedown', 'Trademark & Copyright Violation Reporting', 'Online Reputation Management (ORM)', ' Crisis Handling & Response Strategy & Monthly Reports'],
     img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80',
   },
 ]
@@ -93,16 +121,16 @@ export default function Services() {
           </span>
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>
-              We are offering the best solutions
+              BEST DIGITAL MARKETING meets TOP DIGITAL SECURITY
             </h2>
             <h2 className={styles.titleFill} ref={titleFillRef}>
-              We are offering the best solutions
+              BEST DIGITAL MARKETING meets TOP DIGITAL SECURITY
             </h2>
           </div>
         </div>
         <p className={styles.headerDesc} data-sv-inview>
-          We offer a full range of digital services to help your brand
-          stand out, connect, and grow.
+          With First Reach Digital, see the world of infinite
+          possibilities for your brand. Stand-out. Shine.
         </p>
       </div>
 

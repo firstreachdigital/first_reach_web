@@ -231,21 +231,17 @@ useEffect(() => {
           </span>
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>
-              The best reviews
-              <br />
-              from clients
+              What Our Happy Clients Say…
             </h2>
             <h2 className={styles.titleFill} ref={titleFillRef}>
-              The best reviews
-              <br />
-              from clients
+              What Our Happy Clients Say…
             </h2>
           </div>
         </div>
 
         <div className={styles.headerRight} data-inview>
           <p className={styles.headerDesc}>
-            Don't just take our word for it — see what our clients think.
+            Listen to what matters; The satisfied tone of testimonies from our valued customers
           </p>
           <a href="#contact" className={styles.moreBtn}>
             <span className={styles.moreBtnArrow}>

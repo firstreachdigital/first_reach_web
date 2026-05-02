@@ -62,7 +62,7 @@ const contactInfo = [
       </svg>
     ),
     label: "Office Address",
-    lines: ["12/A, New Booston Tower,", "New York, US"],
+    lines: ["1st Floor, Room No: 23, 372/A2, St. Joseph Road, near AISAT College, Kalamassery, Kochi, Kerala 683503"],
   },
   {
     icon: (
@@ -72,7 +72,7 @@ const contactInfo = [
       </svg>
     ),
     label: "24/7 Support",
-    lines: ["Call +324 5678 4321", "Mail info@gmail.com"],
+    lines: ["Call +91 99466 18444", "info@firstreachdigital.com"],
   },
   {
     icon: (
@@ -160,10 +160,10 @@ export default function ConnectUs() {
           {/* Title */}
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>
-              Want to work with us?<br />Let's connect
+              Curious To Team-Up Already? Let’s Go!
             </h2>
             <h2 className={styles.titleFill} ref={titleFillRef}>
-              Want to work with us?<br />Let's connect
+              Curious To Team-Up Already? Let’s Go! 
             </h2>
           </div>
 

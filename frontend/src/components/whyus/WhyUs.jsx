@@ -6,22 +6,23 @@ import { MdOutlineTimer } from "react-icons/md";
 const bentoItems = [
   {
     type: "image",
-    title: "Seamless Collaboration",
-    desc: "Transparent communication and feedback loops at every stage of the project.",
+    title: "Transparent Communication",
+    desc: "Everything on the table, with honesty & clarity.",
     img: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80",
     size: "small",
   },
   {
     type: "image-overlay",
-    title: "Seamless Collaboration",
+    title: "Convenient Collaboration",
+    desc: "Smooth processing from teaming-up to final delivery.",
     icon: <FaBolt />,
     img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80",
     size: "medium",
   },
   {
     type: "image",
-    title: "15+ Years Experiences",
-    desc: "Over 15 years of experience delivering innovative digital solutions.",
+    title: "10+ Years Experience",
+    desc: "Over 10 years of experience delivering innovative digital solutions.",
     img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80",
     size: "small",
   },
@@ -125,16 +126,16 @@ export default function WhyUs() {
           </span>
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>
-              We are offering the best solutions
+              With us comes faster results at greater efficiency.
             </h2>
             <h2 className={styles.titleFill} ref={titleFillRef}>
-              We are offering the best solutions
+              With us comes faster results at greater efficiency.
             </h2>
           </div>
         </div>
         <p className={styles.headerDesc} data-wu-inview>
-          We offer a full range of digital services to help your brand stand
-          out, connect, and grow.
+          Every service is tailored to fit every possible digital need &
+          the whole steps are unified with one mission ; Growth
         </p>
       </div>
 

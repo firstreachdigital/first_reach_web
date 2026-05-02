@@ -7,23 +7,23 @@ const steps = [
     label: "01.",
     title: "Discovery & Strategy",
     duration: "3-5 days",
-    desc: "We start by understanding your goals, audience, and challenges. Together, we define the vision and roadmap.",
+    desc: "We will study your goals, audience, and challenges. Teamed-up, we can define the vision and roadmap to success.",
     side: "right",
   },
   {
     number: "2",
     label: "02.",
-    title: "Design & Prototype",
+    title: "Design & Proposal",
     duration: "1 week",
-    desc: "Our team crafts modern, user-friendly designs that reflect your brand and engage your users.",
+    desc: "Our crafty team will come up with modern & relevant ideas that reflect your brand and engage with your customers.",
     side: "left",
   },
   {
     number: "3",
     label: "03.",
-    title: "Launch & Support",
+    title: "Execution & Support",
     duration: "4-7 days",
-    desc: "After launch, we stay by your side with updates, optimizations, and long-term support.",
+    desc: "Post-execution, we’ll be in touch with updates, alterations, and possible new ideas.",
     side: "right",
   },
 ];
@@ -134,16 +134,16 @@ export default function Steps() {
 
         <div className={styles.titleWrap}>
           <h2 className={styles.titleBase}>
-            3 easy steps to get<br />started
+            3 Doors To Brand Revamp
           </h2>
           <h2 className={styles.titleFill} ref={titleFillRef}>
-            3 easy steps to get<br />started
+            3 Doors To Brand Revamp
           </h2>
         </div>
 
         <p className={styles.subtitle}>
-          Our three-step method blends strategy and creativity while
-          keeping you in the loop
+          Only three smooth stages are in front of you to cross over, to create
+          the best space for your brand. 
         </p>
       </div>
 

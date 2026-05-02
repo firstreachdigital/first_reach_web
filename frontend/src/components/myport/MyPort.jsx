@@ -102,10 +102,10 @@ export default function MyPort() {
 
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>
-              We area offing the best solutions
+              Not Just Promises; Proven Records 
             </h2>
             <h2 className={styles.titleFill} ref={titleFillRef}>
-              We area offing the best solutions
+              Not Just Promises; Proven Records 
             </h2>
           </div>
         </div>
@@ -113,8 +113,7 @@ export default function MyPort() {
         {/* right */}
         <div className={styles.headerRight} data-inview>
           <p className={styles.headerDesc}>
-            We offer a full range of digital services to help your brand stand
-            out, connect, and grow.
+           Let’s move aside what WE are saying & take a quick look at what we does
           </p>
 
           {/* filter tabs */}

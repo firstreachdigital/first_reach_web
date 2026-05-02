@@ -170,9 +170,9 @@ export default function Contact() {
 
           {/* Title fill */}
           <div className={styles.titleWrap}>
-            <h2 className={styles.titleBase}>Learn more from FAQs</h2>
+            <h2 className={styles.titleBase}>Dive In More!</h2>
             <h2 className={styles.titleFill} ref={titleFillRef}>
-              Learn more from FAQs
+              Dive In More!
             </h2>
           </div>
 

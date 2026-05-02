@@ -97,7 +97,7 @@
 }
 .link:hover { color: #05caf2; background: rgba(5, 202, 242, 0.06); }
 
-/* ── Pages dropdown button ── */
+/* ── Pages/About dropdown button ── */
 .pagesBtn {
   display: flex;
   align-items: center;
@@ -135,7 +135,10 @@
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   min-width: 200px;
+
+  /* ✅ KEY FIX: was 'hidden' which clipped the submenu panel */
   overflow: visible;
+
   animation: megaFadeIn 0.2s ease forwards;
   z-index: 100;
 }
@@ -147,7 +150,10 @@
 
 .megaInner {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
+  /* ✅ Clip only the inner container so border-radius stays clean */
+  border-radius: 1rem;
+  overflow: hidden;
 }
 
 /* Left column */
@@ -155,6 +161,7 @@
   list-style: none;
   padding: 0.6rem 0;
   min-width: 200px;
+  flex-shrink: 0;
 }
 
 .megaItem {
@@ -169,6 +176,7 @@
   cursor: pointer;
   white-space: nowrap;
   gap: 2rem;
+  text-decoration: none;
 }
 
 .megaItem:hover,
@@ -189,14 +197,35 @@
   color: #05caf2;
 }
 
-/* Right column — nested submenu */
+/* Right column — nested submenu panel */
 .megaSubmenu {
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+  animation: subFadeIn 0.15s ease forwards;
+  /* ✅ Fixed width so it doesn't shift layout */
+  min-width: 200px;
+  background: rgba(5, 5, 5, 0.6);
+}
+
+/* ✅ Scroll container inside submenu for long lists (e.g. team members) */
+.megaSubmenuScroll {
   display: flex;
   flex-direction: column;
   padding: 0.6rem 0;
-  min-width: 180px;
-  border-left: 1px solid rgba(255, 255, 255, 0.07);
-  animation: subFadeIn 0.15s ease forwards;
+  max-height: 320px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #1e1e1e transparent;
+}
+
+.megaSubmenuScroll::-webkit-scrollbar {
+  width: 3px;
+}
+.megaSubmenuScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.megaSubmenuScroll::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 2px;
 }
 
 @keyframes subFadeIn {
@@ -205,12 +234,13 @@
 }
 
 .megaSubItem {
-  padding: 0.65rem 1.2rem;
-  font-size: 0.875rem;
-  color: #999;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.845rem;
+  color: #777;
   font-weight: 400;
   transition: all 0.15s;
   white-space: nowrap;
+  display: block;
 }
 
 .megaSubItem:hover {
@@ -322,6 +352,8 @@
   color: #666;
   border-radius: 0.4rem;
   transition: all 0.2s;
+  text-decoration: none;
+  display: block;
 }
 .mobileSubLink:hover { color: #05caf2; background: rgba(5, 202, 242, 0.06); }
 
@@ -339,8 +371,205 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .links   { display: none; }
-  .cta     { display: none; }
+  .links    { display: none; }
+  .cta      { display: none; }
   .hamburger { display: flex; }
   .nav { width: calc(100% - 2rem); top: 1rem; }
+}
+
+
+/* ───────── BLOG MODAL OVERLAY ───────── */
+.blogOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  padding: 120px 1.5rem 2rem;
+
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ───────── MODAL BOX ───────── */
+.blogModal {
+  width: 100%;
+  max-width: 1100px;
+
+  background: rgba(10, 10, 10, 0.95);
+  border-radius: 1.2rem;
+
+  border: 1px solid rgba(5, 202, 242, 0.25);
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(5, 202, 242, 0.1);
+
+  padding: 1.5rem;
+
+  animation: modalSlide 0.25s ease;
+}
+
+@keyframes modalSlide {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ───────── HEADER ───────── */
+.blogModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.blogModalTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.blogModalSub {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.blogModalHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.blogAllLink {
+  font-size: 0.8rem;
+  color: #05caf2;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.blogCloseBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blogCloseBtn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* ───────── GRID ───────── */
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+
+/* ───────── CARD ───────── */
+.blogCard {
+  display: block;
+  border-radius: 0.8rem;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+
+  transition: all 0.25s ease;
+}
+
+.blogCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(5, 202, 242, 0.3);
+  box-shadow: 0 10px 30px rgba(5,202,242,0.1);
+}
+
+/* IMAGE */
+.blogCardImg {
+  position: relative;
+  height: 140px;
+  overflow: hidden;
+}
+
+.blogCardImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blogCardImgPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5,202,242,0.08);
+  font-size: 1.5rem;
+  color: #05caf2;
+}
+
+/* CATEGORY BADGE */
+.blogCardCat {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+
+  background: rgba(5,202,242,0.15);
+  border: 1px solid rgba(5,202,242,0.3);
+
+  padding: 3px 8px;
+  border-radius: 999px;
+
+  font-size: 0.65rem;
+  color: #05caf2;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* CONTENT */
+.blogCardContent {
+  padding: 0.8rem;
+}
+
+.blogCardTitle {
+  font-size: 0.85rem;
+  color: #fff;
+  margin-bottom: 0.3rem;
+}
+
+.blogCardExcerpt {
+  font-size: 0.75rem;
+  color: #888;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+/* META */
+.blogCardMeta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #666;
+}
+
+.blogCardReadMore {
+  color: #05caf2;
 }

@@ -41,18 +41,17 @@ export default function Blog() {
           </span>
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>
-              Here's what we've been<br />up to
+              See What’s Buzzing
             </h2>
             <h2 className={styles.titleFill} ref={titleRef}>
-              Here's what we've been<br />up to
+              See What’s Buzzing
             </h2>
           </div>
         </div>
         <div className={styles.headerRight}>
           <p className={styles.desc}>
-            Explore industry insights, expert tips, and creative inspiration
-            from the First Reach team. Our blog is where we share knowledge,
-            ideas, and what's next in digital.
+            Discover industry trends, expert opinions & tips, and creative inspo from the First Reach
+            Digital Team. Our blogs are packed with knowledge, ideas, and what’s next in the world.
           </p>
         </div>
       </div>

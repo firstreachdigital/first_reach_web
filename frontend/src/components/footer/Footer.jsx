@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./Footer.module.css";
-import logo from "../../assets/FRST REACH LOGO ELEPHANT.png"; // update path
+import logo from "../../assets/FRST REACH LOGO ELEPHANT.png"; 
+import { FaLinkedin, FaInstagramSquare, FaFacebookSquare } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -19,7 +21,7 @@ export default function Footer() {
           </p>
 
           <p className={styles.email}>
-            ✉ info@firstreach.com
+            ✉ info@firstreachdigital.com
           </p>
 
           <div className={styles.available}>
@@ -34,21 +36,21 @@ export default function Footer() {
           <div>
             <h4>Quick Navigation</h4>
             <ul>
-              <li>About us</li>
-              <li>Features</li>
-              <li>Pricing</li>
-              <li>Testimonials</li>
-              <li>FAQ's</li>
+              <li><Link to="/about">About us</Link></li>
+              <li><Link to="/">Features</Link></li>
+              <li><Link to="/">Pricing</Link></li>
+              <li><Link to="/testimonials">Testimonials</Link></li>
+              <li><Link to="/faq">FAQ's</Link></li>
             </ul>
           </div>
 
           <div>
             <h4>All Pages</h4>
             <ul>
-              <li>Home</li>
-              <li>Contact</li>
-              <li>Blogs</li>
-              <li>Team</li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
+              <li><Link to="/blogs">Blogs</Link></li>
+              <li><Link to="/team">Team</Link></li>
               <li>Privacy Policy</li>
               <li>404</li>
             </ul>
@@ -57,9 +59,9 @@ export default function Footer() {
           <div>
             <h4>Social Media</h4>
             <div className={styles.socials}>
-              <span>in</span>
-              <span>ig</span>
-              <span>x</span>
+              <span><FaLinkedin /></span>
+              <span><FaInstagramSquare /></span>
+              <span><FaFacebookSquare /></span>
             </div>
           </div>
 

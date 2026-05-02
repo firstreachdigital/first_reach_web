@@ -72,22 +72,21 @@ export default function Team() {
         <div className={styles.headerLeft}>
           <span className={styles.label}>
             <span className={styles.labelDot} />
-            &#123;08&#125; Team member
+            &#123;08&#125; Team members
           </span>
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>
-              Driven by talent &<br />creative souls
+              The Minds Behind Every Proud Project
             </h2>
             <h2 className={styles.titleFill} ref={titleFillRef}>
-              Driven by talent &<br />creative souls
+              The Minds Behind Every Proud Project
             </h2>
           </div>
         </div>
         <div className={styles.headerRight}>
           <p className={styles.desc}>
-            At First Reach Digital, we believe great work starts with great
-            people. Our diverse team of creatives, strategists, and developers
-            work together.
+            At First Reach Digital, we believe that true strength comes from unity in thoughts towards a 
+            powerful mission. And we are committed to that beautiful idea!
           </p>
         </div>
       </div>

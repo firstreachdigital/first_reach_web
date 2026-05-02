@@ -7,17 +7,17 @@ const cards = [
   {
     icon: <TbTargetArrow />,
     title: 'Our Mission',
-    desc: 'To help brands stand out online, tell their story, and drive measurable success through smart digital creativity.',
+    desc: 'To raise brands up & into names with recognized values, dignity & identity. To open the doors of brand upgrade through strategies & creativity.',
   },
   {
     icon: <FaEye />,
     title: 'Our Vision',
-    desc: 'To inspire innovation through design, technology, and storytelling — making every digital interaction feel meaningful.',
+    desc: 'To create an environment for every brand, where they can express their identity & continue their true legacy, by visualizing and showing it to the world. ',
   },
   {
     icon: <FaHandshake />,
     title: 'Collaborate with Us',
-    desc: "Let's build something extraordinary together: bold visuals, intuitive UX, and growth-focused digital experiences.",
+    desc: "Let’s team-up & take your brand to new heights.Our expert team will guide you through everything until you’re sure about what you really need for your brand. ",
   },
 ]
 
@@ -71,20 +71,20 @@ export default function About() {
         {/* Title with fill */}
         <div className={styles.titleWrap}>
           <h2 className={styles.titleBase}>
-            Elevating brands through digital design.
+            UPLIFTING BRANDS THROUGH DIGITAL DESIGN 
           </h2>
           <h2 className={styles.titleFill} ref={titleFillRef}>
-            Elevating brands through digital design.
+            UPLIFTING BRANDS THROUGH DIGITAL DESIGN 
           </h2>
         </div>
 
         <p className={styles.copy} data-inview>
-          At <strong>First Reach Digital</strong>, we don't just build websites — we create digital
-          experiences that inspire, engage, and convert.
+          At <strong>First Reach Digital</strong>, we grow your brand while keeping it secure & scalable. 
+          With us you can uplift your brand from visibility to conversion.
         </p>
         <p className={styles.copy} data-inview>
-          We believe great design starts with great ideas. That's why we work
-          closely with our clients to understand their vision, goals, and audience.
+          We stop threats before they scale. Because, once you sign-up with First Reach Digital,
+          your vision is our mission & there’s no more doubting in the dark.
         </p>
 
         <a href="#contact" className={styles.ctaBtn} data-inview>

@@ -20,7 +20,7 @@ const portfolioItems = [
     title: "E-Commerce Platform",
     category: "Web Development",
     desc: "Custom storefront with 3D product viewer, animated cart, and 40% conversion uplift.",
-    color: "#a78bfa",
+    color: "#05caf2",
     image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80",
   },
   {
@@ -28,7 +28,7 @@ const portfolioItems = [
     title: "SaaS Dashboard UI",
     category: "UI / UX Design",
     desc: "End-to-end design of a data analytics platform — dark mode, complex data viz, and responsive layout.",
-    color: "#34d399",
+    color: "#05caf2",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
   },
   {
@@ -36,7 +36,7 @@ const portfolioItems = [
     title: "Mobile App Launch",
     category: "Product Design",
     desc: "Zero-to-one design and dev for a wellness app. Shipped to 10k+ users in first month.",
-    color: "#fb923c",
+    color: "#05caf2",
     image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80",
   },
 ];
@@ -150,16 +150,16 @@ function StatCard({ target, suffix, label, styles }) {
 
         <div className={styles.titleWrap}>
           <h2 className={styles.titleBase}>
-            "A streamlined solution build to power business."
+            "TUNES-IN STRATEGY & SPOTLIGHT WITH A DYNAMIC ENERGY!"
           </h2>
           <h2 className={styles.titleFill} ref={titleFillRef}>
-            "A streamlined solution build to power business."
+            "TUNES-IN STRATEGY & SPOTLIGHT WITH A DYNAMIC ENERGY!"
           </h2>
         </div>
 
         <p className={styles.subtitle} data-inview>
-          We're more than pixels and code — we're coffee lovers, cat people,
-          meme sharers, and design geeks.
+          We’re more than metrics & ad copies - We recharge with coffee, share a meme-holic
+          bond and brainstorms ideas in the mean-time. 
         </p>
 
         {/* <div className={styles.stats}>
