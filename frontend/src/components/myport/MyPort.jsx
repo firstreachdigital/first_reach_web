@@ -1,40 +1,41 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./MyPort.module.css";
+import { image_1, image_2, image_3, image_4 } from "../../assets";
 
 const projects = [
   {
     id: "01",
-    title: "AiTalk Global",
+    title: "WEALTH-I",
     subtitle: "The largest tech show where we present our brand",
     tags: ["Web design", "Portfolio"],
-    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=900&q=80",
+    image: image_1,
     color: "#05caf2",
     size: "large", // takes full left column
   },
   {
     id: "02",
-    title: "FinChat Research",
+    title: "SHORTCODE",
     subtitle: "From idea to investment, fast.",
     tags: ["Web design", "Portfolio"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80",
+    image: image_2,
     color: "#05caf2",
     size: "large", // takes full right column
   },
   {
     id: "03",
-    title: "NexChain",
+    title: "ALBINAALQAWI",
     subtitle: "Empowering Global Startup Growth",
     tags: ["Web design", "Portfolio"],
-    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=900&q=80",
+    image: image_3,
     color: "#05caf2",
     size: "large",
   },
   {
     id: "04",
-    title: "Onoma Studio",
+    title: "SCENARIO",
     subtitle: "Brand Refresh & Strategy",
     tags: ["Web design", "Portfolio"],
-    image: "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=900&q=80",
+    image: image_4,
     color: "#05caf2",
     size: "large",
   },

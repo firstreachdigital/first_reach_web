@@ -183,10 +183,64 @@
 
 /* Body paragraphs */
 .body {
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
   margin-bottom: 2.5rem;
+  color: #777;
+  font-size: 0.975rem;
+  line-height: 1.85;
+  font-weight: 300;
+}
+
+.body p {
+  margin-bottom: 1.4rem;
+  color: #777;
+  font-size: 0.975rem;
+  line-height: 1.85;
+}
+
+.body h1,
+.body h2,
+.body h3,
+.body h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin: 2rem 0 1rem;
+  line-height: 1.2;
+}
+
+.body h1 { font-size: 2rem; }
+.body h2 { font-size: 1.5rem; }
+.body h3 { font-size: 1.2rem; }
+
+.body strong {
+  color: var(--white);
+  font-weight: 700;
+}
+
+.body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.2s;
+}
+.body a:hover { opacity: 0.75; }
+
+.body ul,
+.body ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.4rem;
+  color: #777;
+}
+
+.body li { margin-bottom: 0.5rem; }
+
+.body blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.2rem;
+  margin: 1.5rem 0;
+  color: #555;
+  font-style: italic;
 }
 
 .para {

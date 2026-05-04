@@ -1,7 +1,7 @@
 // src/components/JobApplyModal.jsx
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./JobApply.module.css";
-import { FaArrowRight, FaTimes, FaCloudUploadAlt, FaCheckCircle } from "react-icons/fa";
+import { FaArrowRight, FaTimes, FaCloudUploadAlt, FaCheckCircle, FaStarOfLife } from "react-icons/fa";
 
 export default function JobApplyModal({ job, onClose }) {
   const [form, setForm] = useState({
@@ -65,10 +65,26 @@ export default function JobApplyModal({ job, onClose }) {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setLoading(true);
-    // Simulate API call
-    await new Promise((r) => setTimeout(r, 1800));
-    setLoading(false);
-    setSubmitted(true);
+    try {
+      const formData = new FormData();
+      formData.append("job",       job._id);
+      formData.append("fullName",  form.fullName);
+      formData.append("email",     form.email);
+      formData.append("phone",     form.phone);
+      formData.append("portfolio", form.portfolio);
+      formData.append("coverNote", form.message);
+      if (form.cv) formData.append("resume", form.cv);
+
+      await fetch("http://localhost:5000/api/careers/apply", {
+        method: "POST",
+        body: formData,
+      });
+      setSubmitted(true);
+    } catch {
+      setErrors({ ...errors, fullName: "Submission failed. Please try again." });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -86,7 +102,7 @@ export default function JobApplyModal({ job, onClose }) {
                 <textPath href="#circle">APPLY NOW • FIRST REACH DIGITAL •</textPath>
               </text>
             </svg>
-            <div className={styles.spinCenter}>✳</div>
+            <div className={styles.spinCenter}><FaStarOfLife /></div>
           </div>
 
           <div className={styles.joinText}>

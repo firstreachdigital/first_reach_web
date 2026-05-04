@@ -1,16 +1,23 @@
 // src/components/blog/Blog.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Blog.module.css";
 import { useNavigate } from "react-router-dom";
-import { BLOG_POSTS } from "../../data/blogData";
-
-const posts = BLOG_POSTS; // swap with API later
+import API from "../../api/axios";
 
 export default function Blog() {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [hovered, setHovered] = useState(null);
-  const titleRef  = React.useRef(null);
+  const titleRef   = React.useRef(null);
   const sectionRef = React.useRef(null);
-  const navigate  = useNavigate();
+  const navigate   = useNavigate();
+
+  useEffect(() => {
+    API.get("/blogs")
+      .then((res) => setPosts(res.data))
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  }, []);
 
   React.useEffect(() => {
     const handle = () => {
@@ -27,7 +34,7 @@ export default function Blog() {
 
   const getState = (post) => {
     if (hovered === null) return post.featured ? "featured" : "normal";
-    return hovered === post.id ? "big" : "small";
+    return hovered === post._id ? "big" : "small";
   };
 
   return (
@@ -37,49 +44,40 @@ export default function Blog() {
         <div className={styles.headerLeft}>
           <span className={styles.label}>
             <span className={styles.labelDot} />
-            &#123;10&#125; Latest Insights
+            &#123;{posts.length}&#125; Latest Insights
           </span>
           <div className={styles.titleWrap}>
-            <h2 className={styles.titleBase}>
-              See What’s Buzzing
-            </h2>
-            <h2 className={styles.titleFill} ref={titleRef}>
-              See What’s Buzzing
-            </h2>
+            <h2 className={styles.titleBase}>See What's Buzzing</h2>
+            <h2 className={styles.titleFill} ref={titleRef}>See What's Buzzing</h2>
           </div>
         </div>
         <div className={styles.headerRight}>
           <p className={styles.desc}>
             Discover industry trends, expert opinions & tips, and creative inspo from the First Reach
-            Digital Team. Our blogs are packed with knowledge, ideas, and what’s next in the world.
+            Digital Team. Our blogs are packed with knowledge, ideas, and what's next in the world.
           </p>
         </div>
       </div>
 
       {/* ── CARDS GRID ── */}
       <div className={styles.grid}>
+        {loading && <p style={{ color: "#aaa" }}>Loading...</p>}
         {posts.map((post) => {
           const state = getState(post);
           return (
             <div
-              key={post.id}
+              key={post._id}
               className={`${styles.card} ${styles[`card_${state}`]}`}
-              onMouseEnter={() => setHovered(post.id)}
+              onMouseEnter={() => setHovered(post._id)}
               onMouseLeave={() => setHovered(null)}
               onClick={() => navigate(`/blog/${post.slug}`)}
             >
               {/* Image */}
               <div className={styles.imgWrap}>
-                <img src={post.img} alt={post.title} loading="lazy" />
+                <img src={post.featuredImage} alt={post.title} loading="lazy" />
                 <div className={styles.imgOverlay} />
-
-                {/* Tag badge */}
-                <span className={styles.tag}>{post.tag}</span>
-
-                {/* Read time badge */}
+                <span className={styles.tag}>{post.category}</span>
                 <span className={styles.readTime}>{post.readTime}</span>
-
-                {/* Eye icon — featured & hovered */}
                 {(state === "featured" || state === "big") && (
                   <div className={styles.eyeBtn}>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
@@ -94,7 +92,9 @@ export default function Blog() {
 
               {/* Text */}
               <div className={styles.cardBody}>
-                <p className={styles.date}>{post.date}</p>
+                <p className={styles.date}>
+                  {new Date(post.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                </p>
                 <h3 className={styles.title}>{post.title}</h3>
               </div>
             </div>

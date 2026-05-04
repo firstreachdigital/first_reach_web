@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Portfolio.module.css";
 import ScrollStack, { ScrollStackItem } from "./ScrollStack";
+import { image_1, image_2, image_3, image_4 } from "../../assets";
 
 // ── Replace these image URLs with your actual project images ──
 // You can use images from your /assets folder like:
@@ -9,35 +10,35 @@ import ScrollStack, { ScrollStackItem } from "./ScrollStack";
 const portfolioItems = [
   {
     number: "01",
-    title: "Brand Identity Redesign",
+    title: "WEALTH-I",
     category: "Branding & Strategy",
     desc: "Full visual overhaul for a fintech startup — logo, color system, typography, and motion guidelines.",
     color: "#05caf2",
-    image: "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=800&q=80",
+    image: image_1,
   },
   {
     number: "02",
-    title: "E-Commerce Platform",
+    title: "SHORTCODE",
     category: "Web Development",
     desc: "Custom storefront with 3D product viewer, animated cart, and 40% conversion uplift.",
     color: "#05caf2",
-    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80",
+    image: image_2,
   },
   {
     number: "03",
-    title: "SaaS Dashboard UI",
+    title: "ALBINAALQAWI",
     category: "UI / UX Design",
     desc: "End-to-end design of a data analytics platform — dark mode, complex data viz, and responsive layout.",
     color: "#05caf2",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    image: image_3,
   },
   {
     number: "04",
-    title: "Mobile App Launch",
+    title: "SCENARIO",
     category: "Product Design",
     desc: "Zero-to-one design and dev for a wellness app. Shipped to 10k+ users in first month.",
     color: "#05caf2",
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80",
+    image: image_4,
   },
 ];
 

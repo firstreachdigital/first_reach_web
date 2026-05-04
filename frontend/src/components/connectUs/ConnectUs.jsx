@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./ConnectUs.module.css";
+import officeReception from "../../assets/officeReception.png";
 
 const socials = [
   {
@@ -125,7 +126,7 @@ export default function ConnectUs() {
         <div className={styles.imageCol}>
           <div className={styles.imgWrap}>
             <img
-              src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80"
+              src={officeReception}
               alt="Office building"
               className={styles.buildingImg}
             />

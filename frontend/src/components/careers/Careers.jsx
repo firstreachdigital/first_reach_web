@@ -1,73 +1,11 @@
-// src/pages/CareersPage.jsx
-import React, { useState } from "react";
+// src/components/careers/Careers.jsx
+import React, { useState, useEffect } from "react";
 import styles from "./CareersPage.module.css";
 import JobApplyModal from "../jobApplyModal/JobApplyModal";
 import { FaArrowRight, FaMapMarkerAlt, FaClock, FaBriefcase, FaGlobe, FaChartLine, FaPaintBrush, FaMoneyBillWave, FaUmbrellaBeach, FaTools } from "react-icons/fa";
+import API from "../../api/axios";
 
-const DEPARTMENTS = ["All", "Design", "Development", "Marketing", "Strategy"];
-
-const JOBS = [
-  {
-    id: 1,
-    title: "UI/UX Designer",
-    department: "Design",
-    type: "Full-time",
-    location: "Remote",
-    experience: "2–4 years",
-    description: "Craft exceptional digital experiences for our global clients. You'll own the design process from wireframes to polished, pixel-perfect interfaces.",
-    tags: ["Figma", "Prototyping", "Design Systems"],
-  },
-  {
-    id: 2,
-    title: "Senior React Developer",
-    department: "Development",
-    type: "Full-time",
-    location: "Hybrid – Kochi",
-    experience: "4–6 years",
-    description: "Build fast, scalable web applications for industry-leading brands. You'll work closely with design and strategy teams to ship impactful products.",
-    tags: ["React", "Next.js", "TypeScript"],
-  },
-  {
-    id: 3,
-    title: "Brand Strategist",
-    department: "Strategy",
-    type: "Full-time",
-    location: "Kochi, Kerala",
-    experience: "3–5 years",
-    description: "Define the voice, identity, and positioning of brands across industries. You'll lead discovery workshops and develop comprehensive brand strategies.",
-    tags: ["Brand Identity", "Positioning", "Research"],
-  },
-  {
-    id: 4,
-    title: "Motion Designer",
-    department: "Design",
-    type: "Contract",
-    location: "Remote",
-    experience: "2–3 years",
-    description: "Bring brands to life through animation and motion. Create scroll animations, brand films, and micro-interactions that leave lasting impressions.",
-    tags: ["After Effects", "Lottie", "GSAP"],
-  },
-  {
-    id: 5,
-    title: "Digital Marketing Lead",
-    department: "Marketing",
-    type: "Full-time",
-    location: "Kochi, Kerala",
-    experience: "3–5 years",
-    description: "Drive growth for First Reach and our clients through data-driven campaigns, SEO, and performance marketing strategies.",
-    tags: ["SEO", "Paid Media", "Analytics"],
-  },
-  {
-    id: 6,
-    title: "WordPress / Webflow Developer",
-    department: "Development",
-    type: "Part-time",
-    location: "Remote",
-    experience: "1–3 years",
-    description: "Develop custom themes and no-code builds for clients who need speed and flexibility. Eye for detail and design sensibility are a must.",
-    tags: ["Webflow", "WordPress", "CSS"],
-  },
-];
+const DEPARTMENTS = ["All", "Design", "Development", "Marketing", "Strategy", "Other"];
 
 const PERKS = [
   { icon: <FaGlobe />,         title: "Remote Friendly",   desc: "Work from anywhere. Output over hours, always." },
@@ -79,22 +17,25 @@ const PERKS = [
 ];
 
 export default function CareersPage() {
-  const [activeTab, setActiveTab]   = useState("All");
-  const [expanded, setExpanded]     = useState(null);
-  const [applyJob, setApplyJob]     = useState(null); // ← modal state
+  const [jobs, setJobs]           = useState([]);
+  const [loading, setLoading]     = useState(true);
+  const [activeTab, setActiveTab] = useState("All");
+  const [expanded, setExpanded]   = useState(null);
+  const [applyJob, setApplyJob]   = useState(null);
 
-  const filtered = activeTab === "All" ? JOBS : JOBS.filter((j) => j.department === activeTab);
+  useEffect(() => {
+    API.get("/careers/jobs")
+      .then((res) => setJobs(res.data))
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const filtered = activeTab === "All" ? jobs : jobs.filter((j) => j.department === activeTab);
 
   return (
     <main className={styles.page}>
 
-      {/* ── JOB APPLY MODAL ── */}
-      {applyJob && (
-        <JobApplyModal
-          job={applyJob}
-          onClose={() => setApplyJob(null)}
-        />
-      )}
+      {applyJob && <JobApplyModal job={applyJob} onClose={() => setApplyJob(null)} />}
 
       {/* ── HERO ── */}
       <section className={styles.hero}>
@@ -156,12 +97,9 @@ export default function CareersPage() {
           <h2 className={styles.sectionTitle}>Open Positions</h2>
           <p className={styles.sectionSub}>
             Don't see your role? Drop us a note at{" "}
-            <a href="mailto:careers@firstreach.in" className={styles.mailLink}>
-              careers@firstreach.in
-            </a>
+            <a href="mailto:careers@firstreach.in" className={styles.mailLink}>careers@firstreach.in</a>
           </p>
 
-          {/* Filter tabs */}
           <div className={styles.tabs}>
             {DEPARTMENTS.map((d) => (
               <button
@@ -174,17 +112,15 @@ export default function CareersPage() {
             ))}
           </div>
 
-          {/* Job cards */}
           <div className={styles.jobList}>
-            {filtered.map((job) => (
+            {loading && <p style={{ color: "#aaa" }}>Loading...</p>}
+
+            {!loading && filtered.map((job) => (
               <div
-                key={job.id}
-                className={`${styles.jobCard} ${expanded === job.id ? styles.jobCardOpen : ""}`}
+                key={job._id}
+                className={`${styles.jobCard} ${expanded === job._id ? styles.jobCardOpen : ""}`}
               >
-                <div
-                  className={styles.jobHeader}
-                  onClick={() => setExpanded(expanded === job.id ? null : job.id)}
-                >
+                <div className={styles.jobHeader} onClick={() => setExpanded(expanded === job._id ? null : job._id)}>
                   <div className={styles.jobMeta}>
                     <span className={styles.jobDept}>{job.department}</span>
                     <h3 className={styles.jobTitle}>{job.title}</h3>
@@ -194,24 +130,18 @@ export default function CareersPage() {
                       <span className={styles.jobPill}><FaBriefcase className={styles.pillIcon} /> {job.experience}</span>
                     </div>
                   </div>
-                  <div className={`${styles.jobToggle} ${expanded === job.id ? styles.jobToggleOpen : ""}`}>
+                  <div className={`${styles.jobToggle} ${expanded === job._id ? styles.jobToggleOpen : ""}`}>
                     <FaArrowRight />
                   </div>
                 </div>
 
-                {expanded === job.id && (
+                {expanded === job._id && (
                   <div className={styles.jobBody}>
                     <p className={styles.jobDesc}>{job.description}</p>
                     <div className={styles.jobTags}>
-                      {job.tags.map((t) => (
-                        <span key={t} className={styles.tag}>{t}</span>
-                      ))}
+                      {job.tags?.map((t) => <span key={t} className={styles.tag}>{t}</span>)}
                     </div>
-                    {/* ── APPLY BUTTON — opens modal ── */}
-                    <button
-                      className={styles.applyBtn}
-                      onClick={() => setApplyJob(job)}
-                    >
+                    <button className={styles.applyBtn} onClick={() => setApplyJob(job)}>
                       <span className={styles.applyIcon}><FaArrowRight /></span>
                       Apply for this role
                     </button>
@@ -220,10 +150,8 @@ export default function CareersPage() {
               </div>
             ))}
 
-            {filtered.length === 0 && (
-              <div className={styles.empty}>
-                No openings in this department right now. Check back soon!
-              </div>
+            {!loading && filtered.length === 0 && (
+              <div className={styles.empty}>No openings in this department right now. Check back soon!</div>
             )}
           </div>
         </div>

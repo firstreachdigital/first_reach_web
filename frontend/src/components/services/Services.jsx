@@ -6,6 +6,8 @@ import { FaArrowRight, FaCopyright } from "react-icons/fa";
 import { AiOutlineFileProtect } from "react-icons/ai";
 import { LuRocket } from "react-icons/lu";
 
+import { Brand, Brandpro, copywrite, influencer, media, Seo, SocialMedia, web } from "../../assets";
+
 const services = [
   {
     num: '1',
@@ -13,7 +15,7 @@ const services = [
     icon: <TbCube3dSphere />,
     desc: ' We takes your brand in & starts the whole deep process of understanding & analysing what’s going on inside your brand framework to completely renew its value.',
     tags: ['Assessment of the Brand Framework', 'Examining the Current Marketing Efforts', 'Developing New Brand Strategy / Brand Messaging / Brand Design', 'Creating New Brand Guidelines, Evaluating Social Media',],
-    img: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80',
+    img: Brand,
   },
   {
     num: '2',
@@ -21,7 +23,7 @@ const services = [
     icon: <TbDeviceDesktopCode />,
     desc: 'A website that clearly shows how unique your brand & how powerful your mission is; that’s what First Reach Digital promises every brand With smooth dynamics & converting design, your brand will get a great identity.',
     tags: ['Wordpress & Shopify Development', 'Webflow Development', 'Magento & Odoo Development', 'Android and IOS App Development', 'Flutter Mobile App Development'],
-    img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80',
+    img: web,
   },
   {
   num: '3',
@@ -34,7 +36,7 @@ const services = [
     ' Off Page SEO',
     'Technical SEO',
   ],
-  img: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80',
+  img: Seo,
 },
   {
     num: '4',
@@ -42,7 +44,7 @@ const services = [
     icon: <TbBrandGoogleAnalytics />,
     desc: 'The legendary virtual world is where all your potential and future customers are spending most of their time. Be in their sight, at the right time, in the right places. We’ll take your brand across all social media platforms to get the much needed attention.',
     tags: ['Facebook', 'Instagram', 'Linkedin', 'YouTube', 'Google', 'Others,'],
-    img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80',
+    img: SocialMedia,
   },
   {
     num: '5',
@@ -50,7 +52,7 @@ const services = [
     icon: <TbShoppingCart />,
     desc: 'Collab with iconic content creators/influencers to boost your brand’s reach, within a shorter time. Teaming up with First Reach Digital will get you closer to all these golden opportunities.',
     tags: ['Instagram Collabs', 'Partnership campaigns', 'Reviews/Testimonials',],
-    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80',
+    img: influencer,
   },
   {
     num: '6',
@@ -58,7 +60,7 @@ const services = [
     icon: <MdPermMedia />,
     desc: 'We’ll build a visual identity that tells your brand story, in a way, that’ll catch the public’s eye. From color palettes to typography,tone of voice to brand guidelines, we shape every element to ensure your brand stands out across every platform.',
     tags: ['Videography', 'Video Editing', 'Motion & Graphic works', 'Logo & other brand assets'],
-    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80',
+    img: media,
   },
    {
     num: '7',
@@ -66,7 +68,7 @@ const services = [
     icon: <FaCopyright />,
     desc: 'A talk with your audience, in the most creative & strategic way, with excellent visualizations that reflect your brand’s identity. We craft each sentence for your brand with a purpose that brings real results in a short time.',
     tags: ['Uniquely crafted ad copies & content', 'SEO Integrated Content Preparation',],
-    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80',
+    img: copywrite,
   },
    {
     num: '8',
@@ -74,7 +76,7 @@ const services = [
     icon: <AiOutlineFileProtect />,
     desc: 'We monitor where your audience is; and also where your attackers could be. Complete digital security with proven results; only with First Reach Digital.',
     tags: ['24/7 Monitoring', 'Fake Account Detection, Removal & Fast Content Takedown', 'Trademark & Copyright Violation Reporting', 'Online Reputation Management (ORM)', ' Crisis Handling & Response Strategy & Monthly Reports'],
-    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80',
+    img: Brandpro,
   },
 ]
 

@@ -1,16 +1,35 @@
 // src/pages/BlogPage.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import styles from "./BlogPage.module.css";
-import { BLOG_POSTS } from "../data/blogData";
-import { FaArrowLeft, FaArrowRight, FaTwitter, FaLinkedinIn, FaLink } from "react-icons/fa";
+import { FaArrowLeft, FaTwitter, FaLinkedinIn, FaLink } from "react-icons/fa";
 import Blog from "../components/blog/Blog";
+import API from "../api/axios";
 
 export default function BlogPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  // ── No slug → show blog list page ──────────────────────────────────────
+  const [post, setPost] = useState(null);
+  const [related, setRelated] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {
+    if (!slug) return;
+    setLoading(true);
+    setNotFound(false);
+    API.get(`/blogs/${slug}`)
+      .then((res) => {
+        setPost(res.data);
+        return API.get("/blogs");
+      })
+      .then((res) => setRelated(res.data.filter((p) => p.slug !== slug).slice(0, 3)))
+      .catch(() => setNotFound(true))
+      .finally(() => setLoading(false));
+  }, [slug]);
+
+  // ── No slug → show blog list page
   if (!slug) {
     return (
       <div style={{ paddingTop: "120px" }}>
@@ -19,15 +38,9 @@ export default function BlogPage() {
     );
   }
 
-  // ── Has slug → show detail page ─────────────────────────────────────────
-  const post       = BLOG_POSTS.find((p) => p.slug === slug);
-  const currentIdx = BLOG_POSTS.findIndex((p) => p.slug === slug);
-  const prevPost   = BLOG_POSTS[currentIdx - 1] || null;
-  const nextPost   = BLOG_POSTS[currentIdx + 1] || null;
+  if (loading) return <div className={styles.notFound}><p style={{ color: "#aaa" }}>Loading...</p></div>;
 
-  const copyLink = () => navigator.clipboard.writeText(window.location.href);
-
-  if (!post) {
+  if (notFound || !post) {
     return (
       <div className={styles.notFound}>
         <h2>Post not found</h2>
@@ -35,6 +48,12 @@ export default function BlogPage() {
       </div>
     );
   }
+
+  const copyLink = () => navigator.clipboard.writeText(window.location.href);
+
+  const formattedDate = post.createdAt
+    ? new Date(post.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
+    : "";
 
   return (
     <main className={styles.page}>
@@ -49,22 +68,20 @@ export default function BlogPage() {
 
       <div className={styles.container}>
         <div className={styles.heroImgWrap}>
-          <img src={post.img} alt={post.title} className={styles.heroImg} />
+          <img src={post.featuredImage} alt={post.title} className={styles.heroImg} />
           <div className={styles.heroOverlay} />
-          <span className={styles.heroTag}>{post.tag}</span>
+          <span className={styles.heroTag}>{post.category}</span>
         </div>
 
         <article className={styles.article}>
           <div className={styles.meta}>
             <div className={styles.authorRow}>
-              <img src={post.author.avatar} alt={post.author.name} className={styles.avatar} />
               <div>
-                <p className={styles.authorName}>{post.author.name}</p>
-                <p className={styles.authorRole}>{post.author.role}</p>
+                <p className={styles.authorName}>{post.author}</p>
               </div>
             </div>
             <div className={styles.metaRight}>
-              <span className={styles.metaItem}>{post.date}</span>
+              <span className={styles.metaItem}>{formattedDate}</span>
               <span className={styles.metaDot} />
               <span className={styles.metaItem}>{post.readTime}</span>
             </div>
@@ -74,64 +91,49 @@ export default function BlogPage() {
           <p className={styles.excerpt}>{post.excerpt}</p>
           <div className={styles.divider} />
 
-          <div className={styles.body}>
-            {post.content.map((para, i) => (
-              <p key={i} className={styles.para}>{para}</p>
-            ))}
-          </div>
+          <div className={styles.body}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
 
           <div className={styles.shareRow}>
             <span className={styles.shareLabel}>Share</span>
-            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`}
-              target="_blank" rel="noreferrer" className={styles.shareBtn}>
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`}
+              target="_blank" rel="noreferrer" className={styles.shareBtn}
+            >
               <FaTwitter />
             </a>
-            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
-              target="_blank" rel="noreferrer" className={styles.shareBtn}>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
+              target="_blank" rel="noreferrer" className={styles.shareBtn}
+            >
               <FaLinkedinIn />
             </a>
             <button className={styles.shareBtn} onClick={copyLink}><FaLink /></button>
           </div>
         </article>
 
-        <div className={styles.postNav}>
-          {prevPost ? (
-            <Link to={`/blog/${prevPost.slug}`} className={styles.postNavBtn}>
-              <FaArrowLeft />
-              <div className={styles.postNavInfo}>
-                <span className={styles.postNavLabel}>Previous</span>
-                <span className={styles.postNavTitle}>{prevPost.title}</span>
-              </div>
-            </Link>
-          ) : <div />}
-          {nextPost ? (
-            <Link to={`/blog/${nextPost.slug}`} className={`${styles.postNavBtn} ${styles.postNavBtnRight}`}>
-              <div className={styles.postNavInfo} style={{ textAlign: "right" }}>
-                <span className={styles.postNavLabel}>Next</span>
-                <span className={styles.postNavTitle}>{nextPost.title}</span>
-              </div>
-              <FaArrowRight />
-            </Link>
-          ) : <div />}
-        </div>
-
-        <div className={styles.related}>
-          <h2 className={styles.relatedTitle}>More Articles</h2>
-          <div className={styles.relatedGrid}>
-            {BLOG_POSTS.filter((p) => p.slug !== slug).map((p) => (
-              <Link key={p.id} to={`/blog/${p.slug}`} className={styles.relatedCard}>
-                <div className={styles.relatedImgWrap}>
-                  <img src={p.img} alt={p.title} className={styles.relatedImg} />
-                </div>
-                <div className={styles.relatedBody}>
-                  <span className={styles.relatedTag}>{p.tag}</span>
-                  <h3 className={styles.relatedCardTitle}>{p.title}</h3>
-                  <p className={styles.relatedDate}>{p.date}</p>
-                </div>
-              </Link>
-            ))}
+        {related.length > 0 && (
+          <div className={styles.related}>
+            <h2 className={styles.relatedTitle}>More Articles</h2>
+            <div className={styles.relatedGrid}>
+              {related.map((p) => (
+                <Link key={p._id} to={`/blog/${p.slug}`} className={styles.relatedCard}>
+                  <div className={styles.relatedImgWrap}>
+                    <img src={p.featuredImage} alt={p.title} className={styles.relatedImg} />
+                  </div>
+                  <div className={styles.relatedBody}>
+                    <span className={styles.relatedTag}>{p.category}</span>
+                    <h3 className={styles.relatedCardTitle}>{p.title}</h3>
+                    <p className={styles.relatedDate}>
+                      {new Date(p.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </main>
   );
