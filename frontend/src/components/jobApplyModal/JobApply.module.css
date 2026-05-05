@@ -510,27 +510,60 @@
     grid-template-columns: 1fr;
     max-height: 95vh;
     border-radius: 1rem;
+    overflow-y: auto;
   }
 
   .leftPanel {
     flex-direction: row;
     align-items: center;
     gap: 1rem;
-    padding: 1.5rem;
+    padding: 1rem 1.2rem;
     border-right: none;
     border-bottom: 1px solid #1a1a1a;
+    min-height: unset;
   }
 
-  .spinText { width: 70px; height: 70px; flex-shrink: 0; }
-  .spinSvg  { width: 70px; height: 70px; }
-  .spinCenter { font-size: 1rem; }
+  .spinText { 
+    width: 52px; 
+    height: 52px; 
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+  .spinSvg  { width: 52px; height: 52px; }
+  .spinCenter { font-size: 0.8rem; }
 
-  .joinText { font-size: 2rem; margin-bottom: 0; }
+  .joinText { 
+    font-size: 1.6rem; 
+    margin-bottom: 0;
+    line-height: 1;
+  }
 
-  .jobInfo { margin-top: 0; }
+  .jobInfo { 
+    margin-top: 0;
+    flex: 1;
+  }
+
+  .jobNameLeft {
+    font-size: 0.85rem;
+  }
+
   .leftDecor { display: none; }
 
-  .rightPanel { padding: 1.5rem; }
+  /* Right panel scrollable */
+  .rightPanel { 
+    padding: 1.2rem;
+    overflow-y: auto;
+    max-height: calc(95vh - 90px); /* ← ഇത് key fix ആണ് */
+  }
+
   .row { grid-template-columns: 1fr; }
-  .formTitle { font-size: 1.7rem; }
+
+  .formTitle { font-size: 1.5rem; }
+
+  .submitBtn {
+    position: sticky;
+    bottom: 0;
+    margin-top: 1rem;
+    z-index: 10;
+  }
 }

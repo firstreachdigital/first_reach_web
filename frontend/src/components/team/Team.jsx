@@ -1,17 +1,21 @@
-// src/components/team/Team.jsx
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./Team.module.css";
 import { useNavigate } from "react-router-dom";
-import { TEAM_MEMBERS } from "../../data/teamData";
-
-const members = TEAM_MEMBERS; // swap with API later
+import API from "../../api/axios";
 
 export default function Team() {
-  const [active, setActive]   = useState(1);
-  const [animDir, setAnimDir] = useState(null);
-  const titleFillRef          = useRef(null);
-  const sectionRef            = useRef(null);
-  const navigate              = useNavigate();
+  const [members, setMembers]   = useState([]);
+  const [active, setActive]     = useState(0);
+  const [animDir, setAnimDir]   = useState(null);
+  const titleFillRef            = useRef(null);
+  const sectionRef              = useRef(null);
+  const navigate                = useNavigate();
+
+  useEffect(() => {
+    API.get("/team")
+      .then(({ data }) => setMembers(data))
+      .catch(() => {});
+  }, []);
 
   // title fill on scroll
   useEffect(() => {
@@ -27,7 +31,7 @@ export default function Team() {
     return () => window.removeEventListener("scroll", handle);
   }, []);
 
-  const total = members.length;
+  const total    = members.length;
   const getIndex = (offset) => (active + offset + total) % total;
 
   const go = (dir) => {
@@ -47,6 +51,8 @@ export default function Team() {
     { offset:  1, pos: "right"    },
     { offset:  2, pos: "farRight" },
   ];
+
+  if (!members.length) return null;
 
   return (
     <section className={styles.section} id="team" ref={sectionRef}>
@@ -75,17 +81,13 @@ export default function Team() {
             &#123;08&#125; Team members
           </span>
           <div className={styles.titleWrap}>
-            <h2 className={styles.titleBase}>
-              The Minds Behind Every Proud Project
-            </h2>
-            <h2 className={styles.titleFill} ref={titleFillRef}>
-              The Minds Behind Every Proud Project
-            </h2>
+            <h2 className={styles.titleBase}>The Minds Behind Every Proud Project</h2>
+            <h2 className={styles.titleFill} ref={titleFillRef}>The Minds Behind Every Proud Project</h2>
           </div>
         </div>
         <div className={styles.headerRight}>
           <p className={styles.desc}>
-            At First Reach Digital, we believe that true strength comes from unity in thoughts towards a 
+            At First Reach Digital, we believe that true strength comes from unity in thoughts towards a
             powerful mission. And we are committed to that beautiful idea!
           </p>
         </div>
@@ -93,11 +95,7 @@ export default function Team() {
 
       {/* ── CAROUSEL ── */}
       <div className={styles.carouselWrap}>
-        <button
-          className={`${styles.arrow} ${styles.arrowLeft}`}
-          onClick={() => go("left")}
-          aria-label="Previous"
-        >
+        <button className={`${styles.arrow} ${styles.arrowLeft}`} onClick={() => go("left")} aria-label="Previous">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6" />
@@ -106,8 +104,8 @@ export default function Team() {
 
         <div className={`${styles.stage} ${animDir ? styles[`anim_${animDir}`] : ""}`}>
           {slots.map(({ offset, pos }) => {
-            const idx    = getIndex(offset);
-            const member = members[idx];
+            const idx      = getIndex(offset);
+            const member   = members[idx];
             const isCenter = pos === "center";
             const isHidden = pos === "farLeft" || pos === "farRight";
 
@@ -117,22 +115,13 @@ export default function Team() {
                 className={`${styles.card} ${styles[pos]}`}
                 onClick={() => !isCenter && go(offset > 0 ? "right" : "left")}
               >
-                <img
-                  src={member.img}
-                  alt={member.name}
-                  className={styles.cardImg}
-                  loading="lazy"
-                />
+                <img src={member.img} alt={member.name} className={styles.cardImg} loading="lazy" />
 
-                {/* Plus button — navigates to member detail page */}
                 {!isCenter && !isHidden && (
                   <button
                     className={styles.plusBtn}
                     aria-label={`View ${member.name}`}
-                    onClick={(e) => {
-                      e.stopPropagation(); // don't trigger carousel shift
-                      navigate(`/team/${member.slug}`);
-                    }}
+                    onClick={(e) => { e.stopPropagation(); navigate(`/team/${member.slug}`); }}
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                       stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -142,15 +131,11 @@ export default function Team() {
                   </button>
                 )}
 
-                {/* Center card also gets a "View Profile" button */}
                 {isCenter && (
                   <button
                     className={styles.centerViewBtn}
                     aria-label={`View ${member.name} profile`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/team/${member.slug}`);
-                    }}
+                    onClick={(e) => { e.stopPropagation(); navigate(`/team/${member.slug}`); }}
                   >
                     View Profile
                   </button>
@@ -165,11 +150,7 @@ export default function Team() {
           })}
         </div>
 
-        <button
-          className={`${styles.arrow} ${styles.arrowRight}`}
-          onClick={() => go("right")}
-          aria-label="Next"
-        >
+        <button className={`${styles.arrow} ${styles.arrowRight}`} onClick={() => go("right")} aria-label="Next">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="9 18 15 12 9 6" />

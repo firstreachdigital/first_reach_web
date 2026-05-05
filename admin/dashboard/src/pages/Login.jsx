@@ -15,6 +15,7 @@ export default function Login() {
       const { data } = await API.post("/auth/login", values);
       localStorage.setItem("adminToken", data.token);
       localStorage.setItem("adminName", data.name);
+      localStorage.setItem("adminRole", data.role);
       message.success("Welcome back!");
       navigate("/");
     } catch (error) {
@@ -53,9 +54,9 @@ export default function Login() {
             }}
           />
           <Title level={3} style={{ color: "#fff", margin: 0 }}>
-            Admin Dashboard
+            First Reach Digital
           </Title>
-          <Text style={{ color: "#555" }}>First Reach Digital</Text>
+          <Text style={{ color: "#555" }}>Pvt-Ltd</Text>
         </div>
 
         <Form form={form} onFinish={onFinish} layout="vertical" size="large">

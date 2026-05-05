@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./JobApply.module.css";
 import { FaArrowRight, FaTimes, FaCloudUploadAlt, FaCheckCircle, FaStarOfLife } from "react-icons/fa";
+import API from "../../api/axios";
 
 export default function JobApplyModal({ job, onClose }) {
   const [form, setForm] = useState({
@@ -75,10 +76,13 @@ export default function JobApplyModal({ job, onClose }) {
       formData.append("coverNote", form.message);
       if (form.cv) formData.append("resume", form.cv);
 
-      await fetch("http://localhost:5000/api/careers/apply", {
-        method: "POST",
-        body: formData,
-      });
+      // await fetch("http://localhost:5000/api/careers/apply", {
+      //   method: "POST",
+      //   body: formData,
+      // });
+      await API.post("/careers/apply", formData, {
+  headers: { "Content-Type": "multipart/form-data" },
+});
       setSubmitted(true);
     } catch {
       setErrors({ ...errors, fullName: "Submission failed. Please try again." });
@@ -99,7 +103,7 @@ export default function JobApplyModal({ job, onClose }) {
                 <path id="circle" d="M 100,100 m -75,0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0" />
               </defs>
               <text fontSize="13" fill="rgba(5,202,242,0.7)" letterSpacing="3.5" fontWeight="600" textAnchor="middle">
-                <textPath href="#circle">APPLY NOW • FIRST REACH DIGITAL •</textPath>
+                {/* <textPath href="#circle">APPLY NOW • FIRST REACH DIGITAL •</textPath> */}
               </text>
             </svg>
             <div className={styles.spinCenter}><FaStarOfLife /></div>

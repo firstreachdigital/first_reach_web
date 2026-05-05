@@ -7,6 +7,7 @@ import {
   Typography,
   ConfigProvider,
   theme as antdTheme,
+  Tag,
 } from "antd";
 import {
   DashboardOutlined,
@@ -19,6 +20,10 @@ import {
   MenuUnfoldOutlined,
   SunOutlined,
   MoonOutlined,
+  PictureOutlined,
+  StarOutlined,
+  UserOutlined,
+  UsergroupAddOutlined,
 } from "@ant-design/icons";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -26,33 +31,45 @@ import logo from "../assets/logo.png";
 const { Sider, Header, Content } = Layout;
 const { Text } = Typography;
 
-const menuItems = [
-  { key: "/", icon: <DashboardOutlined style={{ fontSize: 18 }} />, label: "Dashboard" },
-  { key: "/blogs", icon: <FileTextOutlined style={{ fontSize: 18 }} />, label: "Blogs" },
-  { key: "/jobs", icon: <FormOutlined style={{ fontSize: 18 }} />, label: "Job Postings" },
-  { key: "/applications", icon: <TeamOutlined style={{ fontSize: 18 }} />, label: "Applications" },
-  { key: "/enquiries", icon: <InboxOutlined style={{ fontSize: 18 }} />, label: "Enquiries" },
+// All menu items with required role (undefined = both roles)
+const ALL_MENU_ITEMS = [
+  { key: "/",             icon: <DashboardOutlined    style={{ fontSize: 18 }} />, label: "Dashboard" },
+  { key: "/blogs",        icon: <FileTextOutlined     style={{ fontSize: 18 }} />, label: "Blogs" },
+  { key: "/jobs",         icon: <FormOutlined         style={{ fontSize: 18 }} />, label: "Job Postings" },
+  { key: "/applications", icon: <TeamOutlined         style={{ fontSize: 18 }} />, label: "Applications" },
+  { key: "/enquiries",    icon: <InboxOutlined        style={{ fontSize: 18 }} />, label: "Enquiries" },
+  { key: "/portfolio",    icon: <PictureOutlined      style={{ fontSize: 18 }} />, label: "Portfolio" },
+  { key: "/testimonials", icon: <StarOutlined         style={{ fontSize: 18 }} />, label: "Testimonials" },
+  { key: "/team",         icon: <UserOutlined         style={{ fontSize: 18 }} />, label: "Team Members" },
+  // Superadmin only
+  { key: "/users",        icon: <UsergroupAddOutlined style={{ fontSize: 18 }} />, label: "Users & Roles", superadminOnly: true },
 ];
 
 export default function AppLayout() {
   const [collapsed, setCollapsed] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate   = useNavigate();
+  const location   = useLocation();
   const [isDark, setIsDark] = useState(true);
+
   const adminName = localStorage.getItem("adminName") || "Admin";
+  const adminRole = localStorage.getItem("adminRole") || "staff";
+  const isSuperAdmin = adminRole === "superadmin";
+
+  const menuItems = ALL_MENU_ITEMS.filter(
+    (item) => !item.superadminOnly || isSuperAdmin
+  );
 
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
     localStorage.removeItem("adminName");
+    localStorage.removeItem("adminRole");
     navigate("/login");
   };
 
   return (
     <ConfigProvider
       theme={{
-        algorithm: isDark
-          ? antdTheme.darkAlgorithm
-          : antdTheme.defaultAlgorithm,
+        algorithm: isDark ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
       }}
     >
       <Layout style={{ minHeight: "100vh" }}>
@@ -79,21 +96,9 @@ export default function AppLayout() {
               gap: 10,
             }}
           >
-            <img
-              src={logo}
-              alt="Logo"
-              style={{
-                width: 36,
-                height: 36,
-                objectFit: "contain",
-                //marginBottom: 16,
-              }}
-            />
+            <img src={logo} alt="Logo" style={{ width: 36, height: 36, objectFit: "contain" }} />
             {!collapsed && (
-              <Text
-                strong
-                style={{ color: isDark ? "#fff" : "#000", fontSize: 14 }}
-              >
+              <Text strong style={{ color: isDark ? "#fff" : "#000", fontSize: 14 }}>
                 First Reach Digital
               </Text>
             )}
@@ -114,21 +119,10 @@ export default function AppLayout() {
           />
 
           {/* Logout */}
-          <div
-            style={{
-              position: "absolute",
-              bottom: 16,
-              left: 0,
-              right: 0,
-              padding: "0 12px",
-            }}
-          >
+          <div style={{ position: "absolute", bottom: 16, left: 0, right: 0, padding: "0 12px" }}>
             <Button
-              danger
-              type="text"
-              icon={<LogoutOutlined />}
-              onClick={handleLogout}
-              block
+              danger type="text" icon={<LogoutOutlined style={{fontSize:18,}} />}
+              onClick={handleLogout} block
               style={{ color: "#ff4d4f", textAlign: "left" }}
             >
               {!collapsed && "Logout"}
@@ -150,9 +144,9 @@ export default function AppLayout() {
           >
             <Button
               type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              icon={collapsed ? <MenuUnfoldOutlined style={{ color: isDark ? "#fff" : "#000" }} /> : <MenuFoldOutlined style={{ color: isDark ? "#fff" : "#000" }} />}
               onClick={() => setCollapsed(!collapsed)}
-              style={{ color: "#fff", fontSize: 16 }}
+              style={{ fontSize: 16 }}
             />
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <Button
@@ -162,12 +156,13 @@ export default function AppLayout() {
               >
                 {isDark ? <SunOutlined style={{ fontSize: 18 }} /> : <MoonOutlined style={{ fontSize: 18 }} />}
               </Button>
+              <Tag color={isSuperAdmin ? "red" : "blue"} style={{ margin: 0, fontWeight: 700 }}>
+                {adminRole?.toUpperCase()}
+              </Tag>
               <Avatar style={{ background: "#05caf2", color: "#000" }}>
                 {adminName[0].toUpperCase()}
               </Avatar>
-              <Text style={{ color: isDark ? "#fff" : "#000" }}>
-                {adminName}
-              </Text>
+              <Text style={{ color: isDark ? "#fff" : "#000" }}>{adminName}</Text>
             </div>
           </Header>
 

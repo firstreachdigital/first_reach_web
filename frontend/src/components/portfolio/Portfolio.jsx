@@ -1,50 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Portfolio.module.css";
 import ScrollStack, { ScrollStackItem } from "./ScrollStack";
-import { image_1, image_2, image_3, image_4 } from "../../assets";
-
-// ── Replace these image URLs with your actual project images ──
-// You can use images from your /assets folder like:
-// import img1 from "../../assets/project1.jpg"
-// or use any online placeholder until you have real images
-const portfolioItems = [
-  {
-    number: "01",
-    title: "WEALTH-I",
-    category: "Branding & Strategy",
-    desc: "Full visual overhaul for a fintech startup — logo, color system, typography, and motion guidelines.",
-    color: "#05caf2",
-    image: image_1,
-  },
-  {
-    number: "02",
-    title: "SHORTCODE",
-    category: "Web Development",
-    desc: "Custom storefront with 3D product viewer, animated cart, and 40% conversion uplift.",
-    color: "#05caf2",
-    image: image_2,
-  },
-  {
-    number: "03",
-    title: "ALBINAALQAWI",
-    category: "UI / UX Design",
-    desc: "End-to-end design of a data analytics platform — dark mode, complex data viz, and responsive layout.",
-    color: "#05caf2",
-    image: image_3,
-  },
-  {
-    number: "04",
-    title: "SCENARIO",
-    category: "Product Design",
-    desc: "Zero-to-one design and dev for a wellness app. Shipped to 10k+ users in first month.",
-    color: "#05caf2",
-    image: image_4,
-  },
-];
+import API from "../../api/axios";
 
 
 export default function Portfolio() {
   const titleFillRef = useRef(null);
+  const [portfolioItems, setPortfolioItems] = useState([]);
+
+  useEffect(() => {
+    API.get("/portfolio")
+      .then(({ data }) => setPortfolioItems(data))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     // Fade-in observer
@@ -198,10 +166,10 @@ function StatCard({ target, suffix, label, styles }) {
           useWindowScroll={false}
         >
           {portfolioItems.map((item, i) => (
-            <ScrollStackItem key={i}>
+            <ScrollStackItem key={item._id || i}>
               <div
                 className={styles.stackCard}
-                style={{ "--card-accent": item.color }}
+                style={{ "--card-accent": item.color || "#05caf2" }}
               >
                 {/* Image */}
                 <div className={styles.stackImg}>
@@ -213,24 +181,24 @@ function StatCard({ target, suffix, label, styles }) {
                 {/* Content over image */}
                 <div className={styles.stackContent}>
                   <div className={styles.stackCardTop}>
-                    <span className={styles.stackNum}>{item.number}</span>
+                    <span className={styles.stackNum}>{String(i + 1).padStart(2, "0")}</span>
                     <span
                       className={styles.stackTag}
-                      style={{ color: item.color, borderColor: item.color }}
+                      style={{ color: item.color || "#05caf2", borderColor: item.color || "#05caf2" }}
                     >
                       {item.category}
                     </span>
                   </div>
                   <div className={styles.stackBottom}>
                     <h3 className={styles.stackTitle}>{item.title}</h3>
-                    <p className={styles.stackDesc}>{item.desc}</p>
+                    <p className={styles.stackDesc}>{item.subtitle}</p>
                   </div>
                 </div>
 
                 {/* Bottom accent bar */}
                 <div
                   className={styles.stackBar}
-                  style={{ background: item.color }}
+                  style={{ background: item.color || "#05caf2" }}
                 />
               </div>
             </ScrollStackItem>

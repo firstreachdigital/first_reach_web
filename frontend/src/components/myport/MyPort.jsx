@@ -1,55 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./MyPort.module.css";
-import { image_1, image_2, image_3, image_4 } from "../../assets";
+import API from "../../api/axios";
 
-const projects = [
-  {
-    id: "01",
-    title: "WEALTH-I",
-    subtitle: "The largest tech show where we present our brand",
-    tags: ["Web design", "Portfolio"],
-    image: image_1,
-    color: "#05caf2",
-    size: "large", // takes full left column
-  },
-  {
-    id: "02",
-    title: "SHORTCODE",
-    subtitle: "From idea to investment, fast.",
-    tags: ["Web design", "Portfolio"],
-    image: image_2,
-    color: "#05caf2",
-    size: "large", // takes full right column
-  },
-  {
-    id: "03",
-    title: "ALBINAALQAWI",
-    subtitle: "Empowering Global Startup Growth",
-    tags: ["Web design", "Portfolio"],
-    image: image_3,
-    color: "#05caf2",
-    size: "large",
-  },
-  {
-    id: "04",
-    title: "SCENARIO",
-    subtitle: "Brand Refresh & Strategy",
-    tags: ["Web design", "Portfolio"],
-    image: image_4,
-    color: "#05caf2",
-    size: "large",
-  },
-];
-
-export default function MyPort() {
+export default function MyPort({ limit }) {
   const sectionRef = useRef(null);
   const titleFillRef = useRef(null);
-  const [activeTag, setActiveTag] = useState("All");
+  const navigate = useNavigate();
 
-  const allTags = ["All", "Web design", "Portfolio", "Branding"];
+  const [projects, setProjects] = useState([]);
+  const [activeTag, setActiveTag] = useState("All");
+  const [allTags, setAllTags] = useState(["All"]);
 
   useEffect(() => {
-    // Fade-in observer
+    API.get("/portfolio")
+      .then(({ data }) => {
+        setProjects(data);
+        const tags = ["All", ...new Set(data.flatMap((p) => p.tags || []))];
+        setAllTags(tags);
+      })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
     const elements = sectionRef.current?.querySelectorAll("[data-inview]") || [];
     const observer = new IntersectionObserver(
       (entries) => {
@@ -64,7 +37,6 @@ export default function MyPort() {
     );
     elements.forEach((el) => observer.observe(el));
 
-    // Title fill on scroll
     const handleScroll = () => {
       if (!titleFillRef.current) return;
       const rect = titleFillRef.current.getBoundingClientRect();
@@ -80,21 +52,22 @@ export default function MyPort() {
       window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
     };
-  }, []);
+  }, [projects]);
 
   const filtered =
     activeTag === "All"
       ? projects
-      : projects.filter((p) => p.tags.includes(activeTag));
+      : projects.filter((p) => p.tags?.includes(activeTag));
+
+  const displayed = limit ? filtered.slice(0, limit) : filtered;
+  const showViewAll = limit && filtered.length > limit;
 
   return (
     <section className={styles.section} id="myport" ref={sectionRef}>
-      {/* bg accent */}
       <div className={styles.bgAccent} />
 
       {/* ── HEADER ── */}
       <div className={styles.header}>
-        {/* left */}
         <div className={styles.headerLeft}>
           <span className={styles.label} data-inview>
             <span className={styles.labelDot} />
@@ -102,22 +75,18 @@ export default function MyPort() {
           </span>
 
           <div className={styles.titleWrap}>
-            <h2 className={styles.titleBase}>
-              Not Just Promises; Proven Records 
-            </h2>
+            <h2 className={styles.titleBase}>Not Just Promises; Proven Records</h2>
             <h2 className={styles.titleFill} ref={titleFillRef}>
-              Not Just Promises; Proven Records 
+              Not Just Promises; Proven Records
             </h2>
           </div>
         </div>
 
-        {/* right */}
         <div className={styles.headerRight} data-inview>
           <p className={styles.headerDesc}>
-           Let’s move aside what WE are saying & take a quick look at what we does
+            Let's move aside what WE are saying &amp; take a quick look at what we does
           </p>
 
-          {/* filter tabs */}
           <div className={styles.filters}>
             {allTags.map((tag) => (
               <button
@@ -134,29 +103,26 @@ export default function MyPort() {
 
       {/* ── GRID ── */}
       <div className={styles.grid}>
-        {filtered.map((project, i) => (
+        {displayed.map((project, i) => (
           <div
-            key={project.id}
+            key={project._id}
             className={styles.card}
             style={{ "--card-color": project.color, animationDelay: `${i * 0.08}s` }}
             data-inview
           >
-            {/* image */}
             <div className={styles.cardImg}>
               <img src={project.image} alt={project.title} loading="lazy" />
               <div className={styles.cardOverlay} />
             </div>
 
-            {/* tags row — top right */}
             <div className={styles.cardTags}>
-              {project.tags.map((t) => (
+              {project.tags?.map((t) => (
                 <span key={t} className={styles.cardTag}>{t}</span>
               ))}
             </div>
 
-            {/* hover content */}
             <div className={styles.cardContent}>
-              <span className={styles.cardNum}>{project.id}</span>
+              <span className={styles.cardNum}>{String(i + 1).padStart(2, "0")}</span>
               <div>
                 <h3 className={styles.cardTitle}>{project.title}</h3>
                 <p className={styles.cardSub}>{project.subtitle}</p>
@@ -169,7 +135,6 @@ export default function MyPort() {
               </a>
             </div>
 
-            {/* bottom accent line */}
             <div className={styles.cardLine} style={{ background: project.color }} />
           </div>
         ))}
@@ -177,15 +142,27 @@ export default function MyPort() {
 
       {/* ── VIEW ALL ── */}
       <div className={styles.viewAll} data-inview>
-        <a href="#contact" className={styles.viewAllBtn}>
-          View All Projects
-          <span className={styles.viewAllArrow}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </span>
-        </a>
+        {showViewAll ? (
+          <button className={styles.viewAllBtn} onClick={() => navigate("/portfolio")}>
+            View All Projects
+            <span className={styles.viewAllArrow}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
+          </button>
+        ) : !limit && (
+          <a href="#contact" className={styles.viewAllBtn}>
+            Get In Touch
+            <span className={styles.viewAllArrow}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
+          </a>
+        )}
       </div>
     </section>
   );

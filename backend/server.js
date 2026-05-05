@@ -24,6 +24,11 @@ app.use("/api/blogs", require("./routes/blogRoutes"));
 app.use("/api/careers", require("./routes/careerRoutes"));
 app.use("/api/enquiries", require("./routes/enquiryRoutes"));
 app.use("/api/faqs", require("./routes/faqRoutes"));
+app.use("/api/portfolio", require("./routes/portfolioRoutes"));
+app.use("/api/stats",        require("./routes/statsRoutes"));
+app.use("/api/testimonials", require("./routes/testimonialRoutes"));
+app.use("/api/team",         require("./routes/teamRoutes"));
+app.use("/api/users",        require("./routes/usersRoutes"));
 
 app.get("/", (req, res) => res.json({ message: "API is running..." }));
 

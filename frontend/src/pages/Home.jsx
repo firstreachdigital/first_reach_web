@@ -19,7 +19,7 @@ export default function Home() {
       <Services />
       <WhyUs />
       <Portfolio />
-      <MyPort />
+      <MyPort limit={4} />
       <Testimonial />
       <Steps />
       <Team />

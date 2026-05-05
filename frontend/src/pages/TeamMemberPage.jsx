@@ -1,21 +1,31 @@
-// src/pages/TeamMemberPage.jsx
-// Route: /team/:slug
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import styles from "./TeamMemberPage.module.css";
-import { TEAM_MEMBERS } from "../data/teamData";
 import { FaArrowRight, FaArrowLeft, FaLinkedinIn, FaTwitter, FaInstagram } from "react-icons/fa";
+import API from "../api/axios";
 
 export default function TeamMemberPage() {
   const { slug }   = useParams();
   const navigate   = useNavigate();
 
-  // Find member by slug — later: fetch(`/api/team/${slug}`)
-  const member     = TEAM_MEMBERS.find((m) => m.slug === slug);
-  const currentIdx = TEAM_MEMBERS.findIndex((m) => m.slug === slug);
-  const prevMember = TEAM_MEMBERS[currentIdx - 1] || null;
-  const nextMember = TEAM_MEMBERS[currentIdx + 1] || null;
+  const [member,     setMember]     = useState(null);
+  const [allMembers, setAllMembers] = useState([]);
+  const [loading,    setLoading]    = useState(true);
+
+  useEffect(() => {
+    Promise.all([
+      API.get(`/team/slug/${slug}`),
+      API.get("/team"),
+    ])
+      .then(([memberRes, allRes]) => {
+        setMember(memberRes.data);
+        setAllMembers(allRes.data);
+      })
+      .catch(() => setMember(null))
+      .finally(() => setLoading(false));
+  }, [slug]);
+
+  if (loading) return null;
 
   if (!member) {
     return (
@@ -26,9 +36,12 @@ export default function TeamMemberPage() {
     );
   }
 
+  const currentIdx = allMembers.findIndex((m) => m.slug === slug);
+  const prevMember = allMembers[currentIdx - 1] || null;
+  const nextMember = allMembers[currentIdx + 1] || null;
+
   return (
     <main className={styles.page}>
-
       {/* ── Back navigation ── */}
       <div className={styles.topNav}>
         <button className={styles.backLink} onClick={() => navigate(-1)}>
@@ -42,12 +55,10 @@ export default function TeamMemberPage() {
       {/* ── Main card ── */}
       <section className={styles.container}>
         <div className={styles.card}>
-          {/* Glow accents */}
           <div className={styles.glowLeft} />
           <div className={styles.glowRight} />
 
           <div className={styles.inner}>
-
             {/* Left: content */}
             <div className={styles.content}>
               <div className={styles.header}>
@@ -59,13 +70,13 @@ export default function TeamMemberPage() {
               </div>
 
               <div className={styles.bio}>
-                {member.bio.map((para, i) => (
+                {(member.bio || []).map((para, i) => (
                   <p key={i} className={styles.para}>{para}</p>
                 ))}
               </div>
 
               <div className={styles.footer}>
-                <Link to="/contact" className={styles.ctaBtn}>
+                <Link to="/Contact" className={styles.ctaBtn}>
                   <span className={styles.ctaIcon}><FaArrowRight /></span>
                   Contact Us
                 </Link>

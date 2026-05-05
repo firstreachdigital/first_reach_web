@@ -1,45 +1,43 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Typography, Spin, theme } from "antd";
+import { Row, Col, Typography, Spin, theme, Card } from "antd";
 import {
   FileTextOutlined,
   FormOutlined,
   TeamOutlined,
   InboxOutlined,
+  PictureOutlined,
 } from "@ant-design/icons";
+import {
+  LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid,
+  Tooltip, Legend, ResponsiveContainer,
+} from "recharts";
 import API from "../api/axios";
 
 const { Title, Text } = Typography;
 
 export default function Dashboard() {
-  const [stats, setStats] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [stats, setStats]         = useState(null);
+  const [chartData, setChartData] = useState([]);
+  const [loading, setLoading]     = useState(true);
   const adminName = localStorage.getItem("adminName") || "Admin";
   const { token } = theme.useToken();
 
   useEffect(() => {
-    const fetchStats = async () => {
+    const fetchData = async () => {
       try {
-        const [blogs, jobs, applications, enquiries] = await Promise.all([
-          API.get("/blogs/all"),
-          API.get("/careers/jobs/all"),
-          API.get("/careers/applications"),
-          API.get("/enquiries"),
+        const [statsRes, chartRes] = await Promise.all([
+          API.get("/stats"),
+          API.get("/stats/chart"),
         ]);
-        setStats({
-          blogs:           blogs.data.length,
-          jobs:            jobs.data.length,
-          applications:    applications.data.length,
-          enquiries:       enquiries.data.length,
-          newEnquiries:    enquiries.data.filter((e) => e.status === "New").length,
-          newApplications: applications.data.filter((a) => a.status === "New").length,
-        });
+        setStats(statsRes.data);
+        setChartData(chartRes.data);
       } catch (error) {
         console.error(error);
       } finally {
         setLoading(false);
       }
     };
-    fetchStats();
+    fetchData();
   }, []);
 
   const cards = [
@@ -72,6 +70,13 @@ export default function Dashboard() {
       color: "#10b981",
       gradient: "linear-gradient(135deg, #10b98122 0%, #10b98108 100%)",
       badge: stats?.newEnquiries ? `+${stats.newEnquiries} new` : null,
+    },
+    {
+      title: "Portfolio",
+      value: stats?.portfolio,
+      icon: <PictureOutlined />,
+      color: "#ec4899",
+      gradient: "linear-gradient(135deg, #ec489922 0%, #ec489908 100%)",
     },
   ];
 
@@ -146,74 +151,144 @@ export default function Dashboard() {
           <Spin size="large" />
         </div>
       ) : (
-        <Row gutter={[16, 16]}>
-          {cards.map((card, i) => (
-            <Col xs={24} sm={12} xl={6} key={card.title}>
-              <div
-                className="stat-card"
-                style={{
-                  "--card-color": card.color,
-                  background: token.colorBgContainer,
-                  border: `1px solid ${token.colorBorderSecondary}`,
-                  boxShadow: token.boxShadowTertiary,
-                  animationDelay: `${i * 80}ms`,
-                }}
-              >
-                {/* Top row: title + icon */}
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                  <Text
-                    style={{
-                      color: token.colorTextSecondary,
-                      fontSize: 12,
-                      fontWeight: 500,
-                      letterSpacing: "0.5px",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {card.title}
-                  </Text>
-                  <div
-                    className="stat-card-icon"
-                    style={{
-                      background: card.gradient,
-                      color: card.color,
-                    }}
-                  >
-                    {card.icon}
-                  </div>
-                </div>
-
-                {/* Bottom row: number + badge */}
-                <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
-                  <span
-                    style={{
-                      fontSize: 36,
-                      fontWeight: 800,
-                      color: token.colorText,
-                      lineHeight: 1,
-                      letterSpacing: "-1px",
-                    }}
-                  >
-                    {card.value ?? 0}
-                  </span>
-
-                  {card.badge && (
-                    <span
-                      className="stat-badge"
+        <>
+          {/* Stats Cards */}
+          <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
+            {cards.map((card, i) => (
+              <Col xs={24} sm={12} lg={8} xxl={4.8} key={card.title}>
+                <div
+                  className="stat-card"
+                  style={{
+                    "--card-color": card.color,
+                    background: token.colorBgContainer,
+                    border: `1px solid ${token.colorBorderSecondary}`,
+                    boxShadow: token.boxShadowTertiary,
+                    animationDelay: `${i * 80}ms`,
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                    <Text
                       style={{
-                        background: `${card.color}18`,
-                        color: card.color,
-                        border: `1px solid ${card.color}30`,
+                        color: token.colorTextSecondary,
+                        fontSize: 12,
+                        fontWeight: 500,
+                        letterSpacing: "0.5px",
+                        textTransform: "uppercase",
                       }}
                     >
-                      {card.badge}
+                      {card.title}
+                    </Text>
+                    <div
+                      className="stat-card-icon"
+                      style={{
+                        background: card.gradient,
+                        color: card.color,
+                      }}
+                    >
+                      {card.icon}
+                    </div>
+                  </div>
+
+                  <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
+                    <span
+                      style={{
+                        fontSize: 36,
+                        fontWeight: 800,
+                        color: token.colorText,
+                        lineHeight: 1,
+                        letterSpacing: "-1px",
+                      }}
+                    >
+                      {card.value ?? 0}
                     </span>
-                  )}
+
+                    {card.badge && (
+                      <span
+                        className="stat-badge"
+                        style={{
+                          background: `${card.color}18`,
+                          color: card.color,
+                          border: `1px solid ${card.color}30`,
+                        }}
+                      >
+                        {card.badge}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </Col>
+            ))}
+          </Row>
+
+          {/* Charts */}
+          <Row gutter={[16, 16]}>
+            {/* Line Chart */}
+            <Col xs={24} xl={12}>
+              <Card
+                title="Monthly Trends"
+                bordered={false}
+                style={{
+                  borderRadius: 16,
+                  boxShadow: token.boxShadowTertiary,
+                  animation: "fadeUp 0.5s ease 0.4s both",
+                }}
+              >
+                <ResponsiveContainer width="100%" height={300}>
+                  <LineChart data={chartData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke={token.colorBorderSecondary} />
+                    <XAxis dataKey="month" stroke={token.colorTextSecondary} style={{ fontSize: 12 }} />
+                    <YAxis stroke={token.colorTextSecondary} style={{ fontSize: 12 }} />
+                    <Tooltip
+                      contentStyle={{
+                        background: token.colorBgElevated,
+                        border: `1px solid ${token.colorBorder}`,
+                        borderRadius: 8,
+                      }}
+                    />
+                    <Legend wrapperStyle={{ fontSize: 12 }} />
+                    <Line type="monotone" dataKey="Blogs"        stroke="#06b6d4" strokeWidth={2} dot={{ r: 4 }} />
+                    <Line type="monotone" dataKey="Applications" stroke="#f59e0b" strokeWidth={2} dot={{ r: 4 }} />
+                    <Line type="monotone" dataKey="Enquiries"    stroke="#10b981" strokeWidth={2} dot={{ r: 4 }} />
+                    <Line type="monotone" dataKey="Portfolio"    stroke="#ec4899" strokeWidth={2} dot={{ r: 4 }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </Card>
             </Col>
-          ))}
-        </Row>
+
+            {/* Bar Chart */}
+            <Col xs={24} xl={12}>
+              <Card
+                title="Monthly Comparison"
+                bordered={false}
+                style={{
+                  borderRadius: 16,
+                  boxShadow: token.boxShadowTertiary,
+                  animation: "fadeUp 0.5s ease 0.5s both",
+                }}
+              >
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={chartData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke={token.colorBorderSecondary} />
+                    <XAxis dataKey="month" stroke={token.colorTextSecondary} style={{ fontSize: 12 }} />
+                    <YAxis stroke={token.colorTextSecondary} style={{ fontSize: 12 }} />
+                    <Tooltip
+                      contentStyle={{
+                        background: token.colorBgElevated,
+                        border: `1px solid ${token.colorBorder}`,
+                        borderRadius: 8,
+                      }}
+                    />
+                    <Legend wrapperStyle={{ fontSize: 12 }} />
+                    <Bar dataKey="Blogs"        fill="#06b6d4" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="Applications" fill="#f59e0b" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="Enquiries"    fill="#10b981" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="Portfolio"    fill="#ec4899" radius={[8, 8, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </Card>
+            </Col>
+          </Row>
+        </>
       )}
     </div>
   );

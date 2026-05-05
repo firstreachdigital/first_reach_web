@@ -1,31 +1,14 @@
-// src/components/navbar/Navbar.jsx
-
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Navbar.module.css";
 import logoElephant from "../../assets/FRST REACH LOGO ELEPHANT.png";
 import { FaArrowRight, FaChevronDown, FaTimes, FaClock, FaTag } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-import { TEAM_MEMBERS } from "../../data/teamData";
-import { BLOG_POSTS } from "../../data/blogData";
+import API from "../../api/axios";
 
-// Pages menu — Blog & Shop removed, now top-level
 const pagesMenu = [
-  { label: "Price Page",   path: "/pricing",   hasSubmenu: false },
-  { label: "Choose Us",    path: "/choose-us", hasSubmenu: false },
-  { label: "Work Process", path: "/portfolio", hasSubmenu: false },
-];
-
-const aboutMenu = [
-  {
-    label: "Team", path: "/team", hasSubmenu: true,
-    submenu: [
-      { label: "All Team", path: "/team" },
-      ...TEAM_MEMBERS.map((m) => ({ label: m.name, path: `/team/${m.slug}` })),
-    ],
-  },
-  { label: "Careers",     path: "/careers",    hasSubmenu: false },
-  { label: "FAQ",         path: "/FAQ",         hasSubmenu: false },
-  { label: "Testimonial", path: "/testimonial", hasSubmenu: false },
+  { label: "Price Page",   path: "/pricing"   },
+  { label: "Choose Us",    path: "/choose-us" },
+  { label: "Work Process", path: "/portfolio" },
 ];
 
 const shopMenu = [
@@ -33,7 +16,6 @@ const shopMenu = [
   { label: "Shop Detail", path: "/shop/detail" },
 ];
 
-// ── Reusable hover-with-delay hook ──────────────────────────────────────────
 function useHoverMenu() {
   const [open, setOpen] = useState(false);
   const timer = useRef(null);
@@ -44,9 +26,9 @@ function useHoverMenu() {
 }
 
 export default function Navbar() {
-  const [scrolled,     setScrolled]  = useState(false);
-  const [menuOpen,     setMenuOpen]  = useState(false);
-  const [megaOpen,     setMegaOpen]  = useState(false);
+  const [scrolled,     setScrolled]     = useState(false);
+  const [menuOpen,     setMenuOpen]     = useState(false);
+  const [megaOpen,     setMegaOpen]     = useState(false);
   const [hoveredPage,  setHoveredPage]  = useState(null);
   const [hoveredAbout, setHoveredAbout] = useState(null);
   const [mobilePages,  setMobilePages]  = useState(false);
@@ -56,10 +38,20 @@ export default function Navbar() {
   const [mobileShop,   setMobileShop]   = useState(false);
   const [blogModal,    setBlogModal]    = useState(false);
 
-  const megaRef = useRef(null);
-  const about   = useHoverMenu();
-  const shop    = useHoverMenu();
+  // Dynamic data
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [blogPosts,   setBlogPosts]   = useState([]);
+
+  const megaRef  = useRef(null);
+  const about    = useHoverMenu();
+  const shop     = useHoverMenu();
   const location = useLocation();
+
+  // Fetch team & blogs on mount
+  useEffect(() => {
+    API.get("/team").then(({ data }) => setTeamMembers(data)).catch(() => {});
+    API.get("/blogs").then(({ data }) => setBlogPosts(data)).catch(() => {});
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -95,6 +87,20 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  // Build aboutMenu dynamically with team members
+  const aboutMenu = [
+    {
+      label: "Team", path: "/team", hasSubmenu: true,
+      submenu: [
+        { label: "All Team", path: "/team" },
+        ...teamMembers.map((m) => ({ label: m.name, path: `/team/${m.slug}` })),
+      ],
+    },
+    { label: "Careers",     path: "/careers",    hasSubmenu: false },
+    { label: "FAQ",         path: "/FAQ",         hasSubmenu: false },
+    { label: "Testimonial", path: "/testimonial", hasSubmenu: false },
+  ];
+
   const activeAboutSubmenu = hoveredAbout
     ? aboutMenu.find((a) => a.label === hoveredAbout)?.submenu
     : null;
@@ -116,7 +122,6 @@ export default function Navbar() {
           {/* Desktop links */}
           <ul className={styles.links}>
 
-            {/* Home */}
             <li className={styles.navItem}>
               {location.pathname === "/"
                 ? <a href="#home" className={styles.link}>Home</a>
@@ -169,7 +174,6 @@ export default function Navbar() {
               )}
             </li>
 
-            {/* Services */}
             <li className={styles.navItem}>
               <Link to="/services" className={styles.link}>Services</Link>
             </li>
@@ -184,7 +188,7 @@ export default function Navbar() {
               </button>
             </li>
 
-            {/* Shop — hover dropdown */}
+            {/* Shop */}
             <li ref={shop.ref} className={styles.navItem} onMouseEnter={shop.onEnter} onMouseLeave={shop.onLeave}>
               <Link to="/shop" className={`${styles.link} ${styles.pagesBtn} ${shop.open ? styles.pageBtnActive : ""}`}>
                 Shop <FaChevronDown className={`${styles.chevron} ${shop.open ? styles.chevronUp : ""}`} />
@@ -222,7 +226,8 @@ export default function Navbar() {
                     <ul className={styles.megaList}>
                       {pagesMenu.map((page) => (
                         <li key={page.label}>
-                          <Link to={page.path} className={`${styles.megaItem} ${hoveredPage === page.label ? styles.megaItemActive : ""}`}
+                          <Link to={page.path}
+                            className={`${styles.megaItem} ${hoveredPage === page.label ? styles.megaItemActive : ""}`}
                             onMouseEnter={() => setHoveredPage(page.label)}
                             onClick={() => setMegaOpen(false)}>
                             <span>{page.label}</span>
@@ -235,7 +240,6 @@ export default function Navbar() {
               )}
             </li>
 
-            {/* Contact */}
             <li className={styles.navItem}>
               <Link to="/contact" className={styles.link}>Contact</Link>
             </li>
@@ -269,7 +273,7 @@ export default function Navbar() {
               ? <a href="#home" className={styles.mobileLink} onClick={() => setMenuOpen(false)}>Home</a>
               : <Link to="/#home" className={styles.mobileLink} onClick={() => setMenuOpen(false)}>Home</Link>}
 
-            {/* About */}
+            {/* About mobile */}
             <div>
               <button className={`${styles.mobileLink} ${styles.mobilePagesBtn}`} onClick={() => setMobileAbout(p => !p)}>
                 About Us <FaChevronDown className={`${styles.chevron} ${mobileAbout ? styles.chevronUp : ""}`} style={{ fontSize: "0.7rem" }} />
@@ -278,7 +282,7 @@ export default function Navbar() {
                 <div className={styles.mobileSubList}>
                   <Link to="/about" className={styles.mobileSubLink} onClick={() => setMenuOpen(false)}>About Us</Link>
                   <button
-                    style={{ width:"100%", background:"none", border:"none", cursor:"pointer", fontFamily:"inherit", textAlign:"left", display:"flex", alignItems:"center", justifyContent:"space-between", color:"#666", padding:"0.55rem 1rem", fontSize:"0.875rem", borderRadius:"0.4rem" }}
+                    style={{ width: "100%", background: "none", border: "none", cursor: "pointer", fontFamily: "inherit", textAlign: "left", display: "flex", alignItems: "center", justifyContent: "space-between", color: "#666", padding: "0.55rem 1rem", fontSize: "0.875rem", borderRadius: "0.4rem" }}
                     onClick={() => setMobileTeam(p => !p)}
                   >
                     Team <FaChevronDown className={`${styles.chevron} ${mobileTeam ? styles.chevronUp : ""}`} style={{ fontSize: "0.6rem" }} />
@@ -286,8 +290,10 @@ export default function Navbar() {
                   {mobileTeam && (
                     <div className={styles.mobileSubList} style={{ marginLeft: "0.8rem" }}>
                       <Link to="/team" className={styles.mobileSubLink} onClick={() => setMenuOpen(false)}>All Team</Link>
-                      {TEAM_MEMBERS.map((m) => (
-                        <Link key={m.slug} to={`/team/${m.slug}`} className={styles.mobileSubLink} onClick={() => setMenuOpen(false)}>{m.name}</Link>
+                      {teamMembers.map((m) => (
+                        <Link key={m._id} to={`/team/${m.slug}`} className={styles.mobileSubLink} onClick={() => setMenuOpen(false)}>
+                          {m.name}
+                        </Link>
                       ))}
                     </div>
                   )}
@@ -308,8 +314,10 @@ export default function Navbar() {
               {mobileBlog && (
                 <div className={styles.mobileSubList}>
                   <Link to="/blog" className={styles.mobileSubLink} onClick={() => setMenuOpen(false)}>All Posts</Link>
-                  {BLOG_POSTS.map(p => (
-                    <Link key={p.slug} to={`/blog/${p.slug}`} className={styles.mobileSubLink} onClick={() => setMenuOpen(false)}>{p.title}</Link>
+                  {blogPosts.map(p => (
+                    <Link key={p._id} to={`/blog/${p.slug}`} className={styles.mobileSubLink} onClick={() => setMenuOpen(false)}>
+                      {p.title}
+                    </Link>
                   ))}
                 </div>
               )}
@@ -374,11 +382,11 @@ export default function Navbar() {
             </div>
 
             <div className={styles.blogGrid}>
-              {BLOG_POSTS.map((post) => (
-                <Link key={post.slug} to={`/blog/${post.slug}`} className={styles.blogCard} onClick={() => setBlogModal(false)}>
+              {blogPosts.map((post) => (
+                <Link key={post._id} to={`/blog/${post.slug}`} className={styles.blogCard} onClick={() => setBlogModal(false)}>
                   <div className={styles.blogCardImg}>
-                    {post.image
-                      ? <img src={post.image} alt={post.title} />
+                    {post.featuredImage
+                      ? <img src={post.featuredImage} alt={post.title} />
                       : <div className={styles.blogCardImgPlaceholder}><span>✦</span></div>
                     }
                     {post.category && (
@@ -391,9 +399,9 @@ export default function Navbar() {
                     <h3 className={styles.blogCardTitle}>{post.title}</h3>
                     {post.excerpt && <p className={styles.blogCardExcerpt}>{post.excerpt}</p>}
                     <div className={styles.blogCardMeta}>
-                      {post.date && (
+                      {post.readTime && (
                         <span className={styles.blogCardDate}>
-                          <FaClock style={{ fontSize: "0.55rem" }} /> {post.date}
+                          <FaClock style={{ fontSize: "0.55rem" }} /> {post.readTime}
                         </span>
                       )}
                       <span className={styles.blogCardReadMore}>
