@@ -3,54 +3,6 @@ import styles from "./Portfolio.module.css";
 import ScrollStack, { ScrollStackItem } from "./ScrollStack";
 import API from "../../api/axios";
 
-
-export default function Portfolio() {
-  const titleFillRef = useRef(null);
-  const [portfolioItems, setPortfolioItems] = useState([]);
-
-  useEffect(() => {
-    API.get("/portfolio")
-      .then(({ data }) => setPortfolioItems(data))
-      .catch(() => {});
-  }, []);
-
-  useEffect(() => {
-    // Fade-in observer
-    const elements = document.querySelectorAll("[data-inview]");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.inView);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-    elements.forEach((el) => observer.observe(el));
-
-    // Scroll text fill-up
-    const handleScroll = () => {
-      if (!titleFillRef.current) return;
-      const rect = titleFillRef.current.getBoundingClientRect();
-      const winH = window.innerHeight;
-      const progress = Math.min(
-        Math.max((winH - rect.top) / (winH * 0.5), 0),
-        1
-      );
-      titleFillRef.current.style.clipPath = `inset(0 ${(1 - progress) * 100}% 0 0)`;
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      observer.disconnect();
-    };
-  }, []);
-
 function useCountUp(target, duration = 2000, suffix = '') {
   const ref = useRef(null)
   const [display, setDisplay] = useState('0')
@@ -97,15 +49,67 @@ function useCountUp(target, duration = 2000, suffix = '') {
   return { ref, display }
 }
 
-function StatCard({ target, suffix, label, styles }) {
+
+function StatCard({ target, suffix, label }) {  // ← styles prop remove
   const { ref, display } = useCountUp(target)
   return (
-    <div className={styles.card} ref={ref} data-inview>
+    <div className={styles.card} ref={ref} data-inview>  {/* ← directly styles use */}
       <h3>{display}{suffix}</h3>
       <p>{label}</p>
     </div>
   )
 }
+
+export default function Portfolio() {
+  const titleFillRef = useRef(null);
+  const [portfolioItems, setPortfolioItems] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    API.get("/portfolio")
+      .then(({ data }) => {setPortfolioItems(data); 
+       setLoaded(true);
+      })
+      .catch(() => {setLoaded(true)});
+  }, []);
+
+  useEffect(() => {
+    // Fade-in observer
+    const elements = document.querySelectorAll("[data-inview]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.inView);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    elements.forEach((el) => observer.observe(el));
+
+    // Scroll text fill-up
+    const handleScroll = () => {
+      if (!titleFillRef.current) return;
+      const rect = titleFillRef.current.getBoundingClientRect();
+      const winH = window.innerHeight;
+      const progress = Math.min(
+        Math.max((winH - rect.top) / (winH * 0.5), 0),
+        1
+      );
+      titleFillRef.current.style.clipPath = `inset(0 ${(1 - progress) * 100}% 0 0)`;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
+  }, []);
+
 
   return (
     <section className={styles.portfolioSection} id="portfolio">
@@ -131,80 +135,92 @@ function StatCard({ target, suffix, label, styles }) {
           bond and brainstorms ideas in the mean-time. 
         </p>
 
-        {/* <div className={styles.stats}>
-          <div className={styles.card} data-inview>
-            <h3>95%</h3>
-            <p>Customer satisfaction</p>
-          </div>
-          <div className={styles.card} data-inview>
-            <h3>12+</h3>
-            <p>Years of experience</p>
-          </div>
-          <div className={styles.card} data-inview>
-            <h3>22+</h3>
-            <p>Projects completed</p>
-          </div>
-        </div> */}
         <div className={styles.stats}>
-         <StatCard target={95} suffix="%" label="Customer satisfaction" styles={styles} />
-         <StatCard target={12} suffix="+"  label="Years of experience"  styles={styles} />
-         <StatCard target={22} suffix="+"  label="Projects completed"   styles={styles} />
+         <StatCard target={95} suffix="%" label="Customer satisfaction" />
+         <StatCard target={12} suffix="+"  label="Years of experience" />
+         <StatCard target={22} suffix="+"  label="Projects completed" />
         </div>
       </div>
 
-      {/* ── RIGHT — ScrollStack with image cards ── */}
-      <div className={styles.stackCol}>
-        <ScrollStack
-          itemDistance={120}
-          itemScale={0.04}
-          itemStackDistance={25}
-          stackPosition="15%"
-          scaleEndPosition="8%"
-          baseScale={0.88}
-          rotationAmount={0}
-          blurAmount={1}
-          useWindowScroll={false}
-        >
-          {portfolioItems.map((item, i) => (
-            <ScrollStackItem key={item._id || i}>
-              <div
-                className={styles.stackCard}
-                style={{ "--card-accent": item.color || "#05caf2" }}
-              >
-                {/* Image */}
-                <div className={styles.stackImg}>
-                  <img src={item.image} alt={item.title} />
-                  {/* Overlay */}
-                  <div className={styles.stackImgOverlay} />
-                </div>
-
-                {/* Content over image */}
-                <div className={styles.stackContent}>
-                  <div className={styles.stackCardTop}>
-                    <span className={styles.stackNum}>{String(i + 1).padStart(2, "0")}</span>
-                    <span
-                      className={styles.stackTag}
-                      style={{ color: item.color || "#05caf2", borderColor: item.color || "#05caf2" }}
-                    >
-                      {item.category}
-                    </span>
-                  </div>
-                  <div className={styles.stackBottom}>
-                    <h3 className={styles.stackTitle}>{item.title}</h3>
-                    <p className={styles.stackDesc}>{item.subtitle}</p>
-                  </div>
-                </div>
-
-                {/* Bottom accent bar */}
-                <div
-                  className={styles.stackBar}
-                  style={{ background: item.color || "#05caf2" }}
-                />
+      
+      {/* ── RIGHT — ScrollStack ── */}
+<div className={styles.stackCol}>
+  {!loaded ? (
+    // Loading state — skeleton
+    <div style={{ 
+      height: "100%", 
+      display: "flex", 
+      alignItems: "center", 
+      justifyContent: "center",
+      color: "#444"
+    }}>
+      Loading...
+    </div>
+  ) : portfolioItems.length === 0 ? (
+    <div style={{ 
+      height: "100%", 
+      display: "flex", 
+      alignItems: "center", 
+      justifyContent: "center",
+      color: "#444",
+      fontSize: "0.9rem"
+    }}>
+      No portfolio items yet
+    </div>
+  ) : (
+    
+    <ScrollStack
+      key={portfolioItems.length}
+      itemDistance={120}
+      itemScale={0.04}
+      itemStackDistance={25}
+      stackPosition="15%"
+      scaleEndPosition="8%"
+      baseScale={0.88}
+      rotationAmount={0}
+      blurAmount={1}
+      useWindowScroll={false}
+    >
+      {portfolioItems.map((item, i) => (
+        <ScrollStackItem key={item._id || i}>
+          <div
+            className={styles.stackCard}
+            style={{ "--card-accent": item.color || "#05caf2" }}
+          >
+            <div className={styles.stackImg}>
+              <img src={item.image} alt={item.title} />
+              <div className={styles.stackImgOverlay} />
+            </div>
+            <div className={styles.stackContent}>
+              <div className={styles.stackCardTop}>
+                <span className={styles.stackNum}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className={styles.stackTag}
+                  style={{ 
+                    color: item.color || "#05caf2", 
+                    borderColor: item.color || "#05caf2" 
+                  }}
+                >
+                  {item.category}
+                </span>
               </div>
-            </ScrollStackItem>
-          ))}
-        </ScrollStack>
-      </div>
+              <div className={styles.stackBottom}>
+                <h3 className={styles.stackTitle}>{item.title}</h3>
+                <p className={styles.stackDesc}>{item.subtitle}</p>
+              </div>
+            </div>
+            <div
+              className={styles.stackBar}
+              style={{ background: item.color || "#05caf2" }}
+            />
+          </div>
+        </ScrollStackItem>
+      ))}
+    </ScrollStack>
+  )}
+</div>
     </section>
   );
 }
