@@ -91,7 +91,7 @@ const contactInfo = [
 const stats = [
   { value: "70%",  label: "Returning Clients" },
   { value: "90%",  label: "Success Rate" },
-  { value: "6+",   label: "Years of Experience" },
+  { value: "10+",   label: "Years of Experience" },
   { value: "390+", label: "Delivered Projects" },
   { value: "50+",  label: "Team Members" },
   { value: "120+", label: "Happy Clients" },

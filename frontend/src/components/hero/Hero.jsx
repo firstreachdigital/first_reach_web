@@ -209,7 +209,7 @@ export default function Hero() {
         </div>
         <div className={styles.logosMarqueeWrap}>
           <div className={styles.logosTrack}>
-            {['Chargemap', 'ramify', 'greenly', 'GROWL', 'Teampact', 'argemap', 'Chargemap', 'ramify', 'greenly', 'GROWL', 'Teampact', 'argemap'].map((name, i) => (
+            {['Shortcode', 'VMR Kuthira', 'Penn Pattu', 'Albina AlQawi', 'Party Blooms', 'Wealth-i', 'Eagle Express Freight', 'Editoreal', 'First Edition', 'Tech-X Media', 'Happy Productions', 'Wealth-i Productions', 'Good Earth', 'Acquire Ren A Car', 'Sip & Bite', 'Panorama Studios', 'Scenario Digital'].map((name, i) => (
               <span key={i} className={styles.logoItem}>{name}</span>
             ))}
           </div>

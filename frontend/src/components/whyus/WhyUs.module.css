@@ -151,12 +151,12 @@
 .cardImgOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
+  /* background: linear-gradient(
     to top,
     rgba(8, 8, 8, 0.85) 0%,
     rgba(8, 8, 8, 0.2) 50%,
     transparent 100%
-  );
+  ); */
 }
 
 .cardContent {

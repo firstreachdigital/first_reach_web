@@ -5,7 +5,7 @@
   position: relative;
   padding: 7rem 5rem;
   background: #050505;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .inner {
@@ -214,6 +214,10 @@
 .faqCol {
   display: flex;
   flex-direction: column;
+  align-self: start;                  
+}
+.faqCol::-webkit-scrollbar {
+  display: none;              
 }
 
 /* Label */
