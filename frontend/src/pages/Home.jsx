@@ -22,7 +22,7 @@ export default function Home() {
       <MyPort limit={4} />
       <Testimonial />
       <Steps />
-      <Team />
+      {/* <Team /> */}
       <Contact />
       <Blog />
       <ConnectUs />

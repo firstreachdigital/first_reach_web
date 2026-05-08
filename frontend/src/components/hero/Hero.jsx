@@ -117,7 +117,6 @@ export default function Hero() {
 
         {/* Social Sidebar */}
         <div className={styles.socialBar}>
-          {/* <span className={styles.asterisk}>✳</span> */}
           <span className={styles.asterisk}><FaStarOfLife /></span>
           <div className={styles.socialRingWrap}>
             <div className={styles.socialOuterRing} />

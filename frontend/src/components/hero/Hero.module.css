@@ -56,8 +56,8 @@
   height: 100%;
   object-fit: cover;
   object-position: center top;
-  opacity: 0.75;
-  filter: saturate(1.1) brightness(0.85);
+  opacity: 0.9;
+  filter: saturate(1.2) brightness(1.1);
   transition: transform 0.15s ease-out; /* smooth parallax */
   will-change: transform;
 }
@@ -121,13 +121,6 @@
   background: linear-gradient(to right, #080808 0%, rgba(8,8,8,0.6) 40%, transparent 70%);
 }
 
-.heroImage {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  opacity: 0.75;
-  filter: saturate(1.1) brightness(0.85);
-}
 
 .imageGlow {
   position: absolute; inset: 0;
@@ -178,7 +171,8 @@
 
 .asterisk {
   font-size: 1.4rem;
-  color: var(--accent);
+  /* color: var(--accent); */
+  color: #000;
   animation: spin 6s linear infinite;
   align-self: flex-start;
   margin-right: 1rem;
