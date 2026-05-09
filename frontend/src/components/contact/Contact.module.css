@@ -229,6 +229,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #666;
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 .labelDot {

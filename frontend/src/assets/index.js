@@ -12,4 +12,8 @@ export { default as Seo } from "./Seo.png";
 export { default as SocialMedia } from "./SocialMedia.jpeg";
 export { default as web } from "./web.png";
 
+export { default as Collaboration } from "./Collaboration.png";
+export { default as Communication } from "./Communication.png";
+export { default as Experience } from "./Experience.png";
+
 

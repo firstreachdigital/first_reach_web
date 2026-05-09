@@ -1,92 +1,114 @@
 // Hero.jsx
-import React, { useEffect, useRef, useState } from 'react'
-import styles from './Hero.module.css'
-import elephantImg from '../../assets/First reach digital website homepage copy.jpg.jpeg'
-import { FaWhatsapp, FaLinkedinIn, FaInstagram, FaFacebookF, FaArrowRight, FaPlay, FaStarOfLife } from 'react-icons/fa'
-import { FaXTwitter } from 'react-icons/fa6'
-import DecryptedText from './DecryptedText' 
-import { Link } from 'react-router-dom'
+import React, { useEffect, useRef, useState } from "react";
+import styles from "./Hero.module.css";
+import elephantImg from "../../assets/First reach digital website homepage copy.jpg.jpeg";
+import logo from "../../assets/FRST REACH LOGO ELEPHANT.png";
+import {
+  FaWhatsapp,
+  FaLinkedinIn,
+  FaInstagram,
+  FaFacebookF,
+  FaArrowRight,
+  FaPlay,
+  FaStarOfLife,
+} from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import DecryptedText from "./DecryptedText";
+import { Link } from "react-router-dom";
 
 const marqueeItems = [
-  'Brand Identity', 'Web Development', 'UI/UX Design',
-  'Digital Strategy', 'E-Commerce', 'Motion Design',
-  'Brand Identity', 'Web Development', 'UI/UX Design',
-  'Digital Strategy', 'E-Commerce', 'Motion Design',
-]
+  "Brand Identity",
+  "Web Development",
+  "UI/UX Design",
+  "Digital Strategy",
+  "E-Commerce",
+  "Motion Design",
+  "Brand Identity",
+  "Web Development",
+  "UI/UX Design",
+  "Digital Strategy",
+  "E-Commerce",
+  "Motion Design",
+];
 
 export default function Hero() {
-  const headingRef = useRef(null)
-  const imageRef = useRef(null)
-  const cursorRef = useRef(null)
-  const cursorDotRef = useRef(null)
-  const gradientBlobRef = useRef(null)
-  const [cursorHover, setCursorHover] = useState(false)
+  const headingRef = useRef(null);
+  const imageRef = useRef(null);
+  const cursorRef = useRef(null);
+  const cursorDotRef = useRef(null);
+  const gradientBlobRef = useRef(null);
+  const [cursorHover, setCursorHover] = useState(false);
 
   useEffect(() => {
-    const els = document.querySelectorAll('[data-animate]')
+    const els = document.querySelectorAll("[data-animate]");
     els.forEach((el, i) => {
-      el.style.animationDelay = `${i * 0.15}s`
-      el.classList.add(styles.animated)
-    })
-  }, [])
+      el.style.animationDelay = `${i * 0.15}s`;
+      el.classList.add(styles.animated);
+    });
+  }, []);
 
   useEffect(() => {
-    const cursor = cursorRef.current
-    const dot = cursorDotRef.current
-    const img = imageRef.current
-    const blob = gradientBlobRef.current
+    const cursor = cursorRef.current;
+    const dot = cursorDotRef.current;
+    const img = imageRef.current;
+    const blob = gradientBlobRef.current;
 
-    let mouseX = 0, mouseY = 0
-    let curX = 0, curY = 0
-    let blobX = 0, blobY = 0
+    let mouseX = 0,
+      mouseY = 0;
+    let curX = 0,
+      curY = 0;
+    let blobX = 0,
+      blobY = 0;
 
     const onMove = (e) => {
-      mouseX = e.clientX
-      mouseY = e.clientY
+      mouseX = e.clientX;
+      mouseY = e.clientY;
 
       if (dot) {
-        dot.style.left = mouseX + 'px'
-        dot.style.top = mouseY + 'px'
+        dot.style.left = mouseX + "px";
+        dot.style.top = mouseY + "px";
       }
 
       if (img) {
-        const centerX = window.innerWidth / 2
-        const centerY = window.innerHeight / 2
-        const moveX = (mouseX - centerX) / centerX * -18
-        const moveY = (mouseY - centerY) / centerY * -12
-        img.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const moveX = ((mouseX - centerX) / centerX) * -18;
+        const moveY = ((mouseY - centerY) / centerY) * -12;
+        img.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
       }
-    }
+    };
 
     const animate = () => {
-      curX += (mouseX - curX) * 0.12
-      curY += (mouseY - curY) * 0.12
+      curX += (mouseX - curX) * 0.12;
+      curY += (mouseY - curY) * 0.12;
       if (cursor) {
-        cursor.style.left = curX + 'px'
-        cursor.style.top = curY + 'px'
+        cursor.style.left = curX + "px";
+        cursor.style.top = curY + "px";
       }
 
-      blobX += (mouseX - blobX) * 0.06
-      blobY += (mouseY - blobY) * 0.06
+      blobX += (mouseX - blobX) * 0.06;
+      blobY += (mouseY - blobY) * 0.06;
       if (blob) {
-        blob.style.left = blobX + 'px'
-        blob.style.top = blobY + 'px'
+        blob.style.left = blobX + "px";
+        blob.style.top = blobY + "px";
       }
 
-      requestAnimationFrame(animate)
-    }
+      requestAnimationFrame(animate);
+    };
 
-    window.addEventListener('mousemove', onMove)
-    animate()
+    window.addEventListener("mousemove", onMove);
+    animate();
 
-    const hoverEls = document.querySelectorAll('a, button, [data-cursor-hover]')
-    hoverEls.forEach(el => {
-      el.addEventListener('mouseenter', () => setCursorHover(true))
-      el.addEventListener('mouseleave', () => setCursorHover(false))
-    })
+    const hoverEls = document.querySelectorAll(
+      "a, button, [data-cursor-hover]",
+    );
+    hoverEls.forEach((el) => {
+      el.addEventListener("mouseenter", () => setCursorHover(true));
+      el.addEventListener("mouseleave", () => setCursorHover(false));
+    });
 
-    return () => window.removeEventListener('mousemove', onMove)
-  }, [])
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
 
   return (
     <>
@@ -96,7 +118,7 @@ export default function Hero() {
       {/* ── CUSTOM CURSOR ── */}
       <div
         ref={cursorRef}
-        className={`${styles.cursor} ${cursorHover ? styles.cursorHover : ''}`}
+        className={`${styles.cursor} ${cursorHover ? styles.cursorHover : ""}`}
       />
       <div ref={cursorDotRef} className={styles.cursorDot} />
 
@@ -117,25 +139,37 @@ export default function Hero() {
 
         {/* Social Sidebar */}
         <div className={styles.socialBar}>
-          <span className={styles.asterisk}><FaStarOfLife /></span>
+          {/* <span className={styles.asterisk}><FaStarOfLife /></span> */}
           <div className={styles.socialRingWrap}>
             <div className={styles.socialOuterRing} />
             <div className={styles.socialDotOrbit}>
               <div className={styles.socialDot} />
             </div>
             <div className={styles.socialInnerCircle}>
-              <a href="#" className={styles.socialLink}><FaWhatsapp /></a>
-              <a href="#" className={styles.socialLink}><FaXTwitter /></a>
-              <a href="#" className={styles.socialLink}><FaLinkedinIn /></a>
-              <a href="#" className={styles.socialLink}><FaInstagram /></a>
-              <a href="#" className={styles.socialLink}><FaFacebookF /></a>
+              <a href="#" className={styles.socialLink}>
+                <FaWhatsapp />
+              </a>
+              <a href="#" className={styles.socialLink}>
+                <FaXTwitter />
+              </a>
+              <a href="#" className={styles.socialLink}>
+                <FaLinkedinIn />
+              </a>
+              <a href="#" className={styles.socialLink}>
+                <FaInstagram />
+              </a>
+              <a href="#" className={styles.socialLink}>
+                <FaFacebookF />
+              </a>
+            </div>
+            <div className={styles.donutLogo}>
+              <img src={logo} alt="First Reach Digital" />
             </div>
           </div>
         </div>
 
         <div className={styles.content}>
           <h1 className={styles.heading} ref={headingRef}>
-
             {/* ── "First Reach" — decrypts sequentially from start on view ── */}
             <span className={styles.headLine1} data-animate>
               <DecryptedText
@@ -170,19 +204,22 @@ export default function Hero() {
                 parentClassName={styles.decryptedParent}
               />
             </span>
-
           </h1>
 
           <div className={styles.bottomRow} data-animate>
             <button className={styles.playBtn}>
-              <span className={styles.playIcon}><FaPlay /></span>
+              <span className={styles.playIcon}>
+                <FaPlay />
+              </span>
             </button>
             <p className={styles.desc}>
-              Your ONE STOP BRAND PROTECTION & PROMOTION SOLUTION.
-              We take in your vision & render it back, full of life.
+              Your ONE STOP BRAND PROTECTION & PROMOTION SOLUTION. We take in
+              your vision & render it back, full of life.
             </p>
             <Link to="/about" className={styles.ctaBtn} data-cursor-hover>
-              <span className={styles.ctaArrow}><FaArrowRight /></span>
+              <span className={styles.ctaArrow}>
+                <FaArrowRight />
+              </span>
               About Our Agency
             </Link>
           </div>
@@ -208,12 +245,32 @@ export default function Hero() {
         </div>
         <div className={styles.logosMarqueeWrap}>
           <div className={styles.logosTrack}>
-            {['Shortcode', 'VMR Kuthira', 'Penn Pattu', 'Albina AlQawi', 'Party Blooms', 'Wealth-i', 'Eagle Express Freight', 'Editoreal', 'First Edition', 'Tech-X Media', 'Happy Productions', 'Wealth-i Productions', 'Good Earth', 'Acquire Ren A Car', 'Sip & Bite', 'Panorama Studios', 'Scenario Digital'].map((name, i) => (
-              <span key={i} className={styles.logoItem}>{name}</span>
+            {[
+              "Shortcode",
+              "VMR Kuthira",
+              "Penn Pattu",
+              "Albina AlQawi",
+              "Party Blooms",
+              "Wealth-i",
+              "Eagle Express Freight",
+              "Editoreal",
+              "First Edition",
+              "Tech-X Media",
+              "Happy Productions",
+              "Wealth-i Productions",
+              "Good Earth",
+              "Acquire Ren A Car",
+              "Sip & Bite",
+              "Panorama Studios",
+              "Scenario Digital",
+            ].map((name, i) => (
+              <span key={i} className={styles.logoItem}>
+                {name}
+              </span>
             ))}
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }

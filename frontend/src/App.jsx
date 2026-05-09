@@ -4,6 +4,7 @@ import Footer from "./components/footer/Footer";
 import ScrollToTop from "./components/scrollToTop/ScrollToTop";
 
 import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import Home from "./pages/Home";
 import AboutPage from "./pages/AboutPage";
@@ -17,9 +18,23 @@ import TeamPage from "./pages/TeamPage";
 import Careers from "./pages/CareersPage";
 import TeamMemberPage from "./pages/TeamMemberPage";
 import BlogPage from "./pages/BlogPage";
+import Loader from "./components/loader/Loader";
 
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1800);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <>
       <Navbar />

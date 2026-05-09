@@ -45,6 +45,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #666;
+  font-weight: 600;
   margin-bottom: 1.2rem;
 }
 
@@ -91,7 +92,8 @@
 }
 
 .subtitle {
-  color: #666;
+  color: #999;
+  -webkit-font-smoothing: antialiased;
   font-size: 0.97rem;
   line-height: 1.75;
   max-width: 460px;

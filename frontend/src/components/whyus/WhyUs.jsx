@@ -2,13 +2,14 @@ import React, { useEffect, useRef } from "react";
 import styles from "./WhyUs.module.css";
 import { FaStar, FaBolt } from "react-icons/fa";
 import { MdOutlineTimer } from "react-icons/md";
+import { Collaboration, Communication, Experience } from "../../assets";
 
 const bentoItems = [
   {
     type: "image",
     title: "Transparent Communication",
     desc: "Everything on the table, with honesty & clarity.",
-    img: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80",
+    img: Communication,
     size: "small",
   },
   {
@@ -16,14 +17,14 @@ const bentoItems = [
     title: "Convenient Collaboration",
     desc: "Smooth processing from teaming-up to final delivery.",
     icon: <FaBolt />,
-    img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80",
+    img: Collaboration,
     size: "medium",
   },
   {
     type: "image",
     title: "10+ Years Experience",
     desc: "Over 10 years of experience delivering innovative digital solutions.",
-    img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80",
+    img: Experience,
     size: "small",
   },
   {

@@ -25,38 +25,88 @@ export default function About() {
   const titleFillRef = useRef(null)
   const sectionRef = useRef(null)
 
+  // useEffect(() => {
+  //   const elements = document.querySelectorAll('[data-inview]')
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       entries.forEach((entry) => {
+  //         if (entry.isIntersecting) {
+  //           entry.target.classList.add(styles.inView)
+  //           observer.unobserve(entry.target)
+  //         }
+  //       })
+  //     },
+  //     { threshold: 0.15 }
+  //   )
+  //   elements.forEach((el) => observer.observe(el))
+
+  //   const handleScroll = () => {
+  //     if (!titleFillRef.current) return
+  //     const rect = titleFillRef.current.getBoundingClientRect()
+  //     const winH = window.innerHeight
+  //     const progress = Math.min(Math.max((winH - rect.top) / (winH * 0.5), 0), 1)
+  //     titleFillRef.current.style.clipPath = `inset(0 ${(1 - progress) * 100}% 0 0)`
+  //   }
+
+  //   window.addEventListener('scroll', handleScroll, { passive: true })
+  //   handleScroll()
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //     observer.disconnect()
+  //   }
+  // }, [])
+
   useEffect(() => {
-    // Label + copy fade in
-    const elements = document.querySelectorAll('[data-inview]')
-    const observer = new IntersectionObserver(
+  const elements = document.querySelectorAll('[data-inview]')
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(styles.inView)
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.15 }
+  )
+  elements.forEach((el) => observer.observe(el))
+
+  // Mobile card slide-in animation
+  const isMobile = window.innerWidth <= 900
+  if (isMobile) {
+    const cards = document.querySelectorAll(`.${styles.card}`)
+    const cardObserver = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
+        entries.forEach((entry, idx) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add(styles.inView)
-            observer.unobserve(entry.target)
+            setTimeout(() => {
+              entry.target.classList.add(styles.cardVisible)
+            }, idx * 150) // stagger delay
+            cardObserver.unobserve(entry.target)
           }
         })
       },
-      { threshold: 0.15 }
+      { threshold: 0.2 }
     )
-    elements.forEach((el) => observer.observe(el))
+    cards.forEach((card) => cardObserver.observe(card))
+  }
 
-    // Title fill on scroll
-    const handleScroll = () => {
-      if (!titleFillRef.current) return
-      const rect = titleFillRef.current.getBoundingClientRect()
-      const winH = window.innerHeight
-      const progress = Math.min(Math.max((winH - rect.top) / (winH * 0.5), 0), 1)
-      titleFillRef.current.style.clipPath = `inset(0 ${(1 - progress) * 100}% 0 0)`
-    }
+  // Title fill on scroll
+  const handleScroll = () => {
+    if (!titleFillRef.current) return
+    const rect = titleFillRef.current.getBoundingClientRect()
+    const winH = window.innerHeight
+    const progress = Math.min(Math.max((winH - rect.top) / (winH * 0.5), 0), 1)
+    titleFillRef.current.style.clipPath = `inset(0 ${(1 - progress) * 100}% 0 0)`
+  }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      observer.disconnect()
-    }
-  }, [])
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  handleScroll()
+  return () => {
+    window.removeEventListener('scroll', handleScroll)
+    observer.disconnect()
+  }
+}, [])
 
   return (
     <section className={styles.aboutSection} id="about" ref={sectionRef}>

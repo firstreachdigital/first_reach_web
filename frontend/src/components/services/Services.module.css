@@ -39,6 +39,7 @@
   font-size: 0.82rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  font-weight: 600;
   color: #666;
   opacity: 0;
   transform: translateY(20px);
@@ -82,7 +83,8 @@
 }
 
 .headerDesc {
-  color: #555;
+  color: #999;
+  -webkit-font-smoothing: antialiased;
   font-size: 0.95rem;
   line-height: 1.75;
   max-width: 360px;
@@ -200,8 +202,12 @@
 
 .contentDesc {
   font-size: 0.9rem;
-  color: #666;
+  color: #ccc;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 500;
   line-height: 1.8;
+  letter-spacing: 0.01em;
 }
 
 .contentDesc strong {
@@ -217,10 +223,11 @@
 
 .tag {
   font-size: 0.8rem;
-  color: #555;
+  color: #999;
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  -webkit-font-smoothing: antialiased;
 }
 
 .tagPlus { color: var(--accent); font-weight: 700; }

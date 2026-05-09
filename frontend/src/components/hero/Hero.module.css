@@ -128,34 +128,6 @@
   z-index: 1; pointer-events: none;
 }
 
-/* .socialBar {
-  position: absolute; right: 2rem; top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 1rem;
-} */
-
-/* .socialRing {
-  width: 80px; height: 80px; border-radius: 50%;
-  border: 1px solid #333;
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 6px;
-} */
-
-/* .socialLink {
-  font-size: 0.7rem; color: #666;
-  width: 24px; height: 24px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%; transition: color 0.2s; font-weight: 600;
-} */
-/* .socialLink:hover { color: var(--accent); } */
-
-/* .asterisk {
-  font-size: 1.5rem; color: var(--accent);
-  animation: spin 8s linear infinite;
-} */
-/* @keyframes spin { to { transform: rotate(360deg); } } */
 
 .socialBar {
   position: absolute;
@@ -230,6 +202,12 @@
   background: transparent;
   border: 40px solid var(--accent);
   box-sizing: border-box;
+  animation: ringRotate 12s linear infinite;
+}
+
+@keyframes ringRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 /* Icons using trigonometry — evenly around right half of ring */
@@ -246,38 +224,54 @@
   text-decoration: none;
   /* Center relative to donut border */
   transform: translate(-50%, -50%);
+  animation: iconCounter 12s linear infinite;
 }
 
 .socialLink:hover {
   transform: translate(-50%, -50%) scale(1.3);
   color: #000;
 }
+@keyframes iconCounter {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
 
-/* 
-  Ring radius = 80px (half of 160px)
-  Border = 40px → icon center at radius - border/2 = 80 - 20 = 60px from center
-  Center of donut = 80px, 80px
 
-  Icons spread from top to bottom on right side:
-  angle: -90deg (top) to +90deg (bottom)
-*/
+/* WhatsApp  — 0°   top */
+.socialLink:nth-child(1) { top: -20px; left: 40px;  }
 
-/* WhatsApp  — -70° */
-.socialLink:nth-child(1) { top: -20px;  left: 48px;  }
+/* X         — 72°  top-right */
+.socialLink:nth-child(2) { top: 22px;  left: 97px;  }
 
-/* X         — -35° */
-.socialLink:nth-child(2) { top: -7px;   left: 76px;  }
+/* LinkedIn  — 144° bottom-right */
+.socialLink:nth-child(3) { top: 89px;  left: 75px;  }
 
-/* LinkedIn  —   0° */
-.socialLink:nth-child(3) { top: 27px;   left: 99px;  }
+/* Instagram — 216° bottom-left */
+.socialLink:nth-child(4) { top: 89px;  left: 5px;   }
 
-/* Instagram — +35° */
-.socialLink:nth-child(4) { top: 61px;   left: 96px;  }
-
-/* Facebook  — +70° */
-.socialLink:nth-child(5) { top: 89px;   left: 77px;  }
+/* Facebook  — 288° top-left */
+.socialLink:nth-child(5) { top: 22px;  left: -17px; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+
+.donutLogo {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  background: transparent;
+}
+
+.donutLogo img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  /* filter: brightness(0) invert(1);  */
+}
 
 /* hide on mobile */
 @media (max-width: 768px) {
@@ -495,16 +489,15 @@
   white-space: nowrap;
   transition: color 0.2s;
   padding: 0 3.5rem;
-  border-right: 1px solid #1e1e1e;
+  border-right: 1px solid #2e2e2e;
 }
-.logoItem:hover { color: #888; }
+.logoItem:hover { color: #bbb; }
 
 @keyframes logoScroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
 
-/* ── ADD THESE TO THE BOTTOM OF Hero.module.css ── */
 
 /* DecryptedText parent — inherits the heading font/size */
 .decryptedParent {
@@ -532,6 +525,6 @@
   .ctaBtn { margin-left: 0; }
   .socialBar { display: none; }
   .logosWrap { padding: 1.5rem 0 1.5rem 1.5rem; }
-  .logosLeft { min-width: 140px; }
+  .logosLeft { display: none; }
   .logosTrack { gap: 2rem; }
 }

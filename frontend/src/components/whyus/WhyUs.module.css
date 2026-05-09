@@ -38,6 +38,7 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #666;
+  font-weight: 600;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.7s ease;
@@ -80,11 +81,12 @@
 }
 
 .headerDesc {
-  color: #555;
+  color: #999;
   font-size: 0.95rem;
   line-height: 1.75;
   max-width: 360px;
   align-self: end;
+  -webkit-font-smoothing: antialiased; 
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.7s ease 0.2s;
@@ -141,7 +143,7 @@
   position: absolute;
   inset: 0;
   transition: transform 0.6s ease;
-  filter: brightness(0.6);
+  /* filter: brightness(0.6); */
 }
 
 .card:hover .cardImg {

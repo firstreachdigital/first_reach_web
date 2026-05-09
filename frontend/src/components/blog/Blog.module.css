@@ -26,6 +26,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #666;
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 
@@ -71,7 +72,8 @@
 }
 
 .desc {
-  color: #666;
+  color: #999;
+  -webkit-font-smoothing: antialiased;
   font-size: 0.95rem;
   line-height: 1.8;
   max-width: 460px;
