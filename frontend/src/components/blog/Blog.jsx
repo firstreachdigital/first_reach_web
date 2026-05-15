@@ -61,7 +61,7 @@ export default function Blog() {
 
       {/* ── CARDS GRID ── */}
       <div className={styles.grid}>
-        {loading && <p style={{ color: "#aaa" }}>Loading...</p>}
+        {loading && <p style={{ color: "var(--muted)" }}>Loading...</p>}
         {posts.map((post) => {
           const state = getState(post);
           return (

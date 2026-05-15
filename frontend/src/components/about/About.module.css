@@ -34,7 +34,7 @@
   font-size: 0.82rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #666;
+  color: var(--muted); 
   font-weight: 600;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -63,8 +63,8 @@
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.04em;
-  color: #222;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+  color: var(--title-ghost);
+  -webkit-text-stroke: 1px var(--stroke-ghost);
   margin: 0;
 }
 
@@ -74,7 +74,7 @@
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.04em;
-  color: var(--white);
+  color: var(--text);
   position: absolute;
   top: 0; left: 0;
   margin: 0;
@@ -85,7 +85,7 @@
 }
 
 .copy {
-  color: #999;
+  color: var(--muted);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
    letter-spacing: 0.01em;
@@ -96,7 +96,7 @@
   transition: all 0.7s ease;
 }
 
-.copy strong { color: #fff; font-weight: 700; }
+.copy strong { color: var(--text); font-weight: 700; }
 
 .ctaBtn {
   display: inline-flex;
@@ -136,8 +136,8 @@
 
 
 .card {
-  background: #111;
-  border: 1px solid #1e1e1e;
+  background: var(--card-surface-1);
+  border: 1px solid var(--border);
   border-radius: 1.5rem;
   padding: 2.5rem 2rem;
   text-align: center;
@@ -193,13 +193,18 @@
 }
 
 .card:hover {
-  border-color: rgba(5, 202, 242, 0.3);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(5,202,242,0.1);
+   border-color: rgba(5, 202, 242, 0.3);
+  /* box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(5,202,242,0.1); */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(5, 202, 242, 0.1);
 }
 
-.card:nth-child(1) { background: #161616; }
+/* .card:nth-child(1) { background: #161616; }
 .card:nth-child(2) { background: #121212; }
-.card:nth-child(3) { background: #0e0e0e; }
+.card:nth-child(3) { background: #0e0e0e; } */
+
+.card:nth-child(1) { background: var(--card-surface-1); }  /* was #161616 */
+.card:nth-child(2) { background: var(--card-surface-2); }  /* was #121212 */
+.card:nth-child(3) { background: var(--card-surface-3); }
 .card:last-child { margin-bottom: 0; }
 
 .cardIcon {
@@ -217,13 +222,13 @@
   font-family: var(--font-display);
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--text);
   margin-bottom: 0.8rem;
   letter-spacing: -0.02em;
 }
 
 .cardDesc {
-  color: #666;
+  color: var(--muted);
   line-height: 1.75;
   font-size: 0.9rem;
 }

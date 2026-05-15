@@ -4,7 +4,7 @@
 .section {
   position: relative;
   padding: 7rem 5rem 6rem;
-  background: #050505;
+  background: var(--bg);
   overflow: hidden;
 }
 
@@ -25,7 +25,7 @@
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #666;
+  color: var(--muted);
   font-weight: 600;
   margin-bottom: 1rem;
 }
@@ -50,7 +50,7 @@
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.03em;
-  color: #1a1a1a;
+  color: var(--title-ghost);
   margin: 0;
 }
 
@@ -60,7 +60,7 @@
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.03em;
-  color: var(--white, #fff);
+  color: var(--text); 
   position: absolute;
   top: 0;
   left: 0;
@@ -72,7 +72,7 @@
 }
 
 .desc {
-  color: #999;
+  color: var(--muted);  
   -webkit-font-smoothing: antialiased;
   font-size: 0.95rem;
   line-height: 1.8;
@@ -118,13 +118,13 @@
 /* Featured — center card when nothing hovered */
 .card_featured {
   flex: 2.2;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--card-shadow); 
 }
 
 /* Big — hovered card expands */
 .card_big {
   flex: 2.2;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--card-shadow); 
 }
 
 /* Small — non-hovered cards shrink */
@@ -232,7 +232,7 @@
 
 .date {
   font-size: 0.75rem;
-  color: #555;
+  color: var(--muted); 
   margin: 0 0 0.5rem;
   letter-spacing: 0.04em;
 }
@@ -241,7 +241,7 @@
   font-family: var(--font-display);
   font-size: clamp(0.95rem, 1.3vw, 1.15rem);
   font-weight: 700;
-  color: var(--white, #fff);
+  color: var(--text);  
   line-height: 1.35;
   letter-spacing: -0.01em;
   margin: 0;

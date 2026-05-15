@@ -18,23 +18,23 @@ import TeamPage from "./pages/TeamPage";
 import Careers from "./pages/CareersPage";
 import TeamMemberPage from "./pages/TeamMemberPage";
 import BlogPage from "./pages/BlogPage";
-import Loader from "./components/loader/Loader";
+// import Loader from "./components/loader/Loader";
 
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1800);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 1800);
 
-    return () => clearTimeout(timer);
-  }, []);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
-  if (loading) {
-    return <Loader />;
-  }
+  // if (loading) {
+  //   return <Loader />;
+  // }
   return (
     <>
       <Navbar />
@@ -48,7 +48,7 @@ function App() {
         <Route path="/choose-us" element={<WhyusPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/testimonial" element={<TestimonialPage />} />
-        {/* <Route path="/team" element={<TeamPage />} /> */}
+        <Route path="/team" element={<TeamPage />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/team/:slug" element={<TeamMemberPage />} />
         <Route path="/blog" element={<BlogPage />} />
@@ -57,7 +57,7 @@ function App() {
       </Routes>
 
       <Footer />
-      <ScrollToTop />
+      {/* <ScrollToTop /> */}
     </>
   );
 }

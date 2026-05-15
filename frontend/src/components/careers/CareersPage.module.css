@@ -1,8 +1,8 @@
 /* src/pages/CareersPage.module.css */
 
 .page {
-  background: var(--black);
-  color: var(--white);
+  background: var(--bg);
+  color: var(--text);  
   min-height: 100vh;
 }
 
@@ -65,7 +65,7 @@
   font-weight: 900;
   line-height: 1.0;
   letter-spacing: -0.02em;
-  color: var(--white);
+  color: var(--text);
   margin-bottom: 1.5rem;
 }
 
@@ -73,7 +73,7 @@
 
 .heroSub {
   font-size: 1.05rem;
-  color: #666;
+  color: var(--muted);
   line-height: 1.75;
   max-width: 500px;
   margin-bottom: 2.5rem;
@@ -115,8 +115,8 @@
   align-items: center;
   gap: 3rem;
   padding: 2rem 2.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid #1e1e1e;
+ background: var(--input-bg);         /* was rgba(255,255,255,0.03) */
+  border: 1px solid var(--border);
   border-radius: 1rem;
   backdrop-filter: blur(10px);
 }
@@ -137,7 +137,7 @@
 
 .statLabel {
   font-size: 0.78rem;
-  color: #555;
+  color: var(--muted);
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -145,7 +145,7 @@
 .statDivider {
   width: 1px;
   height: 40px;
-  background: #1e1e1e;
+  background: var(--border);
 }
 
 /* ── SHARED ── */
@@ -160,13 +160,13 @@
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--white);
+  color: var(--text);
   margin-bottom: 0.75rem;
 }
 
 .sectionSub {
   font-size: 0.95rem;
-  color: #555;
+  color: var(--muted);
   margin-bottom: 3rem;
   font-weight: 300;
   line-height: 1.6;
@@ -181,21 +181,21 @@
 /* ── PERKS ── */
 .perksSection {
   padding: 6rem 0;
-  border-top: 1px solid #111;
+  border-top: 1px solid var(--border);
 }
 
 .perksGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5px;
-  background: #111;
-  border: 1px solid #111;
+  background: var(--border);           /* gap divider color — was #111 */
+  border: 1px solid var(--border);
   border-radius: 1rem;
   overflow: hidden;
 }
 
 .perkCard {
-  background: #080808;
+  background: var(--bg);
   padding: 2.5rem 2rem;
   transition: background 0.2s;
 }
@@ -242,13 +242,13 @@
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--text);
   margin-bottom: 0.5rem;
 }
 
 .perkDesc {
   font-size: 0.875rem;
-  color: #555;
+  color: var(--muted); 
   line-height: 1.6;
   font-weight: 300;
 }
@@ -256,7 +256,7 @@
 /* ── OPENINGS ── */
 .openingsSection {
   padding: 6rem 0;
-  border-top: 1px solid #111;
+  border-top: 1px solid var(--border);
 }
 
 /* Filter tabs */
@@ -272,14 +272,14 @@
   border-radius: 2rem;
   font-size: 0.82rem;
   font-weight: 500;
-  color: #555;
+   color: var(--muted);                 /* was #555 */
+  border: 1px solid var(--border);
   background: transparent;
-  border: 1px solid #1e1e1e;
   cursor: pointer;
   transition: all 0.2s;
   font-family: var(--font-body);
 }
-.tab:hover { color: var(--white); border-color: #333; }
+.tab:hover { color: var(--text); border-color: #333; }
 
 .tabActive {
   background: var(--accent);
@@ -293,18 +293,18 @@
   display: flex;
   flex-direction: column;
   gap: 1px;
-  background: #111;
-  border: 1px solid #111;
+   background: var(--border);           /* gap divider — was #111 */
+  border: 1px solid var(--border);
   border-radius: 1rem;
   overflow: hidden;
 }
 
 .jobCard {
-  background: #080808;
+  background: var(--bg);
   transition: background 0.2s;
 }
-.jobCard:hover { background: #0a0a0a; }
-.jobCardOpen { background: #0d0d0d; }
+.jobCard:hover { background: var(--job-card-hover); }
+.jobCardOpen { background: var(--job-card-open);}
 
 .jobHeader {
   display: flex;
@@ -331,7 +331,7 @@
   font-family: var(--font-display);
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--white);
+ color: var(--text);
   margin-bottom: 0.75rem;
 }
 
@@ -346,9 +346,9 @@
   align-items: center;
   gap: 0.35rem;
   font-size: 0.75rem;
-  color: #555;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid #1e1e1e;
+color: var(--muted);                 /* was #555 */
+  background: var(--input-bg);         /* was rgba(255,255,255,0.04) */
+  border: 1px solid var(--border); 
   padding: 0.3rem 0.75rem;
   border-radius: 2rem;
 }
@@ -358,9 +358,9 @@
 .jobToggle {
   width: 36px; height: 36px;
   border-radius: 50%;
-  border: 1px solid #222;
+   border: 1px solid var(--border);     /* was #222 */
+  color: var(--muted); 
   display: flex; align-items: center; justify-content: center;
-  color: #444;
   font-size: 0.75rem;
   flex-shrink: 0;
   transition: all 0.25s;
@@ -376,7 +376,7 @@
 /* Expanded body */
 .jobBody {
   padding: 0 2rem 2rem;
-  border-top: 1px solid #111;
+  border-top: 1px solid var(--border);
   animation: fadeDown 0.2s ease forwards;
 }
 
@@ -387,7 +387,7 @@
 
 .jobDesc {
   font-size: 0.9rem;
-  color: #666;
+  color: var(--muted);
   line-height: 1.75;
   margin: 1.5rem 0 1.2rem;
   font-weight: 300;
@@ -441,7 +441,7 @@
 .empty {
   padding: 3rem;
   text-align: center;
-  color: #444;
+  color: var(--muted);
   font-size: 0.9rem;
 }
 
@@ -450,7 +450,7 @@
   position: relative;
   text-align: center;
   padding: 7rem 2rem;
-  border-top: 1px solid #111;
+  border-top: 1px solid var(--border);
   overflow: hidden;
 }
 
@@ -468,14 +468,14 @@
   font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 900;
   letter-spacing: -0.02em;
-  color: var(--white);
+  color: var(--text);
   margin-bottom: 1rem;
   position: relative;
 }
 
 .ctaSub {
   font-size: 0.95rem;
-  color: #555;
+  color: var(--muted);
   max-width: 440px;
   margin: 0 auto 2.5rem;
   line-height: 1.7;

@@ -1,7 +1,7 @@
 .section {
   position: relative;
   padding: 7rem 5rem 6rem;
-  background: #050505;
+  background: var(--bg); 
   overflow: hidden;
 }
 
@@ -11,10 +11,10 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(#141414 1px, transparent 1px),
-    linear-gradient(90deg, #141414 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 60px 60px;
-  opacity: 0.35;
+  opacity: 0.6;
   pointer-events: none;
 }
 
@@ -92,7 +92,7 @@
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #666;
+  color: var(--muted);
   font-weight: 600;
   margin-bottom: 1rem;
 }
@@ -117,7 +117,7 @@
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.03em;
-  color: #1a1a1a; /* DARK base */
+  color: var(--title-ghost);/* DARK base */
   margin: 0;
 }
 
@@ -128,7 +128,7 @@
   line-height: 1.1;
   letter-spacing: -0.03em;
 
-  color: #fff;
+  color: var(--text);  
 
   position: absolute;
   top: 0;
@@ -156,16 +156,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #0f0f0f;
+  background: var(--btn-secondary-bg);
   padding: 1rem 1.2rem;
-  border-radius: 14px;
-  color: #fff;
+  border: 1px solid var(--border);
+  color: var(--text); 
   text-decoration: none;
   transition: all 0.25s ease;
 }
 
 .socialBtn:hover {
-  background: #1a1a1a;
+  background: var(--btn-secondary-hover);
   transform: translateY(-2px);
 }
 
@@ -196,10 +196,12 @@
 .infoRow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background: #0a0a0a;
+  background: var(--card-surface-1); 
+  border: 1px solid var(--border); 
   border-radius: 1.4rem;
   padding: 2rem;
   gap: 2rem;
+  box-shadow: var(--card-shadow);
 }
 
 .infoItem {
@@ -213,13 +215,13 @@
 
 .infoLabel {
   font-size: 1rem;
-  color: #fff;
+  color: var(--text);
   margin-bottom: 0.4rem;
 }
 
 .infoLine {
   font-size: 0.85rem;
-  color: #777;
+  color: var(--muted);   
 }
 
 /* ================= TICKER ================= */
@@ -227,7 +229,7 @@
 .ticker {
   margin-top: 4rem;
   overflow: hidden;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid var(--border);
   padding: 1rem 0;
 }
 
@@ -246,12 +248,12 @@
 .tickerValue {
   font-size: 2rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--text);   
 }
 
 .tickerLabel {
   font-size: 0.85rem;
-  color: #666;
+  color: var(--muted); 
 }
 
 .tickerDivider {
