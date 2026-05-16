@@ -128,6 +128,16 @@
   );      
 }
 
+:global([data-theme="light"]) .imageWrap::after,
+:global(:root:not([data-theme="dark"])) .imageWrap::after {
+  background: linear-gradient(
+    to right,
+    rgb(var(--bg-rgb)) 0%,
+    rgba(var(--bg-rgb), 0.4) 30%,
+    transparent 55%
+  );
+}
+
 
 .imageGlow {
   position: absolute; inset: 0;

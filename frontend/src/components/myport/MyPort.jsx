@@ -54,6 +54,14 @@ export default function MyPort({ limit }) {
     };
   }, [projects]);
 
+  useEffect(() => {
+  const timer = setTimeout(() => {
+    const elements = sectionRef.current?.querySelectorAll("[data-inview]") || [];
+    elements.forEach((el) => el.classList.add(styles.inView));
+  }, 80);
+  return () => clearTimeout(timer);
+}, [activeTag]);
+
   const filtered =
     activeTag === "All"
       ? projects

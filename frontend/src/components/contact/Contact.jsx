@@ -150,13 +150,6 @@ export default function Contact() {
 
                 <div className={styles.formFooter}>
                   <div className={styles.agentInfo}>
-                    {/* <div className={styles.agentAvatar}>
-                      <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&q=80" alt="Support" />
-                    </div> */}
-                    {/* <div>
-                      <p className={styles.agentName}>Liven Geo</p>
-                      <p className={styles.agentRole}>Support Developer</p>
-                    </div> */}
                   </div>
 
                   <button type="submit" className={styles.submitBtn} disabled={submitting}>

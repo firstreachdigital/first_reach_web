@@ -1,8 +1,8 @@
 /* src/pages/TeamMemberPage.module.css */
 
 .page {
-  background: var(--black);
-  color: var(--white);
+  background: var(--bg); 
+  color: var(--text); 
   min-height: 100vh;
   padding-top: 120px;
 }
@@ -24,7 +24,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.82rem;
-  color: #555;
+  color: var(--muted);
   background: none;
   border: none;
   cursor: pointer;
@@ -36,12 +36,12 @@
 
 .breadcrumb {
   font-size: 0.78rem;
-  color: #444;
+  color: var(--muted);
   display: flex;
   align-items: center;
   gap: 0.4rem;
 }
-.breadcrumb a { color: #555; transition: color 0.2s; }
+.breadcrumb a { color: var(--muted); transition: color 0.2s; }
 .breadcrumb a:hover { color: var(--accent); }
 
 /* ── Container ── */
@@ -54,20 +54,18 @@
 /* ── Card ── */
 .card {
   position: relative;
-  background: #0d0d0d;
-  border: 1px solid #1a1a1a;
+  background: var(--card-surface-1);   /* was #0d0d0d */
+  border: 1px solid var(--border);     /* was #1a1a1a */
+  box-shadow: var(--card-shadow);
   border-radius: 1.5rem;
   overflow: hidden;
-  box-shadow:
-    0 0 0 1px rgba(5, 202, 242, 0.06),
-    0 24px 80px rgba(0, 0, 0, 0.5);
   transition: box-shadow 0.4s ease;
 }
 
 .card:hover {
-  box-shadow:
+   box-shadow:
     0 0 0 1px rgba(5, 202, 242, 0.15),
-    0 30px 100px rgba(0, 0, 0, 0.6),
+    0 30px 100px rgba(0, 0, 0, 0.12),
     0 0 60px rgba(5, 202, 242, 0.06);
 }
 
@@ -116,7 +114,7 @@
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 800;
-  color: var(--white);
+  color: var(--text);
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin-bottom: 0.4rem;
@@ -153,7 +151,7 @@
 
 .para {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--muted);
   line-height: 1.8;
   font-weight: 300;
 }
@@ -204,9 +202,9 @@
 .socialLink {
   width: 34px; height: 34px;
   border-radius: 50%;
-  border: 1px solid #222;
+  border: 1px solid var(--border);     /* was #222 */
+  color: var(--muted);  
   display: flex; align-items: center; justify-content: center;
-  color: #555;
   font-size: 0.75rem;
   transition: all 0.2s;
 }
@@ -221,7 +219,7 @@
 .imageWrap {
   position: relative;
   overflow: hidden;
-  border-left: 1px solid #1a1a1a;
+  border-left: 1px solid var(--border);
 }
 
 .image {
@@ -237,7 +235,12 @@
 .imageGlow {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(13, 13, 13, 0.5) 0%, transparent 40%);
+  /* background: linear-gradient(to right, rgba(13, 13, 13, 0.5) 0%, transparent 40%); */
+   background: linear-gradient(
+    to right,
+    rgba(var(--bg-rgb), 0.5) 0%,
+    transparent 40%
+  );        
   pointer-events: none;
 }
 
@@ -255,13 +258,14 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.9rem 1.2rem;
-  border: 1px solid #1e1e1e;
   border-radius: 0.75rem;
-  background: #0a0a0a;
-  color: var(--white);
   font-size: 0.82rem;
   transition: all 0.2s;
   max-width: 220px;
+  border: 1px solid var(--border);     /* was #1e1e1e */
+  background: var(--card-surface-1);   /* was #0a0a0a */
+  color: var(--text);                  /* was var(--white) */
+  box-shadow: var(--card-shadow);
 }
 .memberNavBtn:hover {
   border-color: var(--accent);
@@ -278,14 +282,14 @@
 
 .memberNavLabel {
   font-size: 0.7rem;
-  color: #444;
+  color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 .memberNavName {
   font-weight: 600;
-  color: var(--white);
+  color: var(--text);
   font-size: 0.85rem;
   white-space: nowrap;
   overflow: hidden;
@@ -311,7 +315,7 @@
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .inner { grid-template-columns: 1fr; grid-template-rows: auto 280px; }
-  .imageWrap { border-left: none; border-top: 1px solid #1a1a1a; }
+  .imageWrap { border-left: none; border-top: 1px solid var(--border); }
 }
 
 @media (max-width: 600px) {

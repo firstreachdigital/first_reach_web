@@ -1,8 +1,8 @@
 /* src/pages/BlogDetailPage.module.css */
 
 .page {
-  background: var(--black);
-  color: var(--white);
+  background: var(--bg); 
+  color: var(--text); 
   min-height: 100vh;
   padding-top: 120px;
 }
@@ -24,7 +24,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.82rem;
-  color: #555;
+  color: var(--muted);
   background: none;
   border: none;
   cursor: pointer;
@@ -36,7 +36,7 @@
 
 .breadcrumb {
   font-size: 0.78rem;
-  color: #444;
+  color: var(--muted);
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -45,7 +45,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.breadcrumb a { color: #555; transition: color 0.2s; }
+.breadcrumb a { color: var(--muted); transition: color 0.2s; }
 .breadcrumb a:hover { color: var(--accent); }
 
 /* ── Container ── */
@@ -78,7 +78,12 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 40%, rgba(8,8,8,0.7) 100%);
+  /* background: linear-gradient(to bottom, transparent 40%, rgba(8,8,8,0.7) 100%); */
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(var(--bg-rgb), 0.7) 100%
+  );    
 }
 
 .heroTag {
@@ -126,13 +131,13 @@
 .authorName {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--white);
+  color: var(--text); 
   margin: 0 0 0.1rem;
 }
 
 .authorRole {
   font-size: 0.75rem;
-  color: #555;
+  color: var(--muted);
   margin: 0;
 }
 
@@ -144,14 +149,14 @@
 
 .metaItem {
   font-size: 0.78rem;
-  color: #555;
+  color: var(--muted);
 }
 
 .metaDot {
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background: #333;
+  background: var(--border);
 }
 
 /* Title */
@@ -161,14 +166,14 @@
   font-weight: 900;
   letter-spacing: -0.03em;
   line-height: 1.1;
-  color: var(--white);
+  color: var(--text); 
   margin-bottom: 1.2rem;
 }
 
 /* Excerpt */
 .excerpt {
   font-size: 1.05rem;
-  color: #888;
+  color: var(--muted);
   line-height: 1.75;
   font-weight: 300;
   margin-bottom: 1.5rem;
@@ -177,14 +182,14 @@
 .divider {
   width: 100%;
   height: 1px;
-  background: #1a1a1a;
+  background: var(--border); 
   margin-bottom: 2rem;
 }
 
 /* Body paragraphs */
 .body {
   margin-bottom: 2.5rem;
-  color: #777;
+  color: var(--muted);
   font-size: 0.975rem;
   line-height: 1.85;
   font-weight: 300;
@@ -192,7 +197,7 @@
 
 .body p {
   margin-bottom: 1.4rem;
-  color: #777;
+  color: var(--muted);
   font-size: 0.975rem;
   line-height: 1.85;
 }
@@ -203,7 +208,7 @@
 .body h4 {
   font-family: var(--font-display);
   font-weight: 800;
-  color: var(--white);
+  color: var(--text);
   letter-spacing: -0.02em;
   margin: 2rem 0 1rem;
   line-height: 1.2;
@@ -214,7 +219,7 @@
 .body h3 { font-size: 1.2rem; }
 
 .body strong {
-  color: var(--white);
+  color: var(--text);
   font-weight: 700;
 }
 
@@ -230,7 +235,7 @@
 .body ol {
   padding-left: 1.5rem;
   margin-bottom: 1.4rem;
-  color: #777;
+  color: var(--muted);
 }
 
 .body li { margin-bottom: 0.5rem; }
@@ -256,12 +261,12 @@
   align-items: center;
   gap: 0.75rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #1a1a1a;
+  border-top: 1px solid var(--border);
 }
 
 .shareLabel {
   font-size: 0.78rem;
-  color: #444;
+  color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-right: 0.25rem;
@@ -271,9 +276,9 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid #222;
   background: none;
-  color: #555;
+  border: 1px solid var(--border);     /* was #222 */
+  color: var(--muted);
   font-size: 0.8rem;
   display: flex;
   align-items: center;
@@ -341,14 +346,14 @@
 }
 
 /* ── Related posts ── */
-.related { border-top: 1px solid #111; padding-top: 3rem; }
+.related { border-top: 1px solid var(--border); padding-top: 3rem; }
 
 .relatedTitle {
   font-family: var(--font-display);
   font-size: 1.4rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--white);
+  color: var(--text);
   margin-bottom: 1.5rem;
 }
 
@@ -362,10 +367,11 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  border: 1px solid #111;
   border-radius: 0.85rem;
   overflow: hidden;
-  background: #0a0a0a;
+   border: 1px solid var(--border);     /* was #111 */
+  background: var(--card-surface-1);   /* was #0a0a0a */
+  box-shadow: var(--card-shadow);
   transition: border-color 0.2s, transform 0.2s;
 }
 .relatedCard:hover {
@@ -402,7 +408,7 @@
   font-family: var(--font-display);
   font-size: 0.9rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--text);
   line-height: 1.35;
   letter-spacing: -0.01em;
   display: -webkit-box;
@@ -413,7 +419,7 @@
 
 .relatedDate {
   font-size: 0.72rem;
-  color: #444;
+  color: var(--muted);
   margin-top: 0.4rem;
 }
 
@@ -425,7 +431,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  color: #555;
+  color: var(--muted);
   padding-top: 120px;
 }
 .backBtn { color: var(--accent); font-size: 0.9rem; }
