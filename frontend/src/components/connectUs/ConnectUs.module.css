@@ -162,6 +162,7 @@
   color: var(--text); 
   text-decoration: none;
   transition: all 0.25s ease;
+  border-radius: 10px;
 }
 
 .socialBtn:hover {
@@ -284,7 +285,7 @@
   }
 
   .socialsGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .infoRow {

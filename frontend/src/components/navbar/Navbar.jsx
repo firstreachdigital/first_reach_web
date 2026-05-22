@@ -13,16 +13,16 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import API from "../../api/axios";
 
-const pagesMenu = [
-  { label: "Price Page", path: "/pricing" },
-  { label: "Choose Us", path: "/choose-us" },
-  { label: "Work Process", path: "/portfolio" },
-];
+// const pagesMenu = [
+//   { label: "Price Page", path: "/pricing" },
+//   { label: "Choose Us", path: "/choose-us" },
+//   { label: "Work Process", path: "/portfolio" },
+// ];
 
-const shopMenu = [
-  { label: "Shop Grid", path: "/shop" },
-  { label: "Shop Detail", path: "/shop/detail" },
-];
+// const shopMenu = [
+//   { label: "Shop Grid", path: "/shop" },
+//   { label: "Shop Detail", path: "/shop/detail" },
+// ];
 
 function useHoverMenu() {
   const [open, setOpen] = useState(false);
@@ -119,6 +119,11 @@ export default function Navbar() {
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("frtheme", theme);
+    if (window.vantaEffect) {
+    window.vantaEffect.setOptions({
+      backgroundColor: theme === "dark" ? 0x080808 : 0xffffff,
+    });
+  }
   }, [theme]);
 
   const toggleTheme = () => setTheme((t) => (t === "light" ? "dark" : "light"));
@@ -128,7 +133,7 @@ export default function Navbar() {
     {
       label: "Team",
       path: "/team",
-      hasSubmenu: true,
+      hasSubmenu: false,
       submenu: [
         { label: "All Team", path: "/team" },
         ...teamMembers.map((m) => ({ label: m.name, path: `/team/${m.slug}` })),
@@ -137,6 +142,8 @@ export default function Navbar() {
     { label: "Careers", path: "/careers", hasSubmenu: false },
     { label: "FAQ", path: "/FAQ", hasSubmenu: false },
     { label: "Testimonial", path: "/testimonial", hasSubmenu: false },
+    { label: "Portfolio", path: "/portfolio", hasSubmenu: false },
+    { label: "Why Us", path: "/why-us", hasSubmenu: false },
   ];
 
   const activeAboutSubmenu = hoveredAbout
@@ -164,11 +171,11 @@ export default function Navbar() {
           <ul className={styles.links}>
             <li className={styles.navItem}>
               {location.pathname === "/" ? (
-                <a href="#home" className={styles.link}>
+                <a href="/" className={styles.link}>
                   Home
                 </a>
               ) : (
-                <Link to="/#home" className={styles.link}>
+                <Link to="/" className={styles.link}>
                   Home
                 </Link>
               )}
@@ -267,7 +274,7 @@ export default function Navbar() {
             </li>
 
             {/* Shop */}
-            <li
+            {/* <li
               ref={shop.ref}
               className={styles.navItem}
               onMouseEnter={shop.onEnter}
@@ -306,10 +313,10 @@ export default function Navbar() {
                   </div>
                 </div>
               )}
-            </li>
+            </li> */}
 
             {/* Pages */}
-            <li ref={megaRef} className={styles.navItem}>
+            {/* <li ref={megaRef} className={styles.navItem}>
               <button
                 className={`${styles.link} ${styles.pagesBtn} ${megaOpen ? styles.pageBtnActive : ""}`}
                 onClick={() => {
@@ -344,7 +351,7 @@ export default function Navbar() {
                   </div>
                 </div>
               )}
-            </li>
+            </li> */}
 
             <li className={styles.navItem}>
               <Link to="/contact" className={styles.link}>
@@ -404,7 +411,7 @@ export default function Navbar() {
               </a>
             ) : (
               <Link
-                to="/#home"
+                to="/"
                 className={styles.mobileLink}
                 onClick={() => setMenuOpen(false)}
               >
@@ -469,7 +476,7 @@ export default function Navbar() {
                       >
                         All Team
                       </Link>
-                      {teamMembers.map((m) => (
+                      {/* {teamMembers.map((m) => (
                         <Link
                           key={m._id}
                           to={`/team/${m.slug}`}
@@ -478,7 +485,7 @@ export default function Navbar() {
                         >
                           {m.name}
                         </Link>
-                      ))}
+                      ))} */}
                     </div>
                   )}
                   {aboutMenu
@@ -541,7 +548,7 @@ export default function Navbar() {
             </div>
 
             {/* Shop mobile */}
-            <div>
+            {/* <div>
               <button
                 className={`${styles.mobileLink} ${styles.mobilePagesBtn}`}
                 onClick={() => setMobileShop((p) => !p)}
@@ -566,10 +573,10 @@ export default function Navbar() {
                   ))}
                 </div>
               )}
-            </div>
+            </div> */}
 
             {/* Pages mobile */}
-            <div>
+            {/* <div>
               <button
                 className={`${styles.mobileLink} ${styles.mobilePagesBtn}`}
                 onClick={() => setMobilePages((p) => !p)}
@@ -594,7 +601,7 @@ export default function Navbar() {
                   ))}
                 </div>
               )}
-            </div>
+            </div> */}
 
             <Link
               to="/contact"

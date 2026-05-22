@@ -2,13 +2,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./CareersPage.module.css";
 import JobApplyModal from "../jobApplyModal/JobApplyModal";
-import { FaArrowRight, FaMapMarkerAlt, FaClock, FaBriefcase, FaGlobe, FaChartLine, FaPaintBrush, FaMoneyBillWave, FaUmbrellaBeach, FaTools } from "react-icons/fa";
+import { FaArrowRight, FaMapMarkerAlt, FaClock, FaBriefcase, FaChartLine, FaPaintBrush, FaMoneyBillWave, FaUmbrellaBeach, FaTools } from "react-icons/fa";
+import { HiOfficeBuilding } from "react-icons/hi";
 import API from "../../api/axios";
 
 const DEPARTMENTS = ["All", "Design", "Development", "Marketing", "Strategy", "Other"];
 
 const PERKS = [
-  { icon: <FaGlobe />,         title: "Remote Friendly",   desc: "Work from anywhere. Output over hours, always." },
+  { icon: <HiOfficeBuilding />,title: "Office Based",      desc: "Work from the office. Collaboration and presence matter." },
   { icon: <FaChartLine />,     title: "Grow Fast",         desc: "Real ownership, mentorship, and promotions tied to impact." },
   { icon: <FaPaintBrush />,    title: "Creative Freedom",  desc: "Bring your ideas. We build what hasn't been built before." },
   { icon: <FaMoneyBillWave />, title: "Competitive Pay",   desc: "Industry-leading compensation benchmarked globally." },
@@ -56,7 +57,7 @@ export default function CareersPage() {
             See Open Roles
           </a>
         </div>
-        <div className={styles.heroStat}>
+        {/* <div className={styles.heroStat}>
           <div className={styles.statItem}>
             <span className={styles.statNum}>40+</span>
             <span className={styles.statLabel}>Team Members</span>
@@ -71,7 +72,7 @@ export default function CareersPage() {
             <span className={styles.statNum}>100%</span>
             <span className={styles.statLabel}>Remote Option</span>
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* ── PERKS ── */}
@@ -95,10 +96,10 @@ export default function CareersPage() {
       <section className={styles.openingsSection} id="openings">
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>Open Positions</h2>
-          <p className={styles.sectionSub}>
+          {/* <p className={styles.sectionSub}>
             Don't see your role? Drop us a note at{" "}
             <a href="mailto:careers@firstreach.in" className={styles.mailLink}>careers@firstreach.in</a>
-          </p>
+          </p> */}
 
           <div className={styles.tabs}>
             {DEPARTMENTS.map((d) => (

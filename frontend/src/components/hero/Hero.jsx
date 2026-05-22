@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Hero.module.css";
 import elephantImg from "../../assets/First reach digital website homepage copy.jpg.jpeg";
 import logo from "../../assets/FRST REACH LOGO ELEPHANT.png";
+
+
 import {
   FaWhatsapp,
   FaLinkedinIn,
@@ -38,6 +40,8 @@ export default function Hero() {
   const cursorDotRef = useRef(null);
   const gradientBlobRef = useRef(null);
   const [cursorHover, setCursorHover] = useState(false);
+  const vantaRef = useRef(null);
+  const vantaEffect = useRef(null);
 
   useEffect(() => {
     const els = document.querySelectorAll("[data-animate]");
@@ -110,6 +114,147 @@ export default function Hero() {
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
+  //vanila theme 
+// useEffect(() => {
+//   const loadScript = (src) =>
+//     new Promise((resolve, reject) => {
+//       if (document.querySelector(`script[src="${src}"]`)) {
+//         resolve();
+//         return;
+//       }
+//       const s = document.createElement("script");
+//       s.src = src;
+//       s.onload = resolve;
+//       s.onerror = reject;
+//       document.head.appendChild(s);
+//     });
+
+//   const initVanta = async () => {
+//     await loadScript(
+//       "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"
+//     );
+//     await loadScript(
+//       "https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js"
+//     );
+
+//     if (window.VANTA && vantaRef.current && !vantaEffect.current) {
+//       vantaEffect.current = window.VANTA.BIRDS({
+//         el: vantaRef.current,
+//         mouseControls: true,
+//         touchControls: true,
+//         gyroControls: false,
+//         backgroundColor: 0xffffff,
+//         color1: 0x05caf2,
+//         color2: 0x0a6ef5,
+//         colorMode: "lerp",
+//         quantity: 3,
+//         birdSize: 1.2,
+//         wingSpan: 25,
+//         speedLimit: 4,
+//         separation: 60,
+//         alignment: 40,
+//         cohesion: 35,
+//       });
+//       window.vantaEffect = vantaEffect.current;
+//     }
+//   };
+
+//   initVanta();
+
+//   return () => {
+//     if (vantaEffect.current) {
+//       vantaEffect.current.destroy();
+//       vantaEffect.current = null;
+//       window.vantaEffect = null;
+//     }
+//   };
+// }, []);
+
+// Replace the vanta useEffect with this:
+useEffect(() => {
+  const loadScript = (src) =>
+    new Promise((resolve, reject) => {
+      if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
+      const s = document.createElement("script");
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+
+  // Poll until window.THREE is truly available (fixes the race condition)
+  const waitForTHREE = () =>
+    new Promise((resolve) => {
+      const check = () => (window.THREE ? resolve() : setTimeout(check, 50));
+      check();
+    });
+
+  // Read current theme from <html data-theme="...">
+  const getVantaBg = () => {
+    const theme = document.documentElement.getAttribute("data-theme");
+    return theme === "light" ? 0xfafafa : 0x080808;
+  };
+
+  const destroyVanta = () => {
+    if (vantaEffect.current) {
+      vantaEffect.current.destroy();
+      vantaEffect.current = null;
+      window.vantaEffect = null;
+    }
+  };
+
+  const createVanta = () => {
+    if (!window.VANTA || !vantaRef.current) return;
+    destroyVanta();
+    vantaEffect.current = window.VANTA.BIRDS({
+      el: vantaRef.current,
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      backgroundColor: getVantaBg(), // ← theme-aware
+      color1: 0x05caf2,
+      color2: 0x0a6ef5,
+      colorMode: "lerp",
+      quantity: 3,
+      birdSize: 1.2,
+      wingSpan: 25,
+      speedLimit: 4,
+      separation: 60,
+      alignment: 40,
+      cohesion: 35,
+    });
+    window.vantaEffect = vantaEffect.current;
+  };
+
+  const initVanta = async () => {
+    await loadScript(
+      "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"
+    );
+    await waitForTHREE(); // ← wait until THREE is truly on window
+    await loadScript(
+      "https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js"
+    );
+    createVanta();
+  };
+
+  initVanta();
+
+  // Re-init Vanta whenever data-theme changes on <html>
+  const observer = new MutationObserver(() => {
+    if (window.VANTA) createVanta();
+  });
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+
+  return () => {
+    observer.disconnect();
+    destroyVanta();
+  };
+}, []);
+
+
   return (
     <>
       {/* ── GRADIENT BLOB FOLLOWS MOUSE ── */}
@@ -123,9 +268,10 @@ export default function Hero() {
       <div ref={cursorDotRef} className={styles.cursorDot} />
 
       <section className={styles.hero} id="home">
-        <div className={styles.gridBg} />
-        <div className={styles.glowLeft} />
-        <div className={styles.glowRight} />
+        {/* <div className={styles.gridBg} /> */}
+        {/* <div className={styles.glowLeft} /> */}
+        {/* <div className={styles.glowRight} /> */}
+         <div ref={vantaRef} className={styles.vantaBg} />
 
         <div className={styles.imageWrap}>
           <div className={styles.imageGlow} />
@@ -146,19 +292,31 @@ export default function Hero() {
               <div className={styles.socialDot} />
             </div>
             <div className={styles.socialInnerCircle}>
-              <a href="#" className={styles.socialLink}>
+              <a href="https://wa.me/9946618222"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.socialLink}>
                 <FaWhatsapp />
               </a>
               <a href="#" className={styles.socialLink}>
                 <FaXTwitter />
               </a>
-              <a href="#" className={styles.socialLink}>
+              <a href="https://in.linkedin.com/company/first-reach-digital-private-limited"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.socialLink}>
                 <FaLinkedinIn />
               </a>
-              <a href="#" className={styles.socialLink}>
+              <a href="https://www.instagram.com/firstreachdigital/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.socialLink}>
                 <FaInstagram />
               </a>
-              <a href="#" className={styles.socialLink}>
+              <a href="https://www.facebook.com/FirstReachDigitalPrivateLimited/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.socialLink}>
                 <FaFacebookF />
               </a>
             </div>

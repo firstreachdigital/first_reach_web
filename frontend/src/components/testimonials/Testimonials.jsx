@@ -13,7 +13,7 @@ const ARC_POSITIONS = [
 const AVATAR_SIZES = [70, 82, 72, 64, 60, 74, 80, 68, 62, 66];
 
 // Fallback placeholder avatar
-const PLACEHOLDER = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80";
+//const PLACEHOLDER = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80";
 
 export default function Testimonial() {
   const sectionRef   = useRef(null);
@@ -52,6 +52,7 @@ export default function Testimonial() {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
 
   // Fade-in observer
   useEffect(() => {

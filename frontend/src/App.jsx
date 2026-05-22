@@ -4,7 +4,7 @@ import Footer from "./components/footer/Footer";
 import ScrollToTop from "./components/scrollToTop/ScrollToTop";
 
 import { Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+
 
 import Home from "./pages/Home";
 import AboutPage from "./pages/AboutPage";
@@ -38,7 +38,7 @@ function App() {
   return (
     <>
       <Navbar />
-
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
@@ -57,7 +57,6 @@ function App() {
       </Routes>
 
       <Footer />
-      {/* <ScrollToTop /> */}
     </>
   );
 }

@@ -102,6 +102,43 @@
   color: #05caf2;
 }
 
+.socials a {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.socials a:hover {
+  color: #05caf2;
+  transform: translateY(-3px);
+}
+
+.phoneList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.phoneLink {
+  color: #777;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: color 0.2s, transform 0.2s;
+  display: inline-block;
+}
+
+.phoneLink:hover {
+  color: #05caf2;
+  transform: translateX(3px);
+}
+
 /* BOTTOM */
 .bottom {
   max-width: 1280px;

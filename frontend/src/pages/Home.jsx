@@ -10,10 +10,12 @@ import Team from "../components/team/Team";
 import Contact from "../components/contact/Contact";
 import Blog from "../components/blog/Blog";
 import ConnectUs from "../components/connectUs/ConnectUs";
+import SEO from "../components/SEO"
 
 export default function Home() {
   return (
     <>
+      <SEO page="home" />
       <Hero />
       <About />
       <Services />

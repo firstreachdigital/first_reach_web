@@ -14,6 +14,7 @@ const STATUS_COLORS = {
 const BASE_URL = import.meta.env.VITE_API_URL
   ? import.meta.env.VITE_API_URL.replace("/api", "")
   : "http://localhost:5000";
+  console.log("BASE_URL:", BASE_URL);
 
 function ApplicationsInner() {
   const { message } = App.useApp();
@@ -109,17 +110,17 @@ function ApplicationsInner() {
       render: (_, r) => r.resumeUrl
         ? (
           <Tooltip title="Download Resume">
-            <a
-              href={`${BASE_URL}${r.resumeUrl}`}  // ← dynamic URL fix
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Button
-                type="text"
-                icon={<DownloadOutlined />}
-                style={{ color: "#05caf2", fontSize: 20 }}
-              />
-            </a>
+            <Button
+              type="text"
+              icon={<DownloadOutlined />}
+              style={{ color: "#05caf2", fontSize: 20 }}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const url = `${BASE_URL}${r.resumeUrl}`;
+                window.open(url, "_blank");
+              }}
+            />
           </Tooltip>
         )
         : <span style={{ color: "#444" }}>—</span>,

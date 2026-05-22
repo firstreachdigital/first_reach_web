@@ -5,6 +5,7 @@ import styles from "./BlogPage.module.css";
 import { FaArrowLeft, FaTwitter, FaLinkedinIn, FaLink } from "react-icons/fa";
 import Blog from "../components/blog/Blog";
 import API from "../api/axios";
+import SEO from "../components/SEO";
 
 export default function BlogPage() {
   const { slug } = useParams();
@@ -32,9 +33,12 @@ export default function BlogPage() {
   // ── No slug → show blog list page
   if (!slug) {
     return (
+      <>
+      <SEO page="blog" />
       <div style={{ paddingTop: "120px" }}>
         <Blog />
       </div>
+      </>
     );
   }
 
@@ -57,6 +61,12 @@ export default function BlogPage() {
 
   return (
     <main className={styles.page}>
+       <SEO
+        title={`${post.title} | First Reach Digital Blog`}
+        description={post.excerpt || `Read ${post.title} — insights from First Reach Digital.`}
+        keywords={`${post.category}, digital marketing blog Kerala, ${post.title}`}
+        url={`https://firstreachdigital.com/blog/${post.slug}`}
+      />
       <div className={styles.topNav}>
         <button className={styles.backLink} onClick={() => navigate(-1)}>
           <FaArrowLeft /> Back

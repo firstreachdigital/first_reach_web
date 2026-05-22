@@ -85,6 +85,7 @@
   width: 100%;
   clip-path: inset(0 100% 0 0);
   pointer-events: none;
+   will-change: clip-path;
 }
 
 /* RIGHT */
@@ -142,16 +143,14 @@
    position: absolute;
   top: 50%;
   left: 50%;
-
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid var(--border);
   background: var(--card-surface-1); 
-
   will-change: transform;
   transform: translate(-50%, -50%);
-
   transition: transform 0.1s linear;
+  /* transition: none;  */
 }
 
 .avatar img {

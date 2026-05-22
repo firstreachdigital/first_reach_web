@@ -1,31 +1,12 @@
-import { useEffect, useState } from "react";
-import styles from "./ScrollToTop.module.css";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function ScrollToTop() {
-  const [visible, setVisible] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setVisible(window.scrollY > 300); // show after scroll
-    };
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname]);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  return (
-    <button
-      className={`${styles.btn} ${visible ? styles.show : ""}`}
-      onClick={scrollTop}
-    >
-      ↑
-    </button>
-  );
+  return null;
 }

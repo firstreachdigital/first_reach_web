@@ -5,6 +5,7 @@ import App from './App.jsx'
 import './styles/global.css'
 import Lenis from 'lenis'
 import { BrowserRouter } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 
 const lenis = new Lenis({
   duration: 1.2,
@@ -22,7 +23,9 @@ requestAnimationFrame(raf)
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
+    <HelmetProvider>
       <App />
+    </HelmetProvider>
     </BrowserRouter>
   </StrictMode>,
 )

@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import styles from "./TeamMemberPage.module.css";
 import { FaArrowRight, FaArrowLeft, FaLinkedinIn, FaTwitter, FaInstagram } from "react-icons/fa";
 import API from "../api/axios";
+import SEO from "../components/SEO";
 
 export default function TeamMemberPage() {
   const { slug }   = useParams();
@@ -42,6 +43,16 @@ export default function TeamMemberPage() {
 
   return (
     <main className={styles.page}>
+      <SEO
+      title={`${member.name} — ${member.role} | First Reach Digital`}
+      description={
+        member.bio?.[0]
+          ? `${member.bio[0].slice(0, 140)}…`
+          : `Meet ${member.name}, ${member.role} at First Reach Digital Private Limited — Kerala & UAE.`
+      }
+      keywords={`${member.name}, ${member.role}, First Reach Digital team, digital marketing experts Kerala`}
+      url={`https://firstreachdigital.com/team/${member.slug}`}
+    />
       {/* ── Back navigation ── */}
       <div className={styles.topNav}>
         <button className={styles.backLink} onClick={() => navigate(-1)}>
