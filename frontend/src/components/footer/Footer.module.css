@@ -178,4 +178,19 @@
     gap: 1rem;
     text-align: center;
   }
+
+  .phoneList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .phoneLink {
+    display: inline-flex;   /* ← block → inline-flex */
+    align-items: center;
+    gap: 0.5rem;
+    color: #999;
+    font-size: 0.85rem;
+  }
 }
