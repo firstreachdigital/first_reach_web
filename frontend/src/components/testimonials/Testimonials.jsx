@@ -117,7 +117,7 @@ export default function Testimonial() {
       {/* ── ARENA ── */}
       <div className={styles.arena}>
         {/* Avatars */}
-        {testimonials.map((t, i) => (
+        {/* {testimonials.map((t, i) => (
           <div
             key={t._id}
             ref={(el) => (avatarRefs.current[i] = el)}
@@ -126,7 +126,7 @@ export default function Testimonial() {
           >
             <img src={t.avatar || PLACEHOLDER} alt={t.name} loading="lazy" />
           </div>
-        ))}
+        ))} */}
 
         {/* Center quote card */}
         {current && (
