@@ -1,5 +1,5 @@
 // src/components/blog/Blog.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./Blog.module.css";
 import { useNavigate } from "react-router-dom";
 import API from "../../api/axios";
@@ -8,9 +8,12 @@ export default function Blog() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hovered, setHovered] = useState(null);
-  const titleRef   = React.useRef(null);
+  const titleRef = React.useRef(null);
   const sectionRef = React.useRef(null);
-  const navigate   = useNavigate();
+  const navigate = useNavigate();
+  const gridRef = useRef(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     API.get("/blogs")
@@ -37,6 +40,42 @@ export default function Blog() {
     return hovered === post._id ? "big" : "small";
   };
 
+  const handleScroll = () => {
+    if (!gridRef.current) return;
+    const { scrollLeft, clientWidth } = gridRef.current;
+    setActiveIdx(Math.round(scrollLeft / (clientWidth * 0.75)));
+  };
+
+  // mobile detect
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // card width helper
+  const getCardWidth = () => {
+    if (!gridRef.current) return 0;
+    const cardW = gridRef.current.clientWidth * 0.75;
+    const gap = 16; // 1rem
+    return cardW + gap;
+  };
+
+  // auto-play
+  useEffect(() => {
+    if (!isMobile || posts.length === 0) return;
+    const interval = setInterval(() => {
+      const nextIdx = (activeIdx + 1) % posts.length;
+      gridRef.current?.scrollTo({
+        left: nextIdx * getCardWidth(),
+        behavior: "smooth",
+      });
+      setActiveIdx(nextIdx);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [activeIdx, posts.length, isMobile]);
+
   return (
     <section className={styles.section} id="blog" ref={sectionRef}>
       {/* ── HEADER ── */}
@@ -48,19 +87,22 @@ export default function Blog() {
           </span>
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>See What's Buzzing</h2>
-            <h2 className={styles.titleFill} ref={titleRef}>See What's Buzzing</h2>
+            <h2 className={styles.titleFill} ref={titleRef}>
+              See What's Buzzing
+            </h2>
           </div>
         </div>
         <div className={styles.headerRight}>
           <p className={styles.desc}>
-            Discover industry trends, expert opinions & tips, and creative inspo from the First Reach
-            Digital Team. Our blogs are packed with knowledge, ideas, and what's next in the world.
+            Discover industry trends, expert opinions & tips, and creative inspo
+            from the First Reach Digital Team. Our blogs are packed with
+            knowledge, ideas, and what's next in the world.
           </p>
         </div>
       </div>
 
       {/* ── CARDS GRID ── */}
-      <div className={styles.grid}>
+      <div className={styles.grid} ref={gridRef} onScroll={handleScroll}>
         {loading && <p style={{ color: "var(--muted)" }}>Loading...</p>}
         {posts.map((post) => {
           const state = getState(post);
@@ -78,11 +120,18 @@ export default function Blog() {
                 <div className={styles.imgOverlay} />
                 <span className={styles.tag}>{post.category}</span>
                 <span className={styles.readTime}>{post.readTime}</span>
-                {(state === "featured" || state === "big") && (
+                {(state === "featured" || state === "big" || isMobile) && (
                   <div className={styles.eyeBtn}>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" strokeWidth="1.8"
-                      strokeLinecap="round" strokeLinejoin="round">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                       <circle cx="12" cy="12" r="3" />
                     </svg>
@@ -93,7 +142,11 @@ export default function Blog() {
               {/* Text */}
               <div className={styles.cardBody}>
                 <p className={styles.date}>
-                  {new Date(post.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                  {new Date(post.createdAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
                 </p>
                 <h3 className={styles.title}>{post.title}</h3>
               </div>
@@ -102,13 +155,35 @@ export default function Blog() {
         })}
       </div>
 
+      <div className={styles.dots}>
+        {posts.map((_, i) => (
+          <span
+            key={i}
+            className={`${styles.dot} ${activeIdx === i ? styles.dotActive : ""}`}
+            onClick={() => {
+              gridRef.current?.scrollTo({
+                left: i * getCardWidth(),
+                behavior: "smooth",
+              });
+            }}
+          />
+        ))}
+      </div>
+
       {/* ── MORE BLOG BTN ── */}
       <div className={styles.moreBtnWrap}>
         <a href="/blog" className={styles.moreBtn}>
           <span className={styles.moreBtnArrow}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2.5"
-              strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
             </svg>

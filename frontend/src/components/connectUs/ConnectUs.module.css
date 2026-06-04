@@ -295,4 +295,16 @@
   .logoBadge {
     display: none;
   }
+  .tickerTrack {
+    animation-duration: 15s;
+    gap: 2rem;
+  }
+
+  .tickerValue {
+    font-size: 1.4rem;
+  }
+
+  .tickerLabel {
+    font-size: 0.75rem;
+  }
 }

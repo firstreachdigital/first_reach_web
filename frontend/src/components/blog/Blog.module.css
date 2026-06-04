@@ -323,6 +323,10 @@
   opacity: 1;
 }
 
+.dots {
+  display: none;
+}
+
 /* ═══════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════ */
@@ -339,11 +343,10 @@
   }
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .section {
     padding: 4rem 1.5rem 3.5rem;
   }
-  /* Stack cards vertically on mobile */
   .grid {
     flex-direction: column;
     height: auto;
@@ -363,6 +366,102 @@
     flex: none;
   }
   .cardBody {
-    display: none; /* hide text on very small to keep card compact */
+    display: none; 
+  }
+} */
+
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 0 3.5rem;
+  }
+
+  .header {
+    padding: 0 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .moreBtnWrap {
+    padding: 0 1.5rem;
+  }
+
+  /* ── CAROUSEL ── */
+  .grid {
+    flex-direction: row;        /* horizontal */
+    height: auto;
+    gap: 0;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 1.5rem 1rem;
+    margin-bottom: 0.5rem;
+    scroll-padding-left: 1.5rem;
+  }
+
+  .grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card,
+  .card_normal,
+  .card_featured,
+  .card_big,
+  .card_small {
+    flex: none !important;
+    width: 75vw;              /* card width */
+    min-width: 75vw;
+    height: 320px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    margin-right: 1rem;
+  }
+
+  .card:last-child {
+    margin-right: 0;
+  }
+
+  .imgWrap {
+    height: 100%;
+    flex: none;
+  }
+
+  .cardBody {
+    display: none;
+  }
+
+  /* always show eye + readtime on mobile */
+  .eyeBtn {
+    display: flex;
+  }
+
+  .readTime {
+    opacity: 1;
+  }
+
+  .tag {
+    display: block;
+  }
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin: 0.5rem 0 1.5rem;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .dotActive {
+    width: 20px;
+    border-radius: 3px;
+    background: #05caf2;
   }
 }
+

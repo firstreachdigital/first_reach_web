@@ -26,10 +26,16 @@ export default function Footer() {
 
           <p className={styles.email}>✉ info@firstreachdigital.com</p>
 
-          <div className={styles.available}>
+          <div className={styles.phoneList}>
+              <a href="tel:+919946618222" className={styles.phoneLink}>
+                <FaPhoneAlt /> +91 99466 18222
+              </a>
+            </div>
+
+          {/* <div className={styles.available}>
             <span className={styles.dot}></span>
             Available for hire!
-          </div>
+          </div> */}
         </div>
 
         {/* LINKS */}
@@ -72,15 +78,6 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
-          {/* <div>
-            <h4>Social Media</h4>
-            <div className={styles.socials}>
-              <span><FaLinkedin /></span>
-              <span><FaInstagramSquare /></span>
-              <span><FaFacebookSquare /></span>
-            </div>
-          </div> */}
           <div>
             <h4>Social Media</h4>
 
@@ -109,11 +106,7 @@ export default function Footer() {
                 <FaFacebookSquare />
               </a>
             </div>
-            <div className={styles.phoneList}>
-              <a href="tel:+919946618222" className={styles.phoneLink}>
-                <FaPhoneAlt /> +91 99466 18222
-              </a>
-            </div>
+            
           </div>
         </div>
       </div>

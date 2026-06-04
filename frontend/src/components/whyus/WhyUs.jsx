@@ -146,9 +146,9 @@ export default function WhyUs() {
         <div className={`${styles.card} ${styles.cardSmall}`} data-wu-inview>
           <img src={bentoItems[0].img} alt="" className={styles.cardImg} />
           <div className={styles.cardImgOverlay} />
-          <div className={styles.cardContent}>
-            <h3 className={styles.cardTitle}>{bentoItems[0].title}</h3>
-            <p className={styles.cardDesc}>{bentoItems[0].desc}</p>
+          <div className={styles.overlayBox}>
+            <h3 style={{color:"black"}} className={styles.cardTitle}>{bentoItems[0].title}</h3>
+            <p style={{color:"black"}} className={styles.cardDesc}>{bentoItems[0].desc}</p>
           </div>
         </div>
 
@@ -168,9 +168,9 @@ export default function WhyUs() {
         <div className={`${styles.card} ${styles.cardSmall}`} data-wu-inview>
           <img src={bentoItems[2].img} alt="" className={styles.cardImg} />
           <div className={styles.cardImgOverlay} />
-          <div className={styles.cardContent}>
-            <h3 className={styles.cardTitle}>{bentoItems[2].title}</h3>
-            <p className={styles.cardDesc}>{bentoItems[2].desc}</p>
+          <div className={styles.overlayBox}>
+            <h3 style={{color:"black"}} className={styles.cardTitle}>{bentoItems[2].title}</h3>
+            <p style={{color:"black"}} className={styles.cardDesc}>{bentoItems[2].desc}</p>
           </div>
         </div>
 

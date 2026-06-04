@@ -1,0 +1,205 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  padding: 10rem 1.5rem 4rem;
+  font-family: var(--font-body);
+}
+
+/* Header */
+.header {
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.highlight {
+  font-size: 0.75rem;
+  color: var(--accent);
+  background: rgba(4, 168, 201, 0.08);
+  border: 1px solid rgba(4, 168, 201, 0.2);
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+ 
+
+/* Progress */
+.progressWrap {
+  max-width: 860px;
+  margin: 0 auto 2rem;
+}
+
+.stepLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.stepLbl {
+  font-size: 0.7rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.3s;
+}
+
+.stepLblActive {
+  color: var(--accent);
+}
+
+.stepNum {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--muted);
+  transition: all 0.3s;
+}
+
+.stepLblActive .stepNum {
+  background: var(--accent);
+  color: #fff;
+}
+
+.progressBar {
+  height: 3px;
+  background: var(--border);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 100px;
+  transition: width 0.4s ease;
+}
+
+/* Body layout */
+.body {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    order: -1;
+  }
+}
+
+/* Form area */
+.formArea {
+  animation: fadeUp 0.3s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Nav buttons */
+.navRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 1.75rem;
+}
+
+.btnBack {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+}
+
+.btnBack:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+.btnNext {
+  flex: 1;
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.65rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+}
+
+.btnNext:hover {
+  background: var(--accent-dark);
+}
+
+.btnNext:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.trustText {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+.errorMsg {
+  color: #e05c5c;
+  font-size: 0.8rem;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+/* Sidebar */
+.sidebar {
+  position: sticky;
+  top: 6rem;
+}

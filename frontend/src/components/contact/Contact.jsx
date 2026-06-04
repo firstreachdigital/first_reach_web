@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from "./Contact.module.css";
 import API from "../../api/axios";
 
-const FAQ_TABS = ["General Ask", "Job Career", "Pricing & Plan"];
+const FAQ_TABS = ["General Ask", "Job Career",];
 
 export default function Contact() {
   const [activeTab, setActiveTab] = useState("General Ask");

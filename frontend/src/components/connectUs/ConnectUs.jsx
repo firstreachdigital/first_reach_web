@@ -78,7 +78,7 @@ const stats = [
   { value: "90%",  label: "Success Rate" },
   { value: "10+",   label: "Years of Experience" },
   { value: "390+", label: "Delivered Projects" },
-  { value: "50+",  label: "Team Members" },
+  { value: "10+",  label: "Team Members" },
   { value: "120+", label: "Happy Clients" },
 ];
 

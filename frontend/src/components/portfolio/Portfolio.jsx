@@ -137,7 +137,7 @@ export default function Portfolio() {
 
         <div className={styles.stats}>
          <StatCard target={95} suffix="%" label="Customer satisfaction" />
-         <StatCard target={12} suffix="+"  label="Years of experience" />
+         <StatCard target={10} suffix="+"  label="Years of experience" />
          <StatCard target={22} suffix="+"  label="Projects completed" />
         </div>
       </div>

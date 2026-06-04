@@ -371,18 +371,18 @@ export default function Navbar() {
 
           {/* CTA */}
           {location.pathname === "/" ? (
-            <a href="/contact" className={styles.cta}>
+            <a href="/get-a-quote" className={styles.cta}>
               <span className={styles.ctaArrow}>
                 <FaArrowRight />
               </span>
-              Get in Touch
+              GET A QUOTE
             </a>
           ) : (
-            <Link to="/contact" className={styles.cta}>
+            <Link to="/get-a-quote" className={styles.cta}>
               <span className={styles.ctaArrow}>
                 <FaArrowRight />
               </span>
-              Get in Touch
+              GET A QUOTE
             </Link>
           )}
 
@@ -629,19 +629,19 @@ export default function Navbar() {
 
             {location.pathname === "/" ? (
               <a
-                href="/contact"
+                href="/get-a-quote"
                 className={styles.mobileCta}
                 onClick={() => setMenuOpen(false)}
               >
-                Get in Touch
+                GET A QUOTE
               </a>
             ) : (
               <Link
-                to="/contact"
+                to="/get-a-quote"
                 className={styles.mobileCta}
                 onClick={() => setMenuOpen(false)}
               >
-                Get in Touch
+                GET A QUOTE
               </Link>
             )}
           </div>

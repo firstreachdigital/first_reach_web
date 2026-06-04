@@ -18,6 +18,7 @@ import TeamPage from "./pages/TeamPage";
 import Careers from "./pages/CareersPage";
 import TeamMemberPage from "./pages/TeamMemberPage";
 import BlogPage from "./pages/BlogPage";
+import GetAQuotePage from "./pages/GetAQuotePage";
 // import Loader from "./components/loader/Loader";
 
 
@@ -53,6 +54,7 @@ function App() {
         <Route path="/team/:slug" element={<TeamMemberPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPage />} />
+        <Route path="/get-a-quote" element={<GetAQuotePage />} />
         
       </Routes>
 
