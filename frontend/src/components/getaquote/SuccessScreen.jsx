@@ -1,13 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./GetAQuoteSteps.module.css";
+import { FaCheck, FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 
 export default function SuccessScreen({ contact }) {
   const waLink = `https://wa.me/919633891704?text=Hi%2C%20I%20just%20submitted%20a%20quote%20request.%20My%20name%20is%20${encodeURIComponent(contact.name)}.`;
 
   return (
     <div className={styles.successWrap}>
-      <div className={styles.successIcon}>🎉</div>
+      <div className={styles.successIcon}>
+        <FaCheck />
+      </div>
       <h2 className={styles.successTitle}>Your Request Has Been Submitted!</h2>
       <p className={styles.successMsg}>
         Our team is reviewing your requirements and will contact you shortly with a
@@ -20,13 +23,13 @@ export default function SuccessScreen({ contact }) {
           rel="noreferrer"
           className={styles.btnWa}
         >
-          💬 Chat on WhatsApp
+          <FaWhatsapp size={20} /> Chat on WhatsApp
         </a>
         <Link to="/contact" className={styles.btnOutline}>
-          📞 Book a Consultation
+          <FaPhoneAlt size={20} /> Book a Consultation
         </Link>
         <Link to="/" className={styles.btnOutline}>
-          ← Back to Home
+           Back to Home
         </Link>
       </div>
       <div className={styles.trustBox}>

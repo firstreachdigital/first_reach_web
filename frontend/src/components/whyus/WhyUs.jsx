@@ -147,8 +147,8 @@ export default function WhyUs() {
           <img src={bentoItems[0].img} alt="" className={styles.cardImg} />
           <div className={styles.cardImgOverlay} />
           <div className={styles.overlayBox}>
-            <h3 style={{color:"black"}} className={styles.cardTitle}>{bentoItems[0].title}</h3>
-            <p style={{color:"black"}} className={styles.cardDesc}>{bentoItems[0].desc}</p>
+            <h3 className={styles.overlayTitle}>{bentoItems[0].title}</h3>
+            {/* <p className={styles.overlayTitle}>{bentoItems[0].desc}</p> */}
           </div>
         </div>
 
@@ -169,8 +169,8 @@ export default function WhyUs() {
           <img src={bentoItems[2].img} alt="" className={styles.cardImg} />
           <div className={styles.cardImgOverlay} />
           <div className={styles.overlayBox}>
-            <h3 style={{color:"black"}} className={styles.cardTitle}>{bentoItems[2].title}</h3>
-            <p style={{color:"black"}} className={styles.cardDesc}>{bentoItems[2].desc}</p>
+            <h3  className={styles.overlayTitle}>{bentoItems[2].title}</h3>
+            {/* <p className={styles.cardDesc}>{bentoItems[2].desc}</p> */}
           </div>
         </div>
 
@@ -181,16 +181,16 @@ export default function WhyUs() {
         >
           <div className={styles.statsWrap}>
             <div className={styles.statsLeft}>
-              <div className={styles.stars}>
+              {/* <div className={styles.stars}>
                 {[...Array(5)].map((_, i) => (
                   <FaStar key={i} className={styles.star} />
                 ))}
-              </div>
+              </div> */}
               <div className={styles.statNum}>99+</div>
               <div className={styles.statLabel}>Happy Clients</div>
             </div>
             <div className={styles.divider} />
-            <div className={styles.avatarStack}>
+            {/* <div className={styles.avatarStack}>
               {bentoItems[3].avatars.map((src, i) => (
                 <img
                   key={i}
@@ -200,7 +200,12 @@ export default function WhyUs() {
                   style={{ zIndex: 4 - i }}
                 />
               ))}
-            </div>
+            </div> */}
+             <div className={styles.stars}>
+                {[...Array(5)].map((_, i) => (
+                  <FaStar key={i} className={styles.star} />
+                ))}
+              </div>
           </div>
         </div>
 

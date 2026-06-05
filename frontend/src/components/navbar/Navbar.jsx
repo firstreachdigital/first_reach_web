@@ -142,7 +142,7 @@ export default function Navbar() {
     { label: "Careers", path: "/careers", hasSubmenu: false },
     { label: "FAQ", path: "/FAQ", hasSubmenu: false },
     { label: "Testimonial", path: "/testimonial", hasSubmenu: false },
-    { label: "Portfolio", path: "/portfolio", hasSubmenu: false },
+    // { label: "Portfolio", path: "/portfolio", hasSubmenu: false },
     { label: "Why Us", path: "/why-us", hasSubmenu: false },
   ];
 
@@ -259,6 +259,11 @@ export default function Navbar() {
                 Services
               </Link>
             </li>
+            <li className={styles.navItem}>
+              <Link to="/portfolio" className={styles.link}>
+                Portfolio
+              </Link>
+            </li>
 
             {/* Blog — opens modal */}
             <li className={styles.navItem}>
@@ -266,7 +271,7 @@ export default function Navbar() {
                 className={`${styles.link} ${styles.pagesBtn} ${blogModal ? styles.pageBtnActive : ""}`}
                 onClick={() => setBlogModal(true)}
               >
-                Blog{" "}
+                Blogs{" "}
                 <FaChevronDown
                   className={`${styles.chevron} ${blogModal ? styles.chevronUp : ""}`}
                 />
@@ -375,14 +380,14 @@ export default function Navbar() {
               <span className={styles.ctaArrow}>
                 <FaArrowRight />
               </span>
-              GET A QUOTE
+              Get a Quote
             </a>
           ) : (
             <Link to="/get-a-quote" className={styles.cta}>
               <span className={styles.ctaArrow}>
                 <FaArrowRight />
               </span>
-              GET A QUOTE
+              Get a Quote
             </Link>
           )}
 
@@ -518,7 +523,7 @@ export default function Navbar() {
                 className={`${styles.mobileLink} ${styles.mobilePagesBtn}`}
                 onClick={() => setMobileBlog((p) => !p)}
               >
-                Blog{" "}
+                Blogs{" "}
                 <FaChevronDown
                   className={`${styles.chevron} ${mobileBlog ? styles.chevronUp : ""}`}
                   style={{ fontSize: "0.7rem" }}
@@ -633,7 +638,7 @@ export default function Navbar() {
                 className={styles.mobileCta}
                 onClick={() => setMenuOpen(false)}
               >
-                GET A QUOTE
+                Get a Quote
               </a>
             ) : (
               <Link
@@ -641,7 +646,7 @@ export default function Navbar() {
                 className={styles.mobileCta}
                 onClick={() => setMenuOpen(false)}
               >
-                GET A QUOTE
+                Get a Quote
               </Link>
             )}
           </div>

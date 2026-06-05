@@ -76,7 +76,7 @@ export default function CareersPage() {
       </section>
 
       {/* ── PERKS ── */}
-      <section className={styles.perksSection}>
+      {/* <section className={styles.perksSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>Why First Reach?</h2>
           <p className={styles.sectionSub}>We don't do average. Here's what makes working here different.</p>
@@ -90,7 +90,7 @@ export default function CareersPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── OPENINGS ── */}
       <section className={styles.openingsSection} id="openings">

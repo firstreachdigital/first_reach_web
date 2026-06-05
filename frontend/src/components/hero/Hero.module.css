@@ -309,7 +309,7 @@
   position: relative;
   z-index: 5;
   padding: 0 4rem;
-  padding-top: 7rem;
+  padding-top: 25rem;
   max-width: 1200px;
   display: flex;
   flex-direction: column;
@@ -731,5 +731,19 @@
   .socialBar { display: none; }
   .logosWrap { padding: 1.5rem 0 1.5rem 1.5rem; }
   .logosLeft { display: none; }
+}
+
+/* Small laptops (1024px - 1280px) */
+@media (min-width: 769px) and (max-width: 1280px) {
+  .content {
+    padding-top: 12rem;
+  }
+}
+
+/* Large laptops (1280px - 1440px) */
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .content {
+    padding-top: 10rem;
+  }
 }
 

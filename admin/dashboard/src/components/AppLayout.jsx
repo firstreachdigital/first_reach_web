@@ -24,6 +24,8 @@ import {
   StarOutlined,
   UserOutlined,
   UsergroupAddOutlined,
+  MailOutlined,
+  DollarOutlined,
 } from "@ant-design/icons";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -38,6 +40,8 @@ const ALL_MENU_ITEMS = [
   { key: "/jobs",         icon: <FormOutlined         style={{ fontSize: 18 }} />, label: "Job Postings" },
   { key: "/applications", icon: <TeamOutlined         style={{ fontSize: 18 }} />, label: "Applications" },
   { key: "/enquiries",    icon: <InboxOutlined        style={{ fontSize: 18 }} />, label: "Enquiries" },
+  { key: "/contacts",     icon: <MailOutlined         style={{ fontSize: 18 }} />, label: "Contacts" },
+  { key: "/quotes",       icon: <DollarOutlined       style={{ fontSize: 18 }} />, label: "Quotes" },
   { key: "/portfolio",    icon: <PictureOutlined      style={{ fontSize: 18 }} />, label: "Portfolio" },
   { key: "/testimonials", icon: <StarOutlined         style={{ fontSize: 18 }} />, label: "Testimonials" },
   { key: "/team",         icon: <UserOutlined         style={{ fontSize: 18 }} />, label: "Team Members" },
@@ -174,7 +178,7 @@ export default function AppLayout() {
               minHeight: "calc(100vh - 64px)",
             }}
           >
-            <Outlet />
+            <Outlet context={{ isDark }} />
           </Content>
         </Layout>
       </Layout>

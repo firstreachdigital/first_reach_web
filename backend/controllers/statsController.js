@@ -2,6 +2,8 @@ const Blog        = require("../models/Blog");
 const JobPosting  = require("../models/JobPosting");
 const JobApplication = require("../models/JobApplication");
 const Enquiry     = require("../models/Enquiry");
+const Contact     = require("../models/Contact");
+const Quote       = require("../models/Quote");
 const Portfolio   = require("../models/Portfolio");
 
 // Returns last N months labels e.g. ["Jan", "Feb", ...]
@@ -39,18 +41,22 @@ async function monthlyCounts(Model, filter = {}) {
 
 exports.getStats = async (req, res) => {
   try {
-    const [blogs, jobs, applications, enquiries, portfolio] = await Promise.all([
+    const [blogs, jobs, applications, enquiries, contacts, quotes, portfolio] = await Promise.all([
       Blog.countDocuments(),
       JobPosting.countDocuments(),
       JobApplication.countDocuments(),
       Enquiry.countDocuments(),
+      Contact.countDocuments(),
+      Quote.countDocuments(),
       Portfolio.countDocuments({ isActive: true }),
     ]);
 
     const newEnquiries    = await Enquiry.countDocuments({ status: "New" });
     const newApplications = await JobApplication.countDocuments({ status: "New" });
+    const newContacts     = await Contact.countDocuments({ status: "new" });
+    const newQuotes       = await Quote.countDocuments({ status: "new" });
 
-    res.json({ blogs, jobs, applications, enquiries, portfolio, newEnquiries, newApplications });
+    res.json({ blogs, jobs, applications, enquiries, contacts, quotes, portfolio, newEnquiries, newApplications, newContacts, newQuotes });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -58,10 +64,12 @@ exports.getStats = async (req, res) => {
 
 exports.getChartData = async (req, res) => {
   try {
-    const [blogsM, appsM, enquiriesM, portfolioM] = await Promise.all([
+    const [blogsM, appsM, enquiriesM, contactsM, quotesM, portfolioM] = await Promise.all([
       monthlyCounts(Blog),
       monthlyCounts(JobApplication),
       monthlyCounts(Enquiry),
+      monthlyCounts(Contact),
+      monthlyCounts(Quote),
       monthlyCounts(Portfolio),
     ]);
 
@@ -72,6 +80,8 @@ exports.getChartData = async (req, res) => {
       Blogs:        blogsM[i].count,
       Applications: appsM[i].count,
       Enquiries:    enquiriesM[i].count,
+      Contacts:     contactsM[i].count,
+      Quotes:       quotesM[i].count,
       Portfolio:    portfolioM[i].count,
     }));
 

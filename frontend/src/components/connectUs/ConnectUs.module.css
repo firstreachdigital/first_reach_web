@@ -205,7 +205,7 @@
   box-shadow: var(--card-shadow);
 }
 
-.infoItem {
+/* .infoItem {
   text-align: left;
 }
 
@@ -223,6 +223,213 @@
 .infoLine {
   font-size: 0.85rem;
   color: var(--muted);   
+} */
+
+.infoItem {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Icon + Label — same row */
+.infoIconLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.infoIcon {
+  color: #05caf2;
+  flex-shrink: 0;
+}
+
+.infoLabel {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.infoLine {
+  font-size: 0.85rem;
+  color: var(--muted);
+  padding-left: 1.6rem; 
+  text-decoration: none;
+  transition: color 0.2s;
+  display: block;
+}
+
+.infoLine:hover {
+  color: #05caf2;
+  text-decoration: underline;
+}
+
+/* ================= CONTACT FORM ================= */
+
+.formWrap {
+  max-width: 1280px;
+  margin: 5rem auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 4rem;
+  align-items: start;
+  border-top: 1px solid var(--border);
+  padding-top: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.formLeft {
+  position: sticky;
+  top: 6rem;
+}
+
+.formTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0.5rem 0 1rem;
+}
+
+.formSubtitle {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 300px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.inputWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.inputLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.input {
+  width: 100%;
+  background: var(--card-surface-1);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.92rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+
+.input::placeholder {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.input:focus {
+  border-color: #05caf2;
+  box-shadow: 0 0 0 3px rgba(5, 202, 242, 0.12);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.submitBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  background: #05caf2;
+  color: #000;
+  border: none;
+  border-radius: 3rem;
+  padding: 1rem 2rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  align-self: flex-start;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: #00b8d9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(5, 202, 242, 0.35);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.successMsg {
+  font-size: 0.9rem;
+  color: #22c55e;
+  margin-top: 0.5rem;
+}
+
+.errorMsg {
+  font-size: 0.9rem;
+  color: #ef4444;
+  margin-top: 0.5rem;
+}
+
+/* Responsive form */
+@media (max-width: 1024px) {
+  .formWrap {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .formLeft {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+  .submitBtn {
+    width: 100%;
+  }
 }
 
 /* ================= TICKER ================= */

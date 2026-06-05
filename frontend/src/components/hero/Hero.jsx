@@ -387,7 +387,7 @@ export default function Hero() {
                 <span className={styles.ctaArrow}>
                   <FaArrowRight />
                 </span>
-                GET A QUOTE
+                Get a Quote
               </Link>
               <Link
                 to="/about"

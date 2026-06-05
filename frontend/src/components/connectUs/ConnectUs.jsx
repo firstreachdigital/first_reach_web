@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./ConnectUs.module.css";
 import officeReception from "../../assets/officeReception.png";
 import { FaWhatsapp, FaLinkedinIn, FaFacebookF, FaInstagram } from "react-icons/fa";
+import API from "../../api/axios";
 
 const socials = [
   {
@@ -48,7 +49,13 @@ const contactInfo = [
       </svg>
     ),
     label: "Office Address",
-    lines: ["1st Floor, Room No: 23, 372/A2, St. Joseph Road, near AISAT College, Kalamassery, Kochi, Kerala 683503"],
+    
+    lines: [
+      {
+        text: "1st Floor, Room No: 23, 372/A2, St. Joseph Road, near AISAT College, Kalamassery, Kochi, Kerala 683503",
+        href: "https://maps.app.goo.gl/T41hpYnuNg73CEBMA",
+      },
+    ],
   },
   {
     icon: (
@@ -58,7 +65,11 @@ const contactInfo = [
       </svg>
     ),
     label: "24/7 Support",
-    lines: ["Call +91 99466 18444", "info@firstreachdigital.com"],
+    
+     lines: [
+      { text: "Call +91 99466 18444", href: "tel:+919946618444" },
+      { text: "info@firstreachdigital.com", href: "mailto:info@firstreachdigital.com" },
+    ],
   },
   {
     icon: (
@@ -69,9 +80,17 @@ const contactInfo = [
       </svg>
     ),
     label: "Business Hours",
-    lines: ["Mon - Sat 8 AM - 10 PM", "Sun 11 AM - 5 PM"],
+    
+     lines: [
+      {
+        text: "Mon - Sat 10AM - 6PM",
+        href: "https://www.google.com/search?q=First+Reach+Digital+Kalamassery",
+      },
+     
+    ],
   },
 ];
+
 
 const stats = [
   { value: "70%",  label: "Returning Clients" },
@@ -86,6 +105,27 @@ export default function ConnectUs() {
   const titleFillRef = useRef(null);
   const sectionRef = useRef(null);
   const tickerRef = useRef(null);
+
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [status, setStatus] = useState(null); 
+
+   const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      await API.post("/contacts", form);
+      setStatus("success");
+      setForm({ name: "", email: "", phone: "", message: "" });
+      setTimeout(() => setStatus(null), 5000);
+    } catch {
+      setStatus("error");
+    }
+  };
+
 
   useEffect(() => {
     // Title fill
@@ -173,15 +213,107 @@ export default function ConnectUs() {
           <div className={styles.infoRow}>
             {contactInfo.map((info, i) => (
               <div key={i} className={styles.infoItem}>
+                <div className={styles.infoIconLabel}>
                 <span className={styles.infoIcon}>{info.icon}</span>
                 <h4 className={styles.infoLabel}>{info.label}</h4>
+                </div>
                 {info.lines.map((line, j) => (
-                  <p key={j} className={styles.infoLine}>{line}</p>
+                  <a key={j} href={line.href} className={styles.infoLine}>{line.text}</a>
                 ))}
               </div>
             ))}
           </div>
         </div>
+      </div>
+
+      {/* contct form */}
+      <div className={styles.formWrap}>
+        <div className={styles.formLeft}>
+          <span className={styles.label}>
+            <span className={styles.labelDot} />
+            Send A Message
+          </span>
+          <h3 className={styles.formTitle}>Got a project in mind?<br />Let's talk.</h3>
+          <p className={styles.formSubtitle}>
+            Fill in the form and our team will get back to you within 24 hours.
+          </p>
+        </div>
+
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.formRow}>
+            <div className={styles.inputWrap}>
+              <label className={styles.inputLabel}>Your Name</label>
+              <input
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="John Doe"
+                className={styles.input}
+                required
+              />
+            </div>
+            <div className={styles.inputWrap}>
+              <label className={styles.inputLabel}>Email Address</label>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="john@example.com"
+                className={styles.input}
+                required
+              />
+            </div>
+          </div>
+
+          <div className={styles.inputWrap}>
+            <label className={styles.inputLabel}>Phone Number</label>
+            <input
+              type="tel"
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              placeholder="Enter your phone number"
+              className={styles.input}
+            />
+          </div>
+
+          <div className={styles.inputWrap}>
+            <label className={styles.inputLabel}>Message</label>
+            <textarea
+              name="message"
+              value={form.message}
+              onChange={handleChange}
+              placeholder="Tell us about your project..."
+              className={`${styles.input} ${styles.textarea}`}
+              rows={5}
+              required
+            />
+          </div>
+
+          <button type="submit" className={styles.submitBtn} disabled={status === "sending"}>
+            {status === "sending" ? (
+              <span className={styles.spinner} />
+            ) : (
+              <>
+                <span>Send Message</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+              </>
+            )}
+          </button>
+
+          {status === "success" && (
+            <p className={styles.successMsg}> Message sent! We'll get back to you soon.</p>
+          )}
+          {status === "error" && (
+            <p className={styles.errorMsg}> Something went wrong. Try again.</p>
+          )}
+        </form>
       </div>
 
       {/* ── STATS TICKER ── */}

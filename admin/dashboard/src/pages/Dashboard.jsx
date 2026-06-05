@@ -6,6 +6,8 @@ import {
   TeamOutlined,
   InboxOutlined,
   PictureOutlined,
+  MailOutlined,
+  DollarOutlined,
 } from "@ant-design/icons";
 import {
   LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -70,6 +72,22 @@ export default function Dashboard() {
       color: "#10b981",
       gradient: "linear-gradient(135deg, #10b98122 0%, #10b98108 100%)",
       badge: stats?.newEnquiries ? `+${stats.newEnquiries} new` : null,
+    },
+    {
+      title: "Contacts",
+      value: stats?.contacts,
+      icon: <MailOutlined />,
+      color: "#3b82f6",
+      gradient: "linear-gradient(135deg, #3b82f622 0%, #3b82f608 100%)",
+      badge: stats?.newContacts ? `+${stats.newContacts} new` : null,
+    },
+    {
+      title: "Quotes",
+      value: stats?.quotes,
+      icon: <DollarOutlined />,
+      color: "#8b5cf6",
+      gradient: "linear-gradient(135deg, #8b5cf622 0%, #8b5cf608 100%)",
+      badge: stats?.newQuotes ? `+${stats.newQuotes} new` : null,
     },
     {
       title: "Portfolio",
@@ -249,6 +267,8 @@ export default function Dashboard() {
                     <Line type="monotone" dataKey="Blogs"        stroke="#06b6d4" strokeWidth={2} dot={{ r: 4 }} />
                     <Line type="monotone" dataKey="Applications" stroke="#f59e0b" strokeWidth={2} dot={{ r: 4 }} />
                     <Line type="monotone" dataKey="Enquiries"    stroke="#10b981" strokeWidth={2} dot={{ r: 4 }} />
+                    <Line type="monotone" dataKey="Contacts"     stroke="#3b82f6" strokeWidth={2} dot={{ r: 4 }} />
+                    <Line type="monotone" dataKey="Quotes"       stroke="#8b5cf6" strokeWidth={2} dot={{ r: 4 }} />
                     <Line type="monotone" dataKey="Portfolio"    stroke="#ec4899" strokeWidth={2} dot={{ r: 4 }} />
                   </LineChart>
                 </ResponsiveContainer>
@@ -282,6 +302,8 @@ export default function Dashboard() {
                     <Bar dataKey="Blogs"        fill="#06b6d4" radius={[8, 8, 0, 0]} />
                     <Bar dataKey="Applications" fill="#f59e0b" radius={[8, 8, 0, 0]} />
                     <Bar dataKey="Enquiries"    fill="#10b981" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="Contacts"     fill="#3b82f6" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="Quotes"       fill="#8b5cf6" radius={[8, 8, 0, 0]} />
                     <Bar dataKey="Portfolio"    fill="#ec4899" radius={[8, 8, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>

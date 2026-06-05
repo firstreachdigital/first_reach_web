@@ -411,6 +411,7 @@
 }
 
 /* Success */
+/* ── SUCCESS SCREEN ── */
 .successWrap {
   min-height: 60vh;
   display: flex;
@@ -418,36 +419,49 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 15rem 1.5rem 3rem;
 }
 
 .successIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 24px rgba(5, 202, 242, 0.2);
 }
 
 .successTitle {
   font-family: var(--font-display);
-  font-size: 1.75rem;
+  font-size: clamp(1.4rem, 5vw, 1.75rem);
   font-weight: 700;
   color: var(--text);
   margin-bottom: 0.75rem;
+  line-height: 1.2;
 }
 
 .successMsg {
   color: var(--muted);
   font-size: 0.9rem;
-  max-width: 420px;
+  max-width: 380px;
   line-height: 1.6;
-  margin-bottom: 1.75rem;
+  margin-bottom: 2rem;
 }
 
 .successBtns {
   display: flex;
-  gap: 10px;
+  flex-direction: row;
   flex-wrap: wrap;
+  gap: 10px;
   justify-content: center;
   margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 420px;
 }
 
 .btnWa {
@@ -455,32 +469,36 @@
   border: none;
   color: #fff;
   border-radius: 8px;
-  padding: 0.65rem 1.25rem;
+  padding: 0.7rem 1.25rem;
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   font-family: var(--font-body);
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   transition: opacity 0.2s;
+  white-space: nowrap;
 }
 
-.btnWa:hover {
-  opacity: 0.9;
-}
+.btnWa:hover { opacity: 0.88; }
 
 .btnOutline {
   background: transparent;
   border: 1px solid var(--border);
   color: var(--muted);
   border-radius: 8px;
-  padding: 0.65rem 1.25rem;
+  padding: 0.7rem 1.25rem;
   font-size: 0.85rem;
   cursor: pointer;
   font-family: var(--font-body);
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
 .btnOutline:hover {
@@ -495,4 +513,26 @@
   padding: 0.75rem 1.25rem;
   font-size: 0.75rem;
   color: var(--muted);
+  max-width: 420px;
+  width: 100%;
+  line-height: 1.8;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 480px) {
+  .successBtns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btnWa,
+  .btnOutline {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .trustBox {
+    font-size: 0.7rem;
+    text-align: center;
+  }
 }

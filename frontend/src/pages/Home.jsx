@@ -4,7 +4,7 @@ import Services from "../components/services/Services";
 import WhyUs from "../components/whyus/WhyUs";
 import Portfolio from "../components/portfolio/Portfolio";
 import MyPort from "../components/myport/MyPort";
-import Testimonial from "../components/testimonials/Testimonials";
+// import Testimonial from "../components/testimonials/Testimonials";
 import Steps from "../components/steps/Steps";
 import Team from "../components/team/Team";
 import Contact from "../components/contact/Contact";
@@ -22,7 +22,7 @@ export default function Home() {
       <WhyUs />
       <Portfolio />
       <MyPort limit={4} />
-      <Testimonial />
+      {/* <Testimonial /> */}
       <Steps />
       <Team />
       <Contact />
