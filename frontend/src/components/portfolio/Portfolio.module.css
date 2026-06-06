@@ -3,7 +3,7 @@
    ───────────────────────────────────────── */
 .portfolioSection {
   position: relative;
-  padding: 5rem 6rem;           /* ← reduced from 8rem, removes top/bottom gap */
+  padding: 0.5rem 6rem;           /* ← reduced from 8rem, removes top/bottom gap */
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
@@ -95,7 +95,7 @@
   font-size: 1rem;
   line-height: 1.8;
   max-width: 520px;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.7s ease;
@@ -144,7 +144,7 @@
 .stackCol {
   position: relative;
   /* Auto height — grows with content, no fixed vh causing dead space */
-  height: 80vh;
+  height: 75vh;
   min-height: 500px;
   z-index: 1;
 }
@@ -310,7 +310,7 @@
 @media (max-width: 1024px) {
   .portfolioSection {
     grid-template-columns: 1fr;
-    padding: 4rem 2.5rem;
+    padding: 0.5rem 2.5rem;
     gap: 2.5rem;
   }
 
@@ -327,7 +327,7 @@
 
 @media (max-width: 768px) {
   .portfolioSection {
-    padding: 4rem 1.5rem;
+    padding: 0.5rem 1.5rem;
   }
 
   .stats {

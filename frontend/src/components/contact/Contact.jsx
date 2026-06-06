@@ -173,7 +173,8 @@ export default function Contact() {
         <div className={styles.faqCol}>
           <span className={styles.label}>
             <span className={styles.labelDot} />
-            &#123;{faqs.length}&#125; FAQs
+            {/* &#123;{faqs.length}&#125; FAQs */}
+            &#123;08&#125; FAQs
           </span>
 
           <div className={styles.titleWrap}>

@@ -180,7 +180,7 @@ export default function ConnectUs() {
           {/* Label */}
           <span className={styles.label}>
             <span className={styles.labelDot} />
-            &#123;11&#125; Contact Us
+            &#123;10&#125; Contact Us
           </span>
 
           {/* Title */}
@@ -236,6 +236,14 @@ export default function ConnectUs() {
           <h3 className={styles.formTitle}>Got a project in mind?<br />Let's talk.</h3>
           <p className={styles.formSubtitle}>
             Fill in the form and our team will get back to you within 24 hours.
+          </p>
+          <p className={styles.formSubtitle}>
+            <b>Contact : </b>
+            <a href="tel:+919946618444">+91 99466 18444</a>
+          </p>
+          <p className={styles.formSubtitle}>
+            <b>Email : </b>
+            <a href="mailto:sales@firstreachdigital.com">sales@firstreachdigital.com</a>
           </p>
         </div>
 

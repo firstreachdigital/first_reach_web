@@ -78,7 +78,7 @@ export default function Team() {
         <div className={styles.headerLeft}>
           <span className={styles.label}>
             <span className={styles.labelDot} />
-            &#123;08&#125; Team members
+            &#123;07&#125; Team members
           </span>
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>The Minds Behind Every Proud Project</h2>

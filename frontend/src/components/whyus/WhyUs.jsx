@@ -175,42 +175,26 @@ export default function WhyUs() {
         </div>
 
         {/* Card 4 — stats: stars + happy clients + avatars */}
-        <div
+        {/* <div
           className={`${styles.card} ${styles.cardWide} ${styles.cardDark}`}
           data-wu-inview
         >
           <div className={styles.statsWrap}>
             <div className={styles.statsLeft}>
-              {/* <div className={styles.stars}>
-                {[...Array(5)].map((_, i) => (
-                  <FaStar key={i} className={styles.star} />
-                ))}
-              </div> */}
               <div className={styles.statNum}>99+</div>
               <div className={styles.statLabel}>Happy Clients</div>
             </div>
             <div className={styles.divider} />
-            {/* <div className={styles.avatarStack}>
-              {bentoItems[3].avatars.map((src, i) => (
-                <img
-                  key={i}
-                  src={src}
-                  alt=""
-                  className={styles.avatar}
-                  style={{ zIndex: 4 - i }}
-                />
-              ))}
-            </div> */}
              <div className={styles.stars}>
                 {[...Array(5)].map((_, i) => (
                   <FaStar key={i} className={styles.star} />
                 ))}
               </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Card 5 — 7 day turnaround */}
-        <div
+        {/* <div
           className={`${styles.card} ${styles.cardSmall} ${styles.cardDark}`}
           data-wu-inview
         >
@@ -257,7 +241,7 @@ export default function WhyUs() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

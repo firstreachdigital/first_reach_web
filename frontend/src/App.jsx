@@ -1,7 +1,10 @@
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
+import CtaBanner from "./components/banner/CtaBanner";
 import ScrollToTop from "./components/scrollToTop/ScrollToTop";
+import Privacy from "./components/privacy/PrivacyPolicy";
+import Terms from "./components/privacy/TermsAndConditions";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -19,6 +22,7 @@ import Careers from "./pages/CareersPage";
 import TeamMemberPage from "./pages/TeamMemberPage";
 import BlogPage from "./pages/BlogPage";
 import GetAQuotePage from "./pages/GetAQuotePage";
+
 // import Loader from "./components/loader/Loader";
 
 
@@ -55,9 +59,10 @@ function App() {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPage />} />
         <Route path="/get-a-quote" element={<GetAQuotePage />} />
-        
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
       </Routes>
-
+      <CtaBanner />
       <Footer />
     </>
   );

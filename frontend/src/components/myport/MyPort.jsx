@@ -80,7 +80,7 @@ export default function MyPort({ limit }) {
         <div className={styles.headerLeft}>
           <span className={styles.label} data-inview>
             <span className={styles.labelDot} />
-            &#123;02&#125; Our Services
+            &#123;05&#125; Our Services
           </span>
 
           <div className={styles.titleWrap}>
