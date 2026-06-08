@@ -574,17 +574,29 @@
 }
 
 .logoItem {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--muted);
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
   padding: 0 3.5rem;
   border-right: 1px solid var(--border-subtle);
+  transition: opacity 0.2s, transform 0.2s;
 }
-.logoItem:hover { color: var(--logo-hover); }
+
+.logoItem img {
+  max-height: 50px;
+  max-width: 160px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(0.7) contrast(1.2);
+  transition: filter 0.3s, transform 0.3s;
+}
+
+.logoItem:hover img {
+  filter: grayscale(0%) brightness(1) contrast(1);
+  transform: scale(1.05);
+}
 
 @keyframes logoScroll {
   from { transform: translateX(0); }

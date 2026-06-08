@@ -8,10 +8,12 @@ import Applications from "./pages/Applications";
 import Enquiries    from "./pages/Enquiries";
 import Contacts     from "./pages/Contacts";
 import Quotes       from "./pages/Quotes";
+import Clients      from "./pages/Clients";
 import Portfolio    from "./pages/Portfolio";
 import Testimonials from "./pages/Testimonials";
 import TeamMembers  from "./pages/TeamMembers";
 import UsersRoles   from "./pages/UsersRoles";
+
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("adminToken");
@@ -47,9 +49,12 @@ export default function App() {
           <Route path="enquiries"    element={<Enquiries />} />
           <Route path="contacts"     element={<Contacts />} />
           <Route path="quotes"       element={<Quotes />} />
+          <Route path="clients"      element={<Clients />} />
           <Route path="portfolio"    element={<Portfolio />} />
           <Route path="testimonials" element={<Testimonials />} />
           <Route path="team"         element={<TeamMembers />} />
+          <Route path="clients"      element={<Clients />} />
+
           {/* Superadmin only */}
           <Route
             path="users"

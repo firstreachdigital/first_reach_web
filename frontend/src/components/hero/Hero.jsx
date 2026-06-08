@@ -4,6 +4,7 @@ import styles from "./Hero.module.css";
 import elephantImg from "../../assets/First reach digital website homepage copy.jpg.jpeg";
 import homelogo from "../../assets/homelogo.png";
 import logo from "../../assets/FRST REACH LOGO ELEPHANT.png";
+import API from "../../api/axios";
 
 import {
   FaWhatsapp,
@@ -42,6 +43,14 @@ export default function Hero() {
   const [cursorHover, setCursorHover] = useState(false);
   const vantaRef = useRef(null);
   const vantaEffect = useRef(null);
+
+  const [clients, setClients] = useState([]);
+
+ useEffect(() => {
+  API.get("/clients")
+    .then(({ data }) => { if (data.length > 0) setClients(data); })
+    .catch(() => {});
+}, []);
 
   useEffect(() => {
     const els = document.querySelectorAll("[data-animate]");
@@ -423,27 +432,13 @@ export default function Hero() {
         </div>
         <div className={styles.logosMarqueeWrap}>
           <div className={styles.logosTrack}>
-            {[
-              "Shortcode",
-              "VMR Kuthira",
-              "Penn Pattu",
-              "Albina AlQawi",
-              "Party Blooms",
-              "Wealth-i",
-              "Eagle Express Freight",
-              "Editoreal",
-              "First Edition",
-              "Tech-X Media",
-              "Happy Productions",
-              "Wealth-i Productions",
-              "Good Earth",
-              "Acquire Ren A Car",
-              "Sip & Bite",
-              "Panorama Studios",
-              "Scenario Digital",
-            ].map((name, i) => (
+            {[...clients, ...clients].map((client, i) => (
               <span key={i} className={styles.logoItem}>
-                {name}
+                <img 
+                  src={client.logo}
+                  alt={client.name}
+                  title={client.name}
+                />
               </span>
             ))}
           </div>

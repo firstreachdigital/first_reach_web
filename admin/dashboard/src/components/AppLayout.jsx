@@ -26,6 +26,7 @@ import {
   UsergroupAddOutlined,
   MailOutlined,
   DollarOutlined,
+  AppstoreOutlined,
 } from "@ant-design/icons";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -45,6 +46,7 @@ const ALL_MENU_ITEMS = [
   { key: "/portfolio",    icon: <PictureOutlined      style={{ fontSize: 18 }} />, label: "Portfolio" },
   { key: "/testimonials", icon: <StarOutlined         style={{ fontSize: 18 }} />, label: "Testimonials" },
   { key: "/team",         icon: <UserOutlined         style={{ fontSize: 18 }} />, label: "Team Members" },
+  { key: "/clients",      icon: <AppstoreOutlined     style={{ fontSize: 18 }} />, label: "Clients" },
   // Superadmin only
   { key: "/users",        icon: <UsergroupAddOutlined style={{ fontSize: 18 }} />, label: "Users & Roles", superadminOnly: true },
 ];
