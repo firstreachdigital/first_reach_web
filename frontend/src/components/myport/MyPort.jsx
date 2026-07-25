@@ -12,6 +12,8 @@ export default function MyPort({ limit }) {
   const [activeTag, setActiveTag] = useState("All");
   const [allTags, setAllTags] = useState(["All"]);
 
+  const [playingId, setPlayingId] = useState(null);
+
   useEffect(() => {
     API.get("/portfolio")
       .then(({ data }) => {
@@ -23,7 +25,8 @@ export default function MyPort({ limit }) {
   }, []);
 
   useEffect(() => {
-    const elements = sectionRef.current?.querySelectorAll("[data-inview]") || [];
+    const elements =
+      sectionRef.current?.querySelectorAll("[data-inview]") || [];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -33,7 +36,7 @@ export default function MyPort({ limit }) {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
     elements.forEach((el) => observer.observe(el));
 
@@ -41,7 +44,10 @@ export default function MyPort({ limit }) {
       if (!titleFillRef.current) return;
       const rect = titleFillRef.current.getBoundingClientRect();
       const winH = window.innerHeight;
-      const progress = Math.min(Math.max((winH - rect.top) / (winH * 0.55), 0), 1);
+      const progress = Math.min(
+        Math.max((winH - rect.top) / (winH * 0.55), 0),
+        1,
+      );
       titleFillRef.current.style.clipPath = `inset(0 ${(1 - progress) * 100}% 0 0)`;
     };
 
@@ -53,15 +59,15 @@ export default function MyPort({ limit }) {
       observer.disconnect();
     };
   }, [projects]);
-   
 
   useEffect(() => {
-  const timer = setTimeout(() => {
-    const elements = sectionRef.current?.querySelectorAll("[data-inview]") || [];
-    elements.forEach((el) => el.classList.add(styles.inView));
-  }, 80);
-  return () => clearTimeout(timer);
-}, [activeTag]);
+    const timer = setTimeout(() => {
+      const elements =
+        sectionRef.current?.querySelectorAll("[data-inview]") || [];
+      elements.forEach((el) => el.classList.add(styles.inView));
+    }, 80);
+    return () => clearTimeout(timer);
+  }, [activeTag]);
 
   const filtered =
     activeTag === "All"
@@ -84,7 +90,9 @@ export default function MyPort({ limit }) {
           </span>
 
           <div className={styles.titleWrap}>
-            <h2 className={styles.titleBase}>Not Just Promises; Proven Records</h2>
+            <h2 className={styles.titleBase}>
+              Not Just Promises; Proven Records
+            </h2>
             <h2 className={styles.titleFill} ref={titleFillRef}>
               Not Just Promises; Proven Records
             </h2>
@@ -93,7 +101,8 @@ export default function MyPort({ limit }) {
 
         <div className={styles.headerRight} data-inview>
           <p className={styles.headerDesc}>
-            Let's move aside what WE are saying &amp; take a quick look at what we does
+            Let's move aside what WE are saying &amp; take a quick look at what
+            we does
           </p>
 
           <div className={styles.filters}>
@@ -116,35 +125,101 @@ export default function MyPort({ limit }) {
           <div
             key={project._id}
             className={styles.card}
-            style={{ "--card-color": project.color, animationDelay: `${i * 0.08}s` }}
+            style={{
+              "--card-color": project.color,
+              animationDelay: `${i * 0.08}s`,
+            }}
             data-inview
           >
-            <div className={styles.cardImg}>
+            {/* <div className={styles.cardImg}>
               <img src={project.image} alt={project.title} loading="lazy" />
+              <div className={styles.cardOverlay} />
+            </div> */}
+
+            <div className={styles.cardImg}>
+              {project.mediaType === "video" ? (
+                playingId === project._id ? (
+                  <video
+                    src={project.video}
+                    poster={project.image}
+                    controls
+                    autoPlay
+                    className={styles.cardVideo}
+                    onEnded={() => setPlayingId(null)}
+                  />
+                ) : (
+                  <>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                    />
+                    <button
+                      className={styles.playBtn}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPlayingId(project._id);
+                      }}
+                      aria-label="Play video"
+                    >
+                      <svg
+                        width="22"
+                        height="22"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </button>
+                  </>
+                )
+              ) : (
+                <img src={project.image} alt={project.title} loading="lazy" />
+              )}
               <div className={styles.cardOverlay} />
             </div>
 
             <div className={styles.cardTags}>
               {project.tags?.map((t) => (
-                <span key={t} className={styles.cardTag}>{t}</span>
+                <span key={t} className={styles.cardTag}>
+                  {t}
+                </span>
               ))}
             </div>
 
             <div className={styles.cardContent}>
-              <span className={styles.cardNum}>{String(i + 1).padStart(2, "0")}</span>
+              <span className={styles.cardNum}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
               <div>
                 <h3 className={styles.cardTitle}>{project.title}</h3>
                 <p className={styles.cardSub}>{project.subtitle}</p>
               </div>
-              <a href="#contact" className={styles.cardArrow} style={{ background: project.color }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <a
+                href="#contact"
+                className={styles.cardArrow}
+                style={{ background: project.color }}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#000"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <line x1="7" y1="17" x2="17" y2="7" />
                   <polyline points="7 7 17 7 17 17" />
                 </svg>
               </a>
             </div>
 
-            <div className={styles.cardLine} style={{ background: project.color }} />
+            <div
+              className={styles.cardLine}
+              style={{ background: project.color }}
+            />
           </div>
         ))}
       </div>
@@ -152,25 +227,48 @@ export default function MyPort({ limit }) {
       {/* ── VIEW ALL ── */}
       <div className={styles.viewAll} data-inview>
         {showViewAll ? (
-          <button className={styles.viewAllBtn} onClick={() => navigate("/portfolio")}>
+          <button
+            className={styles.viewAllBtn}
+            onClick={() => navigate("/portfolio")}
+          >
             View All Projects
             <span className={styles.viewAllArrow}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <line x1="5" y1="12" x2="19" y2="12" />
                 <polyline points="12 5 19 12 12 19" />
               </svg>
             </span>
           </button>
-        ) : !limit && (
-          <a href="#contact" className={styles.viewAllBtn}>
-            Get In Touch
-            <span className={styles.viewAllArrow}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </span>
-          </a>
+        ) : (
+          !limit && (
+            <a href="/contact" className={styles.viewAllBtn}>
+              Get In Touch
+              <span className={styles.viewAllArrow}>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </span>
+            </a>
+          )
         )}
       </div>
     </section>

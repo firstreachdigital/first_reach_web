@@ -7,6 +7,8 @@ const portfolioSchema = new mongoose.Schema(
     category: { type: String, trim: true, default: "Web design" },
     tags: [{ type: String, trim: true }],
     image: { type: String, default: "" },
+    mediaType: { type: String, enum: ["image", "video"], default: "image" },
+    video: { type: String, default: "" },
     color: { type: String, default: "#05caf2" },
     order: { type: Number, default: 0 },
     isActive: { type: Boolean, default: true },

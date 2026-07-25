@@ -20,11 +20,35 @@ const upload = multer({
   },
 });
 
+// ── video storage (same folder is fine, or separate) ──
+const videoStorage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "uploads/portfolio/"),
+  filename: (req, file, cb) =>
+    cb(null, `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`),
+});
+
+const uploadVideo = multer({
+  storage: videoStorage,
+  limits: { fileSize: 100 * 1024 * 1024 }, // 100MB, adjust as needed
+  fileFilter: (req, file, cb) => {
+    /^video\/(mp4|webm|quicktime)$/.test(file.mimetype)
+      ? cb(null, true)
+      : cb(new Error("Videos only (mp4/webm/mov)"));
+  },
+});
+
 // Public
 router.get("/", getActive);
 
 // Image upload (protected)
 router.post("/upload", protect, upload.single("image"), (req, res) => {
+  if (!req.file) return res.status(400).json({ message: "No file uploaded" });
+  const url = `${req.protocol}://${req.get("host")}/uploads/portfolio/${req.file.filename}`;
+  res.json({ url });
+});
+
+// Video upload (protected)
+router.post("/upload-video", protect, uploadVideo.single("video"), (req, res) => {
   if (!req.file) return res.status(400).json({ message: "No file uploaded" });
   const url = `${req.protocol}://${req.get("host")}/uploads/portfolio/${req.file.filename}`;
   res.json({ url });

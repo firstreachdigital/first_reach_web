@@ -74,7 +74,7 @@ export default function Footer() {
   <div className={styles.bottomLinks}>
     <Link to="/privacy">Privacy Policy</Link>
     <Link to="/terms">Terms & Conditions</Link>
-    <Link to="https://maps.app.goo.gl/nFQtAdzpHjvS428PA" target="_blank" rel="noopener noreferrer">Sitemap</Link>
+    {/* <Link to="https://maps.app.goo.gl/nFQtAdzpHjvS428PA" target="_blank" rel="noopener noreferrer">Sitemap</Link> */}
   </div>
 </div>
     </footer>
