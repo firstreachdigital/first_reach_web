@@ -199,7 +199,7 @@
 }
 
 /* Three static tiers instead of one style per dot: each is a single <g>
-   with its own fill/opacity, set once, never recalculated per-circle. */
+   with its own fill/opacity, set once, never recalculated per-circle. case sensitive issue fixed */
 .tierFar circle,
 .tierMid circle,
 .tierNear circle {
