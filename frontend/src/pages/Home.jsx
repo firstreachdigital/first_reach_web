@@ -11,6 +11,7 @@ import Contact from "../components/contact/Contact";
 import Blog from "../components/blog/Blog";
 import ConnectUs from "../components/connectUs/ConnectUs";
 import SEO from "../components/SEO"
+import WhereWeServe from "../components/whereWeServe/Whereweserve";
 
 export default function Home() {
   return (
@@ -28,6 +29,7 @@ export default function Home() {
       <Contact />
       <Blog />
       <ConnectUs />
+      <WhereWeServe />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Popconfirm, Select, Tag, message, Space, Card } from "antd";
-import { DeleteOutlined, MailOutlined, CheckCircleOutlined, ReloadOutlined } from "@ant-design/icons";
+import { Table, Button, Popconfirm, Select, Tag, message, Space, Card, Modal, Descriptions } from "antd";
+import { DeleteOutlined, MailOutlined, EyeOutlined, ReloadOutlined } from "@ant-design/icons";
 import API from "../api/axios";
 
 const { Option } = Select;
@@ -9,6 +9,8 @@ export default function Contacts() {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState("all");
+  const [selectedContact, setSelectedContact] = useState(null);
+  const [viewModalOpen, setViewModalOpen] = useState(false);
 
   useEffect(() => {
     fetchContacts();
@@ -42,6 +44,15 @@ export default function Contacts() {
       fetchContacts();
     } catch {
       message.error("Failed to delete contact");
+    }
+  };
+
+  const handleView = (record) => {
+    setSelectedContact(record);
+    setViewModalOpen(true);
+    // optional: auto-mark as "read" when opened, only if it's still "new"
+    if (record.status === "new") {
+      handleStatusChange(record._id, "read");
     }
   };
 
@@ -108,16 +119,23 @@ export default function Contacts() {
     {
       title: "Action",
       key: "action",
-      width: 80,
+      width: 120,
       render: (_, record) => (
-        <Popconfirm
-          title="Delete this contact?"
-          onConfirm={() => handleDelete(record._id)}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button danger size="small" icon={<DeleteOutlined />} />
-        </Popconfirm>
+        <Space size="small">
+          <Button
+            size="small"
+            icon={<EyeOutlined />}
+            onClick={() => handleView(record)}
+          />
+          <Popconfirm
+            title="Delete this contact?"
+            onConfirm={() => handleDelete(record._id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button danger size="small" icon={<DeleteOutlined />} />
+          </Popconfirm>
+        </Space>
       ),
     },
   ];
@@ -152,6 +170,36 @@ export default function Contacts() {
           pagination={{ pageSize: 10 }}
         />
       </Card>
+
+      <Modal
+        title="Contact Details"
+        open={viewModalOpen}
+        onCancel={() => setViewModalOpen(false)}
+        footer={[
+          <Button key="close" onClick={() => setViewModalOpen(false)}>
+            Close
+          </Button>,
+        ]}
+      >
+        {selectedContact && (
+          <Descriptions column={1} bordered size="small">
+            <Descriptions.Item label="Name">{selectedContact.name}</Descriptions.Item>
+            <Descriptions.Item label="Email">{selectedContact.email}</Descriptions.Item>
+            <Descriptions.Item label="Phone">{selectedContact.phone}</Descriptions.Item>
+            <Descriptions.Item label="Status">
+              <Tag color={selectedContact.status === "new" ? "blue" : selectedContact.status === "read" ? "orange" : "green"}>
+                {selectedContact.status}
+              </Tag>
+            </Descriptions.Item>
+            <Descriptions.Item label="Date">
+              {new Date(selectedContact.createdAt).toLocaleString()}
+            </Descriptions.Item>
+            <Descriptions.Item label="Message">
+              <div style={{ whiteSpace: "pre-wrap" }}>{selectedContact.message}</div>
+            </Descriptions.Item>
+          </Descriptions>
+        )}
+      </Modal>
     </div>
   );
 }

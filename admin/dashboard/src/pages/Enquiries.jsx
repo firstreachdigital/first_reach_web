@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import {
   Table, Tag, Select, App, Button, Popconfirm,
-  Tooltip, Tabs, Modal, Form, Input
+  Tooltip, Tabs, Modal, Form, Input, Descriptions
 } from "antd";
-import { ReloadOutlined, DeleteOutlined, PlusOutlined, EditOutlined } from "@ant-design/icons";
+import { ReloadOutlined, DeleteOutlined, PlusOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import API from "../api/axios";
 
 const STATUS_COLORS = { New: "blue", Read: "orange", Replied: "green" };
@@ -16,6 +16,8 @@ function EnquiriesInner() {
   // Enquiries state
   const [enquiries, setEnquiries] = useState([]);
   const [eLoading, setELoading]   = useState(false);
+  const [selectedEnquiry, setSelectedEnquiry] = useState(null);
+  const [viewModalOpen, setViewModalOpen] = useState(false);
 
   // FAQ state
   const [faqs, setFaqs]           = useState([]);
@@ -49,6 +51,14 @@ function EnquiriesInner() {
       message.success("Enquiry deleted");
       fetchEnquiries();
     } catch { message.error("Delete failed"); }
+  };
+
+  const handleViewEnquiry = (record) => {
+    setSelectedEnquiry(record);
+    setViewModalOpen(true);
+    if (record.status === "New") {
+      updateStatus(record._id, "Read");
+    }
   };
 
   // ── FAQs ──
@@ -137,11 +147,16 @@ function EnquiriesInner() {
       ),
     },
     {
-      title: "Action", key: "action", width: 80,
+      title: "Action", key: "action", width: 100,
       render: (_, r) => (
-        <Popconfirm title="Delete this enquiry?" onConfirm={() => deleteEnquiry(r._id)} okText="Yes" cancelText="No">
-          <Tooltip title="Delete"><Button type="text" danger icon={<DeleteOutlined />} /></Tooltip>
-        </Popconfirm>
+        <>
+          <Tooltip title="View">
+            <Button type="text" icon={<EyeOutlined />} onClick={() => handleViewEnquiry(r)} />
+          </Tooltip>
+          <Popconfirm title="Delete this enquiry?" onConfirm={() => deleteEnquiry(r._id)} okText="Yes" cancelText="No">
+            <Tooltip title="Delete"><Button type="text" danger icon={<DeleteOutlined />} /></Tooltip>
+          </Popconfirm>
+        </>
       ),
     },
   ];
@@ -183,13 +198,6 @@ function EnquiriesInner() {
           <Table
             rowKey="_id" columns={enquiryColumns} dataSource={enquiries}
             loading={eLoading} pagination={{ pageSize: 10 }} scroll={{ x: 900 }}
-            expandable={{
-              expandedRowRender: (r) => (
-                <div style={{ padding: "8px 16px", color: "#aaa" }}>
-                  <strong style={{ color: "#fff" }}>Message:</strong> {r.message}
-                </div>
-              ),
-            }}
           />
         </>
       ),
@@ -217,6 +225,36 @@ function EnquiriesInner() {
       <h2 style={{ marginBottom: 16 }}>Enquiries & FAQs</h2>
 
       <Tabs items={tabItems} />
+
+      {/* Enquiry View Modal */}
+      <Modal
+        title="Enquiry Details"
+        open={viewModalOpen}
+        onCancel={() => setViewModalOpen(false)}
+        footer={[
+          <Button key="close" onClick={() => setViewModalOpen(false)}>Close</Button>,
+        ]}
+      >
+        {selectedEnquiry && (
+          <Descriptions column={1} bordered size="small">
+            <Descriptions.Item label="Name">{selectedEnquiry.fullName}</Descriptions.Item>
+            <Descriptions.Item label="Email">{selectedEnquiry.email}</Descriptions.Item>
+            <Descriptions.Item label="Phone">{selectedEnquiry.phone || "—"}</Descriptions.Item>
+            <Descriptions.Item label="Newsletter">
+              {selectedEnquiry.subscribeNewsletter ? <Tag color="cyan">Yes</Tag> : <Tag>No</Tag>}
+            </Descriptions.Item>
+            <Descriptions.Item label="Status">
+              <Tag color={STATUS_COLORS[selectedEnquiry.status]}>{selectedEnquiry.status}</Tag>
+            </Descriptions.Item>
+            <Descriptions.Item label="Date">
+              {new Date(selectedEnquiry.createdAt).toLocaleString()}
+            </Descriptions.Item>
+            <Descriptions.Item label="Message">
+              <div style={{ whiteSpace: "pre-wrap" }}>{selectedEnquiry.message}</div>
+            </Descriptions.Item>
+          </Descriptions>
+        )}
+      </Modal>
 
       {/* FAQ Modal */}
       <Modal
