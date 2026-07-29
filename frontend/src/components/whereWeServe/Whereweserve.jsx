@@ -1,5 +1,5 @@
 import React, { useEffect, memo, useRef } from "react";
-import styles from "./WhereWeServe.module.css";
+import styles from "./WhereWeServe.module.css";// case sensitive issue fixed
 import { INDIA_MAP, UK_MAP, UAE_MAP } from "../../data/Locationdots";
 
 const locations = [
