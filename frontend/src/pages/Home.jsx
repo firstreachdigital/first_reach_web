@@ -11,7 +11,7 @@ import Contact from "../components/contact/Contact";
 import Blog from "../components/blog/Blog";
 import ConnectUs from "../components/connectUs/ConnectUs";
 import SEO from "../components/SEO"
-import WhereWeServe from "../components/whereWeServe/Whereweserve";
+import WhereWeServe from "../components/whereWeServe/WhereWeServe";
 
 export default function Home() {
   return (
