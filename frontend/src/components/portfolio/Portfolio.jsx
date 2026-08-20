@@ -118,15 +118,15 @@ export default function Portfolio() {
       {/* ── LEFT — your exact existing content ── */}
       <div className={styles.content}>
         <span className={styles.sectionLabel} data-inview>
-          <span className={styles.dot}></span> &#123;04&#125; FunFacts
+          <span className={styles.dot}></span> &#123;04&#125; OUR PROCESS
         </span>
 
         <div className={styles.titleWrap}>
           <h2 className={styles.titleBase}>
-            "TUNES-IN STRATEGY & SPOTLIGHT WITH A DYNAMIC ENERGY!"
+            TUNES-IN STRATEGY & SPOTLIGHT WITH A DYNAMIC ENERGY!
           </h2>
           <h2 className={styles.titleFill} ref={titleFillRef}>
-            "TUNES-IN STRATEGY & SPOTLIGHT WITH A DYNAMIC ENERGY!"
+            TUNES-IN STRATEGY & SPOTLIGHT WITH A DYNAMIC ENERGY!
           </h2>
         </div>
 

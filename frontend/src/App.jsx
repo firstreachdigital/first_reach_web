@@ -12,6 +12,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import AboutPage from "./pages/AboutPage";
 import ServicesPage from "./pages/ServicesPage";
+import ServiceDetailPage from "./pages/ServiceDetailPage";
 import ConnectPage from "./pages/ConnectPage";
 import ContactPage from "./pages/ContactPage";
 import WhyusPage from "./pages/WhyusPage";
@@ -23,23 +24,18 @@ import TeamMemberPage from "./pages/TeamMemberPage";
 import BlogPage from "./pages/BlogPage";
 import GetAQuotePage from "./pages/GetAQuotePage";
 
-// import Loader from "./components/loader/Loader";
+//services menu
+import ReputationDetailPage from "./pages/ReputationDetailPage";
+import RecoveryDetailPage from "./pages/RecoveryDetailPage";
+import RemovalDetailPage from "./pages/RemovalDetailPage";
+
+import ReputationPage from "./pages/ReputationPage";
+import RecoveryPage from "./pages/RecoveryPage";
+import RemovalPage from "./pages/RemovalPage";
 
 
 function App() {
-  // const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setLoading(false);
-  //   }, 1800);
-
-  //   return () => clearTimeout(timer);
-  // }, []);
-
-  // if (loading) {
-  //   return <Loader />;
-  // }
+ 
   return (
     <>
       <Navbar />
@@ -48,6 +44,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/:slug" element={<ServiceDetailPage />} />
         <Route path="/Contact" element={<ConnectPage />} />
         <Route path="/FAQ" element={<ContactPage />} />
         <Route path="/choose-us" element={<WhyusPage />} />
@@ -61,6 +58,13 @@ function App() {
         <Route path="/get-a-quote" element={<GetAQuotePage />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
+        {/* services menu */}
+        <Route path="/reputation" element={<ReputationPage />} />
+        <Route path="/reputation/:slug" element={<ReputationDetailPage />} />
+        <Route path="/recovery" element={<RecoveryPage />} />
+        <Route path="/recovery/:slug" element={<RecoveryDetailPage />} />
+        <Route path="/removal" element={<RemovalPage />} />
+        <Route path="/removal/:slug" element={<RemovalDetailPage />} />
       </Routes>
       <CtaBanner />
       <Footer />

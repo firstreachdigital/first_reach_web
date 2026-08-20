@@ -1,0 +1,130 @@
+.section {
+  position: relative;
+  background: var(--bg);
+  padding: 6rem 2rem;
+}
+
+.inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s ease;
+}
+
+.labelDot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px rgba(5, 202, 242, 0.7);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 1rem 0 1.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s ease 0.1s;
+}
+
+.copy {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s ease 0.15s;
+}
+.copy strong { color: var(--text); font-weight: 700; }
+
+.pillars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 1.5rem 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s ease 0.2s;
+}
+
+.pillar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid var(--border);
+  background: var(--card-surface-1);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.pillarDot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.closing {
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.7;
+  margin: 1.5rem 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s ease 0.25s;
+}
+
+.mottoBox {
+  border-left: 3px solid var(--accent);
+  background: var(--card-surface-1);
+  border-radius: 0 1rem 1rem 0;
+  padding: 1.5rem 2rem;
+  margin-top: 1.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s ease 0.3s;
+}
+
+.mottoLabel {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.mottoText {
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.inView { opacity: 1 !important; transform: translateY(0) !important; }
+
+@media (max-width: 700px) {
+  .section { padding: 4rem 1.2rem; }
+}

@@ -10,6 +10,7 @@ import { MdOutlineDesignServices, MdPermMedia } from "react-icons/md";
 import { FaArrowRight, FaCopyright } from "react-icons/fa";
 import { AiOutlineFileProtect } from "react-icons/ai";
 import { LuRocket } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 import {
   Brand,
@@ -25,6 +26,7 @@ import {
 const services = [
   {
     num: "1",
+    slug: "brand-development",
     title: "Brand Development & Management",
     icon: <TbCube3dSphere />,
     desc: " We takes your brand in & starts the whole deep process of understanding & analysing what’s going on inside your brand framework to completely renew its value.",
@@ -38,6 +40,7 @@ const services = [
   },
   {
     num: "2",
+    slug: "website-app-development",
     title: "Website and App Development",
     icon: <TbDeviceDesktopCode />,
     desc: "A website that clearly shows how unique your brand & how powerful your mission is; that’s what First Reach Digital promises every brand With smooth dynamics & converting design, your brand will get a great identity.",
@@ -52,6 +55,7 @@ const services = [
   },
   {
     num: "3",
+    slug: "seo",
     title: "Search Engine Optimization (SEO)",
     icon: <LuRocket />,
     desc: "On top & at first is where your brand needs to be, when a potential customer looks for you. We’ll take care of that dilemma with our expert SEO measures & tactics.",
@@ -65,6 +69,7 @@ const services = [
   },
   {
     num: "4",
+    slug: "social-media-management",
     title: "Social Media Management & Marketing",
     icon: <TbBrandGoogleAnalytics />,
     desc: "The legendary virtual world is where all your potential and future customers are spending most of their time. Be in their sight, at the right time, in the right places. We’ll take your brand across all social media platforms to get the much needed attention.",
@@ -73,9 +78,10 @@ const services = [
   },
   {
     num: "5",
-    title: "Influencer Marketing",
+    slug: "influencer-media",
+    title: "Influencer Marketing & Media Productions",
     icon: <TbShoppingCart />,
-    desc: "Collab with iconic content creators/influencers to boost your brand’s reach, within a shorter time. Teaming up with First Reach Digital will get you closer to all these golden opportunities.",
+    desc: "Collab with iconic content creators/influencers to boost your brand’s reach, within a shorter time. Teaming up with First Reach Digital will get you closer to all these golden opportunities.We’ll build a visual identity that tells your brand story, in a way, that’ll catch the public's eye.",
     tags: [
       "Instagram Collabs",
       "Partnership campaigns",
@@ -85,39 +91,51 @@ const services = [
   },
   {
     num: "6",
-    title: "Media Productions & Graphic Design",
+    slug: "content-graphic-design",
+    title: "Content marketing & Graphic Design",
     icon: <MdPermMedia />,
-    desc: "We’ll build a visual identity that tells your brand story, in a way, that’ll catch the public’s eye. From color palettes to typography,tone of voice to brand guidelines, we shape every element to ensure your brand stands out across every platform.",
+    desc: "We craft each sentence for your brand with a purpose that brings real results in a short time. From color palettes to typography, tone of voice to brand guidelines, we shape every element to ensure your brand stands out across every platform.",
     tags: [
       "Videography",
       "Video Editing",
       "Motion & Graphic works",
       "Logo & other brand assets",
+      "Uniquely crafted ad copies & content",
+      "SEO Integrated Content Preparation",
     ],
     img: media,
   },
   {
     num: "7",
-    title: "Copywriting & Content marketing",
-    icon: <FaCopyright />,
-    desc: "A talk with your audience, in the most creative & strategic way, with excellent visualizations that reflect your brand’s identity. We craft each sentence for your brand with a purpose that brings real results in a short time.",
-    tags: [
-      "Uniquely crafted ad copies & content",
-      "SEO Integrated Content Preparation",
-    ],
-    img: copywrite,
-  },
-  {
-    num: "8",
+    slug: "brand-protection",
     title: "Brand Protection & Digital Security",
-    icon: <AiOutlineFileProtect />,
+    icon: <FaCopyright />,
     desc: "We monitor where your audience is; and also where your attackers could be. Complete digital security with proven results; only with First Reach Digital.",
     tags: [
       "24/7 Monitoring",
       "Fake Account Detection, Removal & Fast Content Takedown",
       "Trademark & Copyright Violation Reporting",
       "Online Reputation Management (ORM)",
-      " Crisis Handling & Response Strategy & Monthly Reports",
+      "Crisis Handling & Response Strategy & Monthly Reports",
+    ],
+    img: copywrite,
+  },
+  {
+    num: "8",
+    slug: "reputation-removal",
+    title: "Reputation & Removal",
+    icon: <AiOutlineFileProtect />,
+    desc: "We help organizations monitor, manage, improve, and protect their digital image through strategic reputation-building initiatives and proactive issue management.",
+    tags: [
+      "Brand mention tracking",
+      "Executive reputation monitoring",
+      "Customer sentiment analysis",
+      "Review monitoring",
+      "Media monitoring",
+      "Defamatory Content",
+      "Copyright Violations",
+      "Trademark Abuse",
+      "Platform Policy Violations",
     ],
     img: Brandpro,
   },
@@ -223,12 +241,15 @@ export default function Services() {
                 </span>
               ))}
             </div>
-            <a href="#contact" className={styles.readMore}>
+            <Link
+              to={`/services/${services[active].slug}`}
+              className={styles.readMore}
+            >
               <span className={styles.readMoreArrow}>
                 <FaArrowRight />
               </span>
               Read more
-            </a>
+            </Link>
           </div>
         </div>
 

@@ -219,8 +219,9 @@
 
 .tags {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0.6rem;
 }
 
 .tag {

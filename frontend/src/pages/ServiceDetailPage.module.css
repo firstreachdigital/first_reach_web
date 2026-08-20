@@ -1,0 +1,149 @@
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 140px 1.5rem 5rem;
+}
+
+.hero { margin-bottom: 3rem; }
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+.backLink:hover { color: var(--accent); }
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  margin-bottom: 1.2rem;
+}
+
+.intro, .sub {
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.sectionBlock {
+  background: var(--card-surface-1);
+  border: 1px solid var(--border);
+  border-radius: 1.2rem;
+  padding: 1.8rem 2rem;
+}
+
+.sectionHeading {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.sectionList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.sectionList li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.bullet {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.processBox {
+  border-left: 3px solid var(--accent);
+  background: var(--card-surface-1);
+  border-radius: 0 1rem 1rem 0;
+  padding: 1.3rem 1.6rem;
+  margin-bottom: 3rem;
+}
+.processLabel {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.processText { color: var(--text); font-weight: 600; }
+
+.benefitsBlock { margin-bottom: 3rem; }
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.8rem;
+}
+
+.benefitCard {
+  background: rgba(5,202,242,0.06);
+  border: 1px solid rgba(5,202,242,0.2);
+  border-radius: 0.8rem;
+  padding: 1rem 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.closing {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.ctaBlock {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--card-surface-1);
+  border-radius: 1.5rem;
+}
+.ctaBlock h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--text);
+  margin-bottom: 1.2rem;
+}
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--accent);
+  color: #000;
+  padding: 0.8rem 1.6rem;
+  border-radius: 3rem;
+  font-weight: 700;
+}
+
+.notFound {
+  text-align: center;
+  padding: 160px 1.5rem;
+}

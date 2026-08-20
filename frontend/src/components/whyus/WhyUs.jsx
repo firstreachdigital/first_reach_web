@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./WhyUs.module.css";
-import { FaStar, FaBolt } from "react-icons/fa";
+import { FaStar, FaBolt, FaHandshake } from "react-icons/fa";
 import { MdOutlineTimer } from "react-icons/md";
 import { Collaboration, Communication, Experience } from "../../assets";
 
@@ -51,7 +51,6 @@ export default function WhyUs() {
   const titleFillRef = useRef(null);
 
   useEffect(() => {
-    // inview
     const els = document.querySelectorAll("[data-wu-inview]");
     const obs = new IntersectionObserver(
       (entries) =>
@@ -64,9 +63,16 @@ export default function WhyUs() {
       { threshold: 0.15 },
     );
     els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
 
-    // title fill
-    const onScroll = () => {
+  // title fill — smooth rAF version
+  useEffect(() => {
+    let rafId;
+    let currentP = 0;
+    let targetP = 0;
+
+    const computeTarget = () => {
       if (!titleFillRef.current) return;
       const rect = titleFillRef.current.getBoundingClientRect();
       const p = Math.min(
@@ -76,13 +82,26 @@ export default function WhyUs() {
         ),
         1,
       );
-      titleFillRef.current.style.clipPath = `inset(0 ${(1 - p) * 100}% 0 0)`;
+      targetP = p;
     };
+
+    const animate = () => {
+      currentP += (targetP - currentP) * 0.15;
+      if (Math.abs(targetP - currentP) < 0.001) currentP = targetP;
+      if (titleFillRef.current) {
+        titleFillRef.current.style.clipPath = `inset(0 ${(1 - currentP) * 100}% 0 0)`;
+      }
+      rafId = requestAnimationFrame(animate);
+    };
+
+    const onScroll = () => computeTarget();
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    computeTarget();
+    rafId = requestAnimationFrame(animate);
+
     return () => {
       window.removeEventListener("scroll", onScroll);
-      obs.disconnect();
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -143,32 +162,38 @@ export default function WhyUs() {
       {/* BENTO GRID */}
       <div className={styles.grid}>
         {/* Card 1 — image + text bottom left */}
-        <div className={`${styles.card} ${styles.cardSmall}`} data-wu-inview>
+        <div className={`${styles.card} ${styles.cardSmall}`} >
           <img src={bentoItems[0].img} alt="" className={styles.cardImg} />
           <div className={styles.cardImgOverlay} />
           <div className={styles.overlayBox}>
+            <span className={styles.overlayIcon}>
+              <FaBolt />
+            </span>
             <h3 className={styles.overlayTitle}>{bentoItems[0].title}</h3>
             {/* <p className={styles.overlayTitle}>{bentoItems[0].desc}</p> */}
           </div>
         </div>
 
         {/* Card 2 — tall image with bottom overlay box */}
-        <div className={`${styles.card} ${styles.cardTall}`} data-wu-inview>
+        <div className={`${styles.card} ${styles.cardTall}`}>
           <img src={bentoItems[1].img} alt="" className={styles.cardImg} />
           <div className={styles.cardImgOverlay} />
           <div className={styles.overlayBox}>
             <span className={styles.overlayIcon}>
-              <FaBolt />
+              <FaHandshake />
             </span>
             <h3 className={styles.overlayTitle}>{bentoItems[1].title}</h3>
           </div>
         </div>
 
         {/* Card 3 — image + text */}
-        <div className={`${styles.card} ${styles.cardSmall}`} data-wu-inview>
+        <div className={`${styles.card} ${styles.cardSmall}`} >
           <img src={bentoItems[2].img} alt="" className={styles.cardImg} />
           <div className={styles.cardImgOverlay} />
           <div className={styles.overlayBox}>
+            <span className={styles.overlayIcon}>
+              <FaStar />
+            </span>
             <h3  className={styles.overlayTitle}>{bentoItems[2].title}</h3>
             {/* <p className={styles.cardDesc}>{bentoItems[2].desc}</p> */}
           </div>
