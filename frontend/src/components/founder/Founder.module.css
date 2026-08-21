@@ -6,6 +6,10 @@
   margin: 0 auto;
 }
 
+.sectionTight {
+  padding-top:10rem; /* your reduced value for this page only */
+}
+
 .header { margin-bottom: 3rem; }
 
 .label {

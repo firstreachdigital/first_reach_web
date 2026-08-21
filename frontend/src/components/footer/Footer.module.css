@@ -40,6 +40,8 @@
   margin-bottom: 1.5rem;
   max-width: 240px;
   font-size: 0.88rem;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 /* SOCIALS */
@@ -87,7 +89,7 @@
 }
 
 .col ul li a {
-  color: #666;
+  color: #aaa;
   font-size: 0.85rem;
   text-decoration: none;
   transition: color 0.2s;
@@ -125,7 +127,7 @@
 }
 
 .contactItem span {
-  color: #666;
+  color: #aaa;
   font-size: 0.82rem;
   transition: color 0.2s;
 }
@@ -180,6 +182,9 @@
   }
   .inner {
     grid-template-columns: 1fr;
+  }
+   .desc {
+    max-width: 100%;
   }
   .bottom {
     flex-direction: column;

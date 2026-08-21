@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./Portfolio.module.css";
-import ScrollStack, { ScrollStackItem } from "./ScrollStack";
+import DepthCarousel from "./DepthCarousel";
 import API from "../../api/axios";
 
 function useCountUp(target, duration = 2000, suffix = '') {
@@ -50,10 +50,10 @@ function useCountUp(target, duration = 2000, suffix = '') {
 }
 
 
-function StatCard({ target, suffix, label }) {  // ← styles prop remove
+function StatCard({ target, suffix, label }) {
   const { ref, display } = useCountUp(target)
   return (
-    <div className={styles.card} ref={ref} data-inview>  {/* ← directly styles use */}
+    <div className={styles.card} ref={ref} data-inview>
       <h3>{display}{suffix}</h3>
       <p>{label}</p>
     </div>
@@ -64,14 +64,51 @@ export default function Portfolio() {
   const titleFillRef = useRef(null);
   const [portfolioItems, setPortfolioItems] = useState([]);
   const [loaded, setLoaded] = useState(false);
+   const [viewport, setViewport] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1200
+  );
+
+    useEffect(() => {
+    const onResize = () => setViewport(window.innerWidth);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const carouselSize = useMemo(() => {
+    if (viewport <= 480) return { cardWidth: 260, cardHeight: 340, spread: 40, depth: 140 };
+    if (viewport <= 768) return { cardWidth: 300, cardHeight: 390, spread: 55, depth: 170 };
+    if (viewport <= 1024) return { cardWidth: 340, cardHeight: 430, spread: 70, depth: 190 };
+    return { cardWidth: 380, cardHeight: 480, spread: 90, depth: 220 };
+  }, [viewport]);
 
   useEffect(() => {
     API.get("/portfolio")
-      .then(({ data }) => {setPortfolioItems(data); 
-       setLoaded(true);
+      .then(({ data }) => {
+        setPortfolioItems(data);
+        setLoaded(true);
       })
-      .catch(() => {setLoaded(true)});
+      .catch(() => setLoaded(true));
   }, []);
+
+  // Only posters — matches items tagged/categorized "Social Media Creatives"
+  // in the dashboard. Checks both `category` (string) and `tags` (array)
+  // so it works regardless of which field the admin form actually saved to.
+  const posterItems = useMemo(
+    () =>
+      portfolioItems
+        .filter((item) => {
+          const inCategory = item.category === "Social Media Creatives";
+          const inTags =
+            Array.isArray(item.tags) &&
+            item.tags.includes("Social Media Creatives");
+          return inCategory || inTags;
+        })
+        .map((item) => ({
+          image: item.image,
+          alt: item.title || item.subtitle || "",
+        })),
+    [portfolioItems]
+  );
 
   useEffect(() => {
     // Fade-in observer
@@ -115,7 +152,7 @@ export default function Portfolio() {
     <section className={styles.portfolioSection} id="portfolio">
       <div className={styles.bgGrid}></div>
 
-      {/* ── LEFT — your exact existing content ── */}
+      {/* ── LEFT — unchanged ── */}
       <div className={styles.content}>
         <span className={styles.sectionLabel} data-inview>
           <span className={styles.dot}></span> &#123;04&#125; OUR PROCESS
@@ -142,85 +179,62 @@ export default function Portfolio() {
         </div>
       </div>
 
-      
-      {/* ── RIGHT — ScrollStack ── */}
-<div className={styles.stackCol}>
-  {!loaded ? (
-    // Loading state — skeleton
-    <div style={{ 
-      height: "100%", 
-      display: "flex", 
-      alignItems: "center", 
-      justifyContent: "center",
-      color: "#444"
-    }}>
-      Loading...
-    </div>
-  ) : portfolioItems.length === 0 ? (
-    <div style={{ 
-      height: "100%", 
-      display: "flex", 
-      alignItems: "center", 
-      justifyContent: "center",
-      color: "#444",
-      fontSize: "0.9rem"
-    }}>
-      No portfolio items yet
-    </div>
-  ) : (
-    
-    <ScrollStack
-      key={portfolioItems.length}
-      itemDistance={120}
-      itemScale={0.04}
-      itemStackDistance={25}
-      stackPosition="15%"
-      scaleEndPosition="8%"
-      baseScale={0.88}
-      rotationAmount={0}
-      blurAmount={1}
-      useWindowScroll={false}
-    >
-      {portfolioItems.map((item, i) => (
-        <ScrollStackItem key={item._id || i}>
+      {/* ── RIGHT — DepthCarousel, posters only ── */}
+      <div className={styles.stackCol}>
+        {!loaded ? (
           <div
-            className={styles.stackCard}
-            style={{ "--card-accent": item.color || "#05caf2" }}
+            style={{
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#444",
+            }}
           >
-            <div className={styles.stackImg}>
-              <img src={item.image} alt={item.title} />
-              <div className={styles.stackImgOverlay} />
-            </div>
-            <div className={styles.stackContent}>
-              <div className={styles.stackCardTop}>
-                <span className={styles.stackNum}>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span
-                  className={styles.stackTag}
-                  style={{ 
-                    color: item.color || "#05caf2", 
-                    borderColor: item.color || "#05caf2" 
-                  }}
-                >
-                  {item.category}
-                </span>
-              </div>
-              <div className={styles.stackBottom}>
-                <h3 className={styles.stackTitle}>{item.title}</h3>
-                <p className={styles.stackDesc}>{item.subtitle}</p>
-              </div>
-            </div>
-            <div
-              className={styles.stackBar}
-              style={{ background: item.color || "#05caf2" }}
-            />
+            Loading...
           </div>
-        </ScrollStackItem>
-      ))}
-    </ScrollStack>
-  )}
-</div>
+        ) : posterItems.length === 0 ? (
+          <div
+            style={{
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#444",
+              fontSize: "0.9rem",
+            }}
+          >
+            No posters yet
+          </div>
+        ) : (
+          <DepthCarousel
+            items={posterItems}
+            //depth={220}
+            //spread={90}
+            depth={carouselSize.depth}
+            spread={carouselSize.spread}
+            tilt={22}
+            tiltDirection="right"
+            perspective={1400}
+            visibleCards={4}
+            falloff={0.2}
+            blur={6}
+            autoplay={false}
+            loop
+            //cardWidth={380}
+            //cardHeight={480}
+            cardWidth={carouselSize.cardWidth}
+            cardHeight={carouselSize.cardHeight}
+            radius={18}
+            tint="#05060a"
+            duration={700}
+            ease="power3.out"
+            autoplayDelay={3200}
+            showControls
+            showIndicators
+          />
+        )}
+      </div>
     </section>
   );
 }

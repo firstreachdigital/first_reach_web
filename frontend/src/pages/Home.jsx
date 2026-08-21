@@ -12,6 +12,7 @@ import Blog from "../components/blog/Blog";
 import ConnectUs from "../components/connectUs/ConnectUs";
 import SEO from "../components/SEO"
 import WhereWeServe from "../components/whereWeServe/WhereWeServe";
+import Founder from "../components/founder/Founder";
 
 export default function Home() {
   return (
@@ -25,7 +26,8 @@ export default function Home() {
       <MyPort limit={4} />
       {/* <Testimonial /> */}
       <Steps />
-      <Team />
+      {/* <Team /> */}
+      <Founder />
       <Contact />
       <Blog />
       <ConnectUs />

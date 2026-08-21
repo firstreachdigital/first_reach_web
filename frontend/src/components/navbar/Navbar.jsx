@@ -139,6 +139,7 @@ export default function Navbar() {
 
   // Build aboutMenu dynamically with team members
   const aboutMenu = [
+    { label: "CEO", path: "/mosas-babu", hasSubmenu: false },
     {
       label: "Team",
       path: "/team",

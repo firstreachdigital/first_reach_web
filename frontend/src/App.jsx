@@ -32,6 +32,7 @@ import RemovalDetailPage from "./pages/RemovalDetailPage";
 import ReputationPage from "./pages/ReputationPage";
 import RecoveryPage from "./pages/RecoveryPage";
 import RemovalPage from "./pages/RemovalPage";
+import MosasBabuPage from "./pages/MosasBabuPage";
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
         <Route path="/choose-us" element={<WhyusPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/testimonial" element={<TestimonialPage />} />
+        <Route path="/mosas-babu" element={<MosasBabuPage />} />
         <Route path="/team" element={<TeamPage />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/team/:slug" element={<TeamMemberPage />} />

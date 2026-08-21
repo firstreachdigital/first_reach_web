@@ -1,4 +1,4 @@
-import WhyUs from "../components/whyus/whyUs";
+import WhyUs from "../components/whyus/WhyUs";
 
 export default function WhyusPage() {
   return (

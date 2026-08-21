@@ -1,7 +1,8 @@
-import React from "react";
+
 import styles from "./Founder.module.css";
-import { FaInstagram, FaLinkedin, FaXTwitter, FaTelegram } from "react-icons/fa6";
+import { FaInstagram, FaLinkedin, FaXTwitter, FaTelegram, FaWhatsapp, FaFacebookF } from "react-icons/fa6";
 import founderImg from "../../assets/mosas.png"; // ← replace with actual founder image path
+import { useEffect } from "react";
 
 const stats = [
   { num: "1,000+", label: "Links Removed" },
@@ -10,12 +11,31 @@ const stats = [
   { num: "10+", label: "Years Industry Experience" },
 ];
 
-export default function Founder() {
+
+export default function Founder({ sectionClassName = "" }) {
+
+  useEffect(() => {
+    const elements = document.querySelectorAll("[data-inview]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.inView);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className={styles.section} id="founder">
+    <section className={`${styles.section} ${sectionClassName}`} id="founder">
       <div className={styles.header}>
         <span className={styles.label} data-inview>
-          <span className={styles.labelDot} /> &#123;B&#125; Leadership
+          <span className={styles.labelDot} /> &#123;07&#125; Leadership
         </span>
         <h2 className={styles.title} data-inview>
           Meet the Founder
@@ -79,10 +99,10 @@ export default function Founder() {
           </p>
 
           <div className={styles.socials}>
-            <a href="#" aria-label="Instagram" className={styles.socialIcon}><FaInstagram /></a>
-            <a href="#" aria-label="LinkedIn" className={styles.socialIcon}><FaLinkedin /></a>
-            <a href="#" aria-label="X (Twitter)" className={styles.socialIcon}><FaXTwitter /></a>
-            <a href="#" aria-label="Telegram" className={styles.socialIcon}><FaTelegram /></a>
+            <a href="https://www.instagram.com/firstreachdigital/" aria-label="Instagram" className={styles.socialIcon}><FaInstagram /></a>
+            <a href="https://in.linkedin.com/company/first-reach-digital-private-limited" aria-label="LinkedIn" className={styles.socialIcon}><FaLinkedin /></a>
+            <a href="https://wa.me/9946618222" aria-label="X (Twitter)" className={styles.socialIcon}><FaWhatsapp /></a>
+            <a href="https://www.facebook.com/FirstReachDigitalPrivateLimited/" aria-label="Telegram" className={styles.socialIcon}><FaFacebookF /></a>
           </div>
         </div>
       </div>
