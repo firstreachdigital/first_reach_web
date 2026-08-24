@@ -52,10 +52,12 @@ export default function Navbar() {
   const [mobileReputation, setMobileReputation] = useState(false);
   const [mobileRecovery, setMobileRecovery] = useState(false);
   const [mobileRemoval, setMobileRemoval] = useState(false);
-  const [blogModal, setBlogModal] = useState(false);
+  //const [blogModal, setBlogModal] = useState(false);
   const [theme, setTheme] = useState(
     () => localStorage.getItem("frtheme") || "light",
   );
+
+  const [mobileServices, setMobileServices] = useState(false);
 
   // Dynamic data
   const [teamMembers, setTeamMembers] = useState([]);
@@ -67,6 +69,7 @@ export default function Navbar() {
   const reputation = useHoverMenu();
   const recovery = useHoverMenu();
   const removal = useHoverMenu();
+  const services = useHoverMenu();
   const location = useLocation();
 
   // Fetch team & blogs on mount
@@ -106,33 +109,33 @@ export default function Navbar() {
     reputation.setOpen(false);
     recovery.setOpen(false);
     removal.setOpen(false);
-    setBlogModal(false);
+    //setBlogModal(false);
   }, [location.pathname]);
 
-  useEffect(() => {
-    document.body.style.overflow = blogModal ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [blogModal]);
+  // useEffect(() => {
+  //   document.body.style.overflow = blogModal ? "hidden" : "";
+  //   return () => {
+  //     document.body.style.overflow = "";
+  //   };
+  // }, [blogModal]);
 
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "Escape") setBlogModal(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  // useEffect(() => {
+  //   const onKey = (e) => {
+  //     if (e.key === "Escape") setBlogModal(false);
+  //   };
+  //   window.addEventListener("keydown", onKey);
+  //   return () => window.removeEventListener("keydown", onKey);
+  // }, []);
 
   //light/dark theme toggle
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("frtheme", theme);
     if (window.vantaEffect) {
-    window.vantaEffect.setOptions({
-      backgroundColor: theme === "dark" ? 0x080808 : 0xffffff,
-    });
-  }
+      window.vantaEffect.setOptions({
+        backgroundColor: theme === "dark" ? 0x080808 : 0xffffff,
+      });
+    }
   }, [theme]);
 
   const toggleTheme = () => setTheme((t) => (t === "light" ? "dark" : "light"));
@@ -156,36 +159,125 @@ export default function Navbar() {
     { label: "Why Us", path: "/why-us", hasSubmenu: false },
   ];
 
-const reputationMenu = [
-  { label: "Personal Branding", path: "/reputation/personal-branding" },
-  { label: "Wikipedia Creation & Consulting", path: "/reputation/wikipedia-consulting" },
-  { label: "Social Media Verification", path: "/reputation/social-media-verification" },
-  { label: "AI Indexing & AI Search Visibility", path: "/reputation/ai-search-visibility" },
-  { label: "Search Engine De-Indexing", path: "/reputation/search-engine-deindexing" },
-  { label: "Google Knowledge Panel", path: "/reputation/google-knowledge-panel" },
-  { label: "Instagram Username Claim & Recovery", path: "/reputation/instagram-username-claim" },
-];
+  const servicesMenu = [
+    {
+      label: "Brand Development & Management",
+      path: "/services/brand-development",
+    },
+    {
+      label: "Website and App Development",
+      path: "/services/website-app-development",
+    },
+    { label: "Search Engine Optimization (SEO)", path: "/services/seo" },
+    {
+      label: "Social Media Management & Marketing",
+      path: "/services/social-media-management",
+    },
+    {
+      label: "Influencer Marketing & Media Productions",
+      path: "/services/influencer-media",
+    },
+    {
+      label: "Content Marketing & Graphic Design",
+      path: "/services/content-graphic-design",
+    },
+    {
+      label: "Brand Protection & Digital Security",
+      path: "/services/brand-protection",
+    },
+    { label: "Reputation & Removal", path: "/services/reputation-removal" },
+  ];
 
-const recoveryMenu = [
-  { label: "Social Media Unban", path: "/recovery/social-media-unban" },
-  { label: "Social Media Account Recovery", path: "/recovery/social-media-account-recovery" },
-  { label: "Instagram Account Recovery", path: "/recovery/instagram-account-recovery" },
-  { label: "Facebook Account Recovery", path: "/recovery/facebook-account-recovery" },
-  { label: "Business Account Recovery", path: "/recovery/business-account-recovery" },
-  { label: "Suspended Account Recovery", path: "/recovery/suspended-account-recovery" },
-  { label: "Disabled Account Recovery", path: "/recovery/disabled-account-recovery" },
-  { label: "Restricted Account Recovery", path: "/recovery/restricted-account-recovery" },
-  { label: "Hacked Account Recovery", path: "/recovery/hacked-account-recovery" },
-  { label: "YouTube Channel Recovery", path: "/recovery/youtube-channel-recovery" },
-  { label: "YouTube Termination Appeal", path: "/recovery/youtube-termination-appeal" },
-  { label: "Content Removal & Policy Review", path: "/recovery/content-removal-policy-review" },
-  { label: "Account Appeal & Escalation Support", path: "/recovery/account-appeal-escalation" },
-];
+  const reputationMenu = [
+    { label: "Personal Branding", path: "/reputation/personal-branding" },
+    {
+      label: "Wikipedia Creation & Consulting",
+      path: "/reputation/wikipedia-consulting",
+    },
+    {
+      label: "Social Media Verification",
+      path: "/reputation/social-media-verification",
+    },
+    {
+      label: "AI Indexing & AI Search Visibility",
+      path: "/reputation/ai-search-visibility",
+    },
+    {
+      label: "Search Engine De-Indexing",
+      path: "/reputation/search-engine-deindexing",
+    },
+    {
+      label: "Google Knowledge Panel",
+      path: "/reputation/google-knowledge-panel",
+    },
+    {
+      label: "Instagram Username Claim & Recovery",
+      path: "/reputation/instagram-username-claim",
+    },
+  ];
 
-const removalMenu = [
-  { label: "Negative Links Removal", path: "/removal/negative-links-removal" },
-  { label: "Business Manager Recovery", path: "/removal/business-manager-recovery" },
-];
+  const recoveryMenu = [
+    { label: "Social Media Unban", path: "/recovery/social-media-unban" },
+    {
+      label: "Social Media Account Recovery",
+      path: "/recovery/social-media-account-recovery",
+    },
+    {
+      label: "Instagram Account Recovery",
+      path: "/recovery/instagram-account-recovery",
+    },
+    {
+      label: "Facebook Account Recovery",
+      path: "/recovery/facebook-account-recovery",
+    },
+    {
+      label: "Business Account Recovery",
+      path: "/recovery/business-account-recovery",
+    },
+    {
+      label: "Suspended Account Recovery",
+      path: "/recovery/suspended-account-recovery",
+    },
+    {
+      label: "Disabled Account Recovery",
+      path: "/recovery/disabled-account-recovery",
+    },
+    {
+      label: "Restricted Account Recovery",
+      path: "/recovery/restricted-account-recovery",
+    },
+    {
+      label: "Hacked Account Recovery",
+      path: "/recovery/hacked-account-recovery",
+    },
+    {
+      label: "YouTube Channel Recovery",
+      path: "/recovery/youtube-channel-recovery",
+    },
+    {
+      label: "YouTube Termination Appeal",
+      path: "/recovery/youtube-termination-appeal",
+    },
+    {
+      label: "Content Removal & Policy Review",
+      path: "/recovery/content-removal-policy-review",
+    },
+    {
+      label: "Account Appeal & Escalation Support",
+      path: "/recovery/account-appeal-escalation",
+    },
+  ];
+
+  const removalMenu = [
+    {
+      label: "Negative Links Removal",
+      path: "/removal/negative-links-removal",
+    },
+    {
+      label: "Business Manager Recovery",
+      path: "/removal/business-manager-recovery",
+    },
+  ];
 
   const activeAboutSubmenu = hoveredAbout
     ? aboutMenu.find((a) => a.label === hoveredAbout)?.submenu
@@ -295,139 +387,173 @@ const removalMenu = [
               )}
             </li>
 
-            <li className={styles.navItem}>
-              <Link to="/services" className={styles.link}>
-                Services
+            {/* Services */}
+            <li
+              ref={services.ref}
+              className={styles.navItem}
+              onMouseEnter={services.onEnter}
+              onMouseLeave={services.onLeave}
+            >
+              <Link
+                to="/services"
+                className={`${styles.link} ${styles.pagesBtn} ${services.open ? styles.pageBtnActive : ""}`}
+              >
+                Services{" "}
+                <FaChevronDown
+                  className={`${styles.chevron} ${services.open ? styles.chevronUp : ""}`}
+                />
               </Link>
+              {services.open && (
+                <div
+                  className={styles.megaMenu}
+                  style={{ minWidth: "220px" }}
+                  onMouseEnter={services.onEnter}
+                  onMouseLeave={services.onLeave}
+                >
+                  <div className={styles.megaInner}>
+                    <ul className={styles.megaList}>
+                      {servicesMenu.map((item) => (
+                        <li key={item.label}>
+                          <Link
+                            to={item.path}
+                            className={styles.megaItem}
+                            onClick={() => services.setOpen(false)}
+                          >
+                            <span>{item.label}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
             </li>
 
-            
             {/* Reputation */}
-<li
-  ref={reputation.ref}
-  className={styles.navItem}
-  onMouseEnter={reputation.onEnter}
-  onMouseLeave={reputation.onLeave}
->
-  <Link
-    to="/reputation"
-    className={`${styles.link} ${styles.pagesBtn} ${reputation.open ? styles.pageBtnActive : ""}`}
-  >
-     Reputation{" "}
-  <FaChevronDown
-    className={`${styles.chevron} ${reputation.open ? styles.chevronUp : ""}`}
-  />
-  </Link>
-  {reputation.open && (
-    <div
-      className={styles.megaMenu}
-      style={{ minWidth: "220px" }}
-      onMouseEnter={reputation.onEnter}
-      onMouseLeave={reputation.onLeave}
-    >
-      <div className={styles.megaInner}>
-        <ul className={styles.megaList}>
-          {reputationMenu.map((item) => (
-            <li key={item.label}>
+            <li
+              ref={reputation.ref}
+              className={styles.navItem}
+              onMouseEnter={reputation.onEnter}
+              onMouseLeave={reputation.onLeave}
+            >
               <Link
-                to={item.path}
-                className={styles.megaItem}
-                onClick={() => reputation.setOpen(false)}
+                to="/reputation"
+                className={`${styles.link} ${styles.pagesBtn} ${reputation.open ? styles.pageBtnActive : ""}`}
               >
-                <span>{item.label}</span>
+                Reputation{" "}
+                <FaChevronDown
+                  className={`${styles.chevron} ${reputation.open ? styles.chevronUp : ""}`}
+                />
               </Link>
+              {reputation.open && (
+                <div
+                  className={styles.megaMenu}
+                  style={{ minWidth: "220px" }}
+                  onMouseEnter={reputation.onEnter}
+                  onMouseLeave={reputation.onLeave}
+                >
+                  <div className={styles.megaInner}>
+                    <ul className={styles.megaList}>
+                      {reputationMenu.map((item) => (
+                        <li key={item.label}>
+                          <Link
+                            to={item.path}
+                            className={styles.megaItem}
+                            onClick={() => reputation.setOpen(false)}
+                          >
+                            <span>{item.label}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
             </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  )}
-</li>
 
-{/* Recovery */}
-<li
-  ref={recovery.ref}
-  className={styles.navItem}
-  onMouseEnter={recovery.onEnter}
-  onMouseLeave={recovery.onLeave}
->
-  <Link
-    to="/recovery"
-    className={`${styles.link} ${styles.pagesBtn} ${recovery.open ? styles.pageBtnActive : ""}`}
-  >
-      Recovery{" "}
-  <FaChevronDown
-    className={`${styles.chevron} ${recovery.open ? styles.chevronUp : ""}`}
-  />
-  </Link>
-  {recovery.open && (
-    <div
-      className={styles.megaMenu}
-      style={{ minWidth: "220px" }}
-      onMouseEnter={recovery.onEnter}
-      onMouseLeave={recovery.onLeave}
-    >
-      <div className={styles.megaInner}>
-        <ul className={styles.megaList}>
-          {recoveryMenu.map((item) => (
-            <li key={item.label}>
+            {/* Recovery */}
+            <li
+              ref={recovery.ref}
+              className={styles.navItem}
+              onMouseEnter={recovery.onEnter}
+              onMouseLeave={recovery.onLeave}
+            >
               <Link
-                to={item.path}
-                className={styles.megaItem}
-                onClick={() => recovery.setOpen(false)}
+                to="/recovery"
+                className={`${styles.link} ${styles.pagesBtn} ${recovery.open ? styles.pageBtnActive : ""}`}
               >
-                <span>{item.label}</span>
+                Recovery{" "}
+                <FaChevronDown
+                  className={`${styles.chevron} ${recovery.open ? styles.chevronUp : ""}`}
+                />
               </Link>
+              {recovery.open && (
+                <div
+                  className={styles.megaMenu}
+                  style={{ minWidth: "220px" }}
+                  onMouseEnter={recovery.onEnter}
+                  onMouseLeave={recovery.onLeave}
+                >
+                  <div className={styles.megaInner}>
+                    <ul className={styles.megaList}>
+                      {recoveryMenu.map((item) => (
+                        <li key={item.label}>
+                          <Link
+                            to={item.path}
+                            className={styles.megaItem}
+                            onClick={() => recovery.setOpen(false)}
+                          >
+                            <span>{item.label}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
             </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  )}
-</li>
 
-{/* Removal */}
-<li
-  ref={removal.ref}
-  className={styles.navItem}
-  onMouseEnter={removal.onEnter}
-  onMouseLeave={removal.onLeave}
->
-  <Link
-    to="/removal"
-    className={`${styles.link} ${styles.pagesBtn} ${removal.open ? styles.pageBtnActive : ""}`}
-  >
-      Removal{" "}
-  <FaChevronDown
-    className={`${styles.chevron} ${removal.open ? styles.chevronUp : ""}`}
-  />
-  </Link>
-  {removal.open && (
-    <div
-      className={styles.megaMenu}
-      style={{ minWidth: "220px" }}
-      onMouseEnter={removal.onEnter}
-      onMouseLeave={removal.onLeave}
-    >
-      <div className={styles.megaInner}>
-        <ul className={styles.megaList}>
-          {removalMenu.map((item) => (
-            <li key={item.label}>
+            {/* Removal */}
+            <li
+              ref={removal.ref}
+              className={styles.navItem}
+              onMouseEnter={removal.onEnter}
+              onMouseLeave={removal.onLeave}
+            >
               <Link
-                to={item.path}
-                className={styles.megaItem}
-                onClick={() => removal.setOpen(false)}
+                to="/removal"
+                className={`${styles.link} ${styles.pagesBtn} ${removal.open ? styles.pageBtnActive : ""}`}
               >
-                <span>{item.label}</span>
+                Removal{" "}
+                <FaChevronDown
+                  className={`${styles.chevron} ${removal.open ? styles.chevronUp : ""}`}
+                />
               </Link>
+              {removal.open && (
+                <div
+                  className={styles.megaMenu}
+                  style={{ minWidth: "220px" }}
+                  onMouseEnter={removal.onEnter}
+                  onMouseLeave={removal.onLeave}
+                >
+                  <div className={styles.megaInner}>
+                    <ul className={styles.megaList}>
+                      {removalMenu.map((item) => (
+                        <li key={item.label}>
+                          <Link
+                            to={item.path}
+                            className={styles.megaItem}
+                            onClick={() => removal.setOpen(false)}
+                          >
+                            <span>{item.label}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
             </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  )}
-</li>
-
 
             <li className={styles.navItem}>
               <Link to="/portfolio" className={styles.link}>
@@ -436,7 +562,7 @@ const removalMenu = [
             </li>
 
             {/* Blog — opens modal */}
-            <li className={styles.navItem}>
+            {/* <li className={styles.navItem}>
               <button
                 className={`${styles.link} ${styles.pagesBtn} ${blogModal ? styles.pageBtnActive : ""}`}
                 onClick={() => setBlogModal(true)}
@@ -446,6 +572,12 @@ const removalMenu = [
                   className={`${styles.chevron} ${blogModal ? styles.chevronUp : ""}`}
                 />
               </button>
+            </li> */}
+
+            <li className={styles.navItem}>
+             <Link to="/blog" className={styles.link}>
+               Blogs
+             </Link>
             </li>
 
             {/* Shop */}
@@ -679,100 +811,120 @@ const removalMenu = [
               )}
             </div>
 
-            <Link
-              to="/services"
-              className={styles.mobileLink}
-              onClick={() => setMenuOpen(false)}
-            >
-              Services
-            </Link>
+            {/* Services mobile */}
+            <div>
+              <button
+                className={`${styles.mobileLink} ${styles.mobilePagesBtn}`}
+                onClick={() => setMobileServices((p) => !p)}
+              >
+                Services{" "}
+                <FaChevronDown
+                  className={`${styles.chevron} ${mobileServices ? styles.chevronUp : ""}`}
+                  style={{ fontSize: "0.7rem" }}
+                />
+              </button>
+              {mobileServices && (
+                <div className={styles.mobileSubList}>
+                  {servicesMenu.map((item) => (
+                    <Link
+                      key={item.label}
+                      to={item.path}
+                      className={styles.mobileSubLink}
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Reputation mobile */}
-<div>
-  <button
-    className={`${styles.mobileLink} ${styles.mobilePagesBtn}`}
-    onClick={() => setMobileReputation((p) => !p)}
-  >
-     Reputation{" "}
-  <FaChevronDown
-    className={`${styles.chevron} ${mobileReputation ? styles.chevronUp : ""}`}
-    style={{ fontSize: "0.7rem" }}
-  />
-  </button>
-  {mobileReputation && (
-    <div className={styles.mobileSubList}>
-      {reputationMenu.map((item) => (
-        <Link
-          key={item.label}
-          to={item.path}
-          className={styles.mobileSubLink}
-          onClick={() => setMenuOpen(false)}
-        >
-          {item.label}
-        </Link>
-      ))}
-    </div>
-  )}
-</div>
+            <div>
+              <button
+                className={`${styles.mobileLink} ${styles.mobilePagesBtn}`}
+                onClick={() => setMobileReputation((p) => !p)}
+              >
+                Reputation{" "}
+                <FaChevronDown
+                  className={`${styles.chevron} ${mobileReputation ? styles.chevronUp : ""}`}
+                  style={{ fontSize: "0.7rem" }}
+                />
+              </button>
+              {mobileReputation && (
+                <div className={styles.mobileSubList}>
+                  {reputationMenu.map((item) => (
+                    <Link
+                      key={item.label}
+                      to={item.path}
+                      className={styles.mobileSubLink}
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
-{/* Recovery mobile */}
-<div>
-  <button
-    className={`${styles.mobileLink} ${styles.mobilePagesBtn}`}
-    onClick={() => setMobileRecovery((p) => !p)}
-  >
-      Recovery{" "}
-  <FaChevronDown
-    className={`${styles.chevron} ${mobileRecovery ? styles.chevronUp : ""}`}
-    style={{ fontSize: "0.7rem" }}
-  />
-  </button>
-  {mobileRecovery && (
-    <div className={styles.mobileSubList}>
-      {recoveryMenu.map((item) => (
-        <Link
-          key={item.label}
-          to={item.path}
-          className={styles.mobileSubLink}
-          onClick={() => setMenuOpen(false)}
-        >
-          {item.label}
-        </Link>
-      ))}
-    </div>
-  )}
-</div>
+            {/* Recovery mobile */}
+            <div>
+              <button
+                className={`${styles.mobileLink} ${styles.mobilePagesBtn}`}
+                onClick={() => setMobileRecovery((p) => !p)}
+              >
+                Recovery{" "}
+                <FaChevronDown
+                  className={`${styles.chevron} ${mobileRecovery ? styles.chevronUp : ""}`}
+                  style={{ fontSize: "0.7rem" }}
+                />
+              </button>
+              {mobileRecovery && (
+                <div className={styles.mobileSubList}>
+                  {recoveryMenu.map((item) => (
+                    <Link
+                      key={item.label}
+                      to={item.path}
+                      className={styles.mobileSubLink}
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
-{/* Removal mobile */}
-<div>
-  <button
-    className={`${styles.mobileLink} ${styles.mobilePagesBtn}`}
-    onClick={() => setMobileRemoval((p) => !p)}
-  >
-     Removal{" "}
-  <FaChevronDown
-    className={`${styles.chevron} ${mobileRemoval ? styles.chevronUp : ""}`}
-    style={{ fontSize: "0.7rem" }}
-  />
-  </button>
-  {mobileRemoval && (
-    <div className={styles.mobileSubList}>
-      {removalMenu.map((item) => (
-        <Link
-          key={item.label}
-          to={item.path}
-          className={styles.mobileSubLink}
-          onClick={() => setMenuOpen(false)}
-        >
-          {item.label}
-        </Link>
-      ))}
-    </div>
-  )}
-</div>
+            {/* Removal mobile */}
+            <div>
+              <button
+                className={`${styles.mobileLink} ${styles.mobilePagesBtn}`}
+                onClick={() => setMobileRemoval((p) => !p)}
+              >
+                Removal{" "}
+                <FaChevronDown
+                  className={`${styles.chevron} ${mobileRemoval ? styles.chevronUp : ""}`}
+                  style={{ fontSize: "0.7rem" }}
+                />
+              </button>
+              {mobileRemoval && (
+                <div className={styles.mobileSubList}>
+                  {removalMenu.map((item) => (
+                    <Link
+                      key={item.label}
+                      to={item.path}
+                      className={styles.mobileSubLink}
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Blog mobile */}
-            <div>
+            {/* <div>
               <button
                 className={`${styles.mobileLink} ${styles.mobilePagesBtn}`}
                 onClick={() => setMobileBlog((p) => !p)}
@@ -804,7 +956,15 @@ const removalMenu = [
                   ))}
                 </div>
               )}
-            </div>
+            </div> */}
+
+            <Link
+             to="/blog"
+             className={styles.mobileLink}
+             onClick={() => setMenuOpen(false)}
+            >
+            Blogs
+            </Link>
 
             {/* Shop mobile */}
             {/* <div>
@@ -908,7 +1068,7 @@ const removalMenu = [
       </nav>
 
       {/* ── BLOG MODAL ── */}
-      {blogModal && (
+      {/* {blogModal && (
         <div
           className={styles.blogOverlay}
           onClick={(e) => e.target === e.currentTarget && setBlogModal(false)}
@@ -984,7 +1144,7 @@ const removalMenu = [
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 }

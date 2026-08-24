@@ -21,19 +21,14 @@ export default function Footer() {
             <h3>First Reach Digital</h3>
           </div>
           <p className={styles.desc}>
-            First Reach Digital Private Limited is a full-service <b>digital
-            marketing agency in Kerala, India, helping businesses grow across
-            the UAE, Oman, Bahrain, Qatar, Saudi Arabia, the UK, and
-            worldwide. We provide result-driven digital marketing, SEO, social
-            media marketing, web design and development, performance marketing,
-            branding, reputation management, anti-piracy, and AI-powered
-            marketing automation</b> solutions. With a focus on innovation,
-            creativity, technology, and data-driven strategies, First Reach
-            Digital helps startups, SMEs, and established brands build a
-            stronger digital presence, generate quality leads, and achieve
-            sustainable online growth. We work as an extension of your team to
-            create effective digital strategies tailored to your business goals.
-            <b>Innovating Success Together.</b>
+            First Reach Digital Private Limited is a full-service digital
+            marketing agency based in Kerala, India. We provide result-driven
+            solutions in <b>digital marketing, SEO, social media marketing, web
+            design and development, performance marketing, branding, reputation
+            management, anti-piracy, and AI-powered marketing automation.</b> From
+            startups to established brands, we treat every client’s goals as our
+            own and work to deliver meaningful, measurable, and sustainable
+            digital growth.
           </p>
           <div className={styles.socials}>
             <a
@@ -83,7 +78,7 @@ export default function Footer() {
             <li>
               <Link to="/">Home</Link>
             </li>
-             <li>
+            <li>
               <Link to="/about">About Us</Link>
             </li>
             <li>
@@ -110,32 +105,46 @@ export default function Footer() {
           </ul>
         </div>
 
-         <div className={styles.col}>
+        <div className={styles.col}>
           <h4>Services</h4>
           <ul>
             <li>
-              <Link to="/services/brand-development">Brand Development & Management</Link>
+              <Link to="/services/brand-development">
+                Brand Development & Management
+              </Link>
             </li>
             <li>
-              <Link to="/services/website-app-development">Website and App Development</Link>
+              <Link to="/services/website-app-development">
+                Website and App Development
+              </Link>
             </li>
             <li>
               <Link to="/services/seo">Search Engine Optimization (SEO)</Link>
             </li>
             <li>
-              <Link to="/services/social-media-management">Social Media Management & Marketing</Link>
+              <Link to="/services/social-media-management">
+                Social Media Management & Marketing
+              </Link>
             </li>
             <li>
-              <Link to="/services/influencer-media">Influencer Marketing & Media Productions</Link>
+              <Link to="/services/influencer-media">
+                Influencer Marketing & Media Productions
+              </Link>
             </li>
             <li>
-              <Link to="/services/content-graphic-design">Content Marketing & Graphic Design</Link>
+              <Link to="/services/content-graphic-design">
+                Content Marketing & Graphic Design
+              </Link>
             </li>
             <li>
-              <Link to="/services/brand-protection">Brand Protection & Digital Security</Link>
+              <Link to="/services/brand-protection">
+                Brand Protection & Digital Security
+              </Link>
             </li>
             <li>
-              <Link to="/services/reputation-removal">Reputation & Removal</Link>
+              <Link to="/services/reputation-removal">
+                Reputation & Removal
+              </Link>
             </li>
           </ul>
         </div>
@@ -172,7 +181,7 @@ export default function Footer() {
 
       {/* BOTTOM */}
       <div className={styles.bottom}>
-        <p>© First Reach Digital All rights reserved 2026</p>
+        <p>© 2026 First Reach Digital All rights reserved</p>
         <div className={styles.credit}>Made with 💙 by First Reach Digital</div>
         <div className={styles.bottomLinks}>
           <Link to="/privacy">Privacy Policy</Link>
