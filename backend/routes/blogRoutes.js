@@ -7,6 +7,7 @@ const {
   createBlog,
   updateBlog,
   deleteBlog,
+  uploadBlogImage,
 } = require("../controllers/blogController");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -18,6 +19,8 @@ router.get("/all", protect, getAllBlogs);
 router.post("/", protect, createBlog);
 router.put("/:id", protect, updateBlog);
 router.delete("/:id", protect, deleteBlog);
+
+router.post("/upload-image", protect, uploadBlogImage);
 
 // Slug route must be last
 router.get("/:slug", getBlogBySlug);

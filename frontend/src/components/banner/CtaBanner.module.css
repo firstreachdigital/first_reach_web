@@ -1,11 +1,10 @@
 .wrapper {
   padding: 0 17rem;
-  background: #050505;
-  padding-bottom: 0;
-  background: transparent;  
+  background: transparent;
   position: relative;
   z-index: 2;
-  margin-bottom: -3.5rem
+  margin-bottom: -3.5rem;
+  padding-bottom: 0;
 }
 
 .banner {
@@ -16,12 +15,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-}
-
-.decor {
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
+  position: relative;
+  overflow: visible; /* important — image mel pokan */
 }
 
 .left h2 {
@@ -37,11 +32,25 @@
   flex-direction: column;
   gap: 0.6rem;
   min-width: 300px;
+  position: relative;
+}
+
+/* MASCOT — head pops out above banner */
+.mascot {
+  position: absolute;
+  top: -7.5rem;         /* banner top-il ninnu ethra mukalilekku venam ath adjust cheyy */
+  right: 0;
+  width: 180px;
+  height: auto;
+  z-index: 5;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.25));
 }
 
 .sub {
   font-size: 0.78rem;
   color: #003344;
+  margin-top: 6.5rem;   /* mascot overlap cheyyathe text push cheyyan */
 }
 
 .inputRow {
@@ -91,6 +100,15 @@
   .right {
     width: 100%;
     min-width: unset;
+  }
+  .mascot {
+    position: static;
+    margin: 0 auto 1rem;
+    display: block;
+    filter: none;
+  }
+  .sub {
+    margin-top: 0;
   }
 }
 

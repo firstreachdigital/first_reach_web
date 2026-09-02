@@ -2,8 +2,9 @@
 import { useEffect, useState, useCallback } from "react";
 import {
   Table, Button, Modal, Form, Input, Switch, Space,
-  Tag, Popconfirm, Tooltip, Select, App, theme
+  Tag, Popconfirm, Tooltip, Select, App, theme, Upload
 } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 import {
   PlusOutlined, EditOutlined, DeleteOutlined,
   EyeOutlined, EyeInvisibleOutlined,
@@ -237,6 +238,8 @@ function BlogsInner() {
   const [saving, setSaving]             = useState(false);
   const [contentValue, setContentValue] = useState("");
   const [contentError, setContentError] = useState(false);
+  const [imageUrl, setImageUrl]         = useState("");
+  const [imageUploading, setImageUploading] = useState(false);
 
   const fetchBlogs = async () => {
     setLoading(true);
@@ -254,6 +257,7 @@ function BlogsInner() {
     form.resetFields();
     setContentValue("");
     setContentError(false);
+    setImageUrl("");
     setModalOpen(true);
   };
 
@@ -262,11 +266,11 @@ function BlogsInner() {
     form.setFieldsValue({
       title: record.title, excerpt: record.excerpt, category: record.category,
       author: record.author, readTime: record.readTime,
-      featuredImage: record.featuredImage,
       tags: record.tags?.join(", "), isPublished: record.isPublished,
     });
     setContentValue(record.content || "");
     setContentError(false);
+    setImageUrl(record.featuredImage || "");
     setModalOpen(true);
   };
 
@@ -280,6 +284,7 @@ function BlogsInner() {
       const payload = {
         ...values,
         content: contentValue,
+        featuredImage: imageUrl,
         tags: values.tags
           ? values.tags.split(",").map((t) => t.trim()).filter(Boolean)
           : [],
@@ -404,8 +409,56 @@ function BlogsInner() {
             </Form.Item>
           </div>
 
-          <Form.Item name="featuredImage" label="Featured Image URL">
-            <Input placeholder="https://..." />
+          <Form.Item label="Featured Image">
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <Upload
+                accept="image/*"
+                showUploadList={false}
+                beforeUpload={async (file) => {
+                  setImageUploading(true);
+                  try {
+                    const fd = new FormData();
+                    fd.append("image", file);
+                    const token = localStorage.getItem("adminToken");
+                    const base = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+                    const res = await fetch(`${base}/blogs/upload-image`, {
+                      method: "POST",
+                      headers: { Authorization: `Bearer ${token}` },
+                      body: fd,
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.message);
+                    setImageUrl(data.url);
+                    message.success("Image uploaded");
+                  } catch (e) {
+                    message.error(e.message || "Upload failed");
+                  } finally {
+                    setImageUploading(false);
+                  }
+                  return false;
+                }}
+              >
+                <Button icon={<UploadOutlined />} disabled={imageUploading} loading={imageUploading}>
+                  {imageUploading ? "Uploading…" : "Upload Image"}
+                </Button>
+              </Upload>
+
+              {imageUrl && (
+                <div style={{ position: "relative", display: "inline-block" }}>
+                  <img
+                    src={imageUrl}
+                    alt="featured"
+                    style={{ maxWidth: "100%", maxHeight: 180, borderRadius: 6, objectFit: "cover", border: `1px solid ${token.colorBorder}` }}
+                  />
+                  <Button
+                    size="small" danger type="text"
+                    icon={<DeleteOutlined />}
+                    style={{ position: "absolute", top: 4, right: 4, background: "rgba(0,0,0,0.45)", color: "#fff", border: "none" }}
+                    onClick={() => setImageUrl("")}
+                  />
+                </div>
+              )}
+            </div>
           </Form.Item>
 
           <Form.Item name="isPublished" label="Publish" valuePropName="checked">

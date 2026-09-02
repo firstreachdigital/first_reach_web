@@ -1,7 +1,7 @@
 .section {
   position: relative;
   padding: 7rem 5rem 6rem;
-  background: var(--bg); 
+  background: var(--bg);
   overflow: hidden;
 }
 
@@ -16,6 +16,7 @@
   background-size: 60px 60px;
   opacity: 0.6;
   pointer-events: none;
+
 }
 
 /* ================= CONTAINER MATCH ================= */
@@ -274,10 +275,13 @@
   grid-template-columns: 1fr 1.6fr;
   gap: 4rem;
   align-items: start;
-  border-top: 1px solid var(--border);
-  padding-top: 4rem;
   position: relative;
   z-index: 1;
+
+  border: 2px solid #05caf2;
+  border-radius: 1.5rem;
+  padding: 3rem;
+  box-shadow: 0 0 30px rgba(5, 202, 242, 0.08);
 }
 
 .formLeft {
@@ -414,19 +418,63 @@
 
 /* Responsive form */
 @media (max-width: 1024px) {
+  .section {
+    padding: 5rem 2.5rem 4rem;
+  }
+
+  .inner {
+    grid-template-columns: 1fr;
+  }
+
   .formWrap {
     grid-template-columns: 1fr;
     gap: 2rem;
+    padding: 2rem;
   }
+
   .formLeft {
     position: static;
   }
 }
 
 @media (max-width: 768px) {
+  .section {
+    padding: 4rem 1.5rem 3.5rem;
+  }
+
+  .socialsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .infoRow {
+    grid-template-columns: 1fr;
+  }
+
+  .logoBadge {
+    display: none;
+  }
+  .tickerTrack {
+    animation-duration: 15s;
+    gap: 2rem;
+  }
+
+  .tickerValue {
+    font-size: 1.4rem;
+  }
+
+  .tickerLabel {
+    font-size: 0.75rem;
+  }
+
+  .formWrap {
+    padding: 1.5rem;
+    border-radius: 1.2rem;
+  }
+
   .formRow {
     grid-template-columns: 1fr;
   }
+
   .submitBtn {
     width: 100%;
   }

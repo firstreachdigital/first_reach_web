@@ -154,9 +154,9 @@ export default function Navbar() {
     },
     { label: "Careers", path: "/careers", hasSubmenu: false },
     { label: "FAQ", path: "/FAQ", hasSubmenu: false },
-    { label: "Testimonial", path: "/testimonial", hasSubmenu: false },
+    //{ label: "Testimonial", path: "/testimonial", hasSubmenu: false },
     // { label: "Portfolio", path: "/portfolio", hasSubmenu: false },
-    { label: "Why Us", path: "/why-us", hasSubmenu: false },
+    //{ label: "Why Us", path: "/why-us", hasSubmenu: false },
   ];
 
   const servicesMenu = [

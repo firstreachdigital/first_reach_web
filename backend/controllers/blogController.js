@@ -1,4 +1,33 @@
 const Blog = require("../models/Blog");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = path.join(__dirname, "../uploads/blogs");
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`);
+  },
+});
+
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith("image/")) cb(null, true);
+    else cb(new Error("Only images allowed"));
+  },
+  limits: { fileSize: 5 * 1024 * 1024 },
+});
+
+const uploadBlogImage = [upload.single("image"), (req, res) => {
+  if (!req.file) return res.status(400).json({ message: "No file uploaded" });
+  const url = `${req.protocol}://${req.get("host")}/uploads/blogs/${req.file.filename}`;
+  res.json({ url });
+}];
 
 // @desc    Get all published blogs (public)
 // @route   GET /api/blogs
@@ -72,4 +101,4 @@ const deleteBlog = async (req, res) => {
   }
 };
 
-module.exports = { getBlogs, getAllBlogs, getBlogBySlug, createBlog, updateBlog, deleteBlog };
+module.exports = { getBlogs, getAllBlogs, getBlogBySlug, createBlog, updateBlog, deleteBlog, uploadBlogImage };

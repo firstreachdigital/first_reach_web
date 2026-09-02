@@ -55,22 +55,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* COL 2 — Quick Navigation */}
-        {/* <div className={styles.col}>
-          <h4>Company</h4>
-          <ul>
-            <li>
-              <Link to="/about">About Us</Link>
-            </li>
-            <li>
-              <Link to="/careers">Careers</Link>
-            </li>
-            <li>
-              <Link to="/faq">FAQ's</Link>
-            </li>
-          </ul>
-        </div> */}
-
         {/* COL 3 — All Pages */}
         <div className={styles.col}>
           <h4>Company</h4>

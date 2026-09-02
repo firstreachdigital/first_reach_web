@@ -211,7 +211,7 @@
   top: 0;
   width: 43%;
   background: var(--card-surface-1);
-  border: 1px solid var(--border);
+  border: 2px solid #05caf2;
   border-radius: 1.2rem;
   padding: 1.6rem 1.8rem;
   box-sizing: border-box;

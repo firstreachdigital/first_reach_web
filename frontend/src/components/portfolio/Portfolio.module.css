@@ -109,7 +109,7 @@
 
 .card {
   background: var(--stat-card-bg);
-  border: 1px solid var(--border);
+  border: 2px solid #05caf2;
   border-radius: 1.5rem;
   padding: 2.2rem 2.8rem;
   min-width: 170px;
