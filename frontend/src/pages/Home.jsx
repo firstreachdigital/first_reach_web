@@ -30,7 +30,7 @@ export default function Home() {
       <Founder />
       <Contact />
       <Blog />
-      <ConnectUs />
+      {/* <ConnectUs /> */}
       <WhereWeServe />
     </>
   );

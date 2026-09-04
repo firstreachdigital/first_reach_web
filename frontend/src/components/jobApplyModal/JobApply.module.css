@@ -567,3 +567,92 @@
     z-index: 10;
   }
 }
+
+
+/* ══════════════════════════════════════
+   STATIC PAGE VARIANT (JobApplyPage.jsx)
+   — same .modal/.leftPanel/.rightPanel etc.
+   markup reused, no overlay backdrop
+   ══════════════════════════════════════ */
+
+.applyPage {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: var(--bg);
+  padding: clamp(5rem, 8vw, 7rem) 1.5rem 4rem;
+}
+
+/* .modal already has the grid/border/shadow — just soften the
+   shadow a bit since there's no dark overlay behind it anymore */
+.applyPage .modal {
+  max-height: none;
+  animation: fadeInPage 0.4s ease forwards;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(5, 202, 242, 0.06);
+}
+
+[data-theme="dark"] .applyPage .modal {
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(5, 202, 242, 0.08);
+}
+
+@keyframes fadeInPage {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* rightPanel doesn't need its own scroll anymore — page scrolls */
+.applyPage .rightPanel {
+  overflow-y: visible;
+}
+
+/* ── LOADING / NOT FOUND STATES ── */
+.pageLoading,
+.pageNotFound {
+  min-height: 70vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-align: center;
+  color: var(--muted);
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.95rem;
+}
+
+.pageNotFound h2 {
+  font-family: var(--font-display, sans-serif);
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--text);
+}
+
+.pageNotFound a {
+  color: var(--accent, #04a8c9);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pageNotFound a:hover {
+  color: var(--accent-dark, #0399b8);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .applyPage {
+    padding: 5.5rem 0 2rem;
+  }
+
+  .applyPage .modal {
+    border-radius: 1rem;
+    max-height: none;
+  }
+
+  .applyPage .rightPanel {
+    max-height: none;
+  }
+}

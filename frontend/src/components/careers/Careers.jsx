@@ -1,28 +1,22 @@
 // src/components/careers/Careers.jsx
 import React, { useState, useEffect } from "react";
 import styles from "./CareersPage.module.css";
-import JobApplyModal from "../jobApplyModal/JobApplyModal";
-import { FaArrowRight, FaMapMarkerAlt, FaClock, FaBriefcase, FaChartLine, FaPaintBrush, FaMoneyBillWave, FaUmbrellaBeach, FaTools } from "react-icons/fa";
-import { HiOfficeBuilding } from "react-icons/hi";
+//import JobApplyModal from "../jobApplyModal/JobApplyModal";
+import { FaArrowRight, FaMapMarkerAlt, FaClock, FaBriefcase, FaEnvelope, FaPhone } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import API from "../../api/axios";
 
 const DEPARTMENTS = ["All", "Design", "Development", "Marketing", "Strategy", "Other"];
 
-const PERKS = [
-  { icon: <HiOfficeBuilding />,title: "Office Based",      desc: "Work from the office. Collaboration and presence matter." },
-  { icon: <FaChartLine />,     title: "Grow Fast",         desc: "Real ownership, mentorship, and promotions tied to impact." },
-  { icon: <FaPaintBrush />,    title: "Creative Freedom",  desc: "Bring your ideas. We build what hasn't been built before." },
-  { icon: <FaMoneyBillWave />, title: "Competitive Pay",   desc: "Industry-leading compensation benchmarked globally." },
-  { icon: <FaUmbrellaBeach />, title: "Flex Leaves",       desc: "Unlimited PTO policy. Rest is part of the job." },
-  { icon: <FaTools />,         title: "Best Tools",        desc: "Every tool you need, paid for. No budget arguments." },
-];
+
 
 export default function CareersPage() {
   const [jobs, setJobs]           = useState([]);
   const [loading, setLoading]     = useState(true);
   const [activeTab, setActiveTab] = useState("All");
   const [expanded, setExpanded]   = useState(null);
-  const [applyJob, setApplyJob]   = useState(null);
+  //const [applyJob, setApplyJob]   = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     API.get("/careers/jobs")
@@ -36,7 +30,7 @@ export default function CareersPage() {
   return (
     <main className={styles.page}>
 
-      {applyJob && <JobApplyModal job={applyJob} onClose={() => setApplyJob(null)} />}
+      {/* {applyJob && <JobApplyModal job={applyJob} onClose={() => setApplyJob(null)} />} */}
 
       {/* ── HERO ── */}
       <section className={styles.hero}>
@@ -57,40 +51,7 @@ export default function CareersPage() {
             See Open Roles
           </a>
         </div>
-        {/* <div className={styles.heroStat}>
-          <div className={styles.statItem}>
-            <span className={styles.statNum}>40+</span>
-            <span className={styles.statLabel}>Team Members</span>
-          </div>
-          <div className={styles.statDivider} />
-          <div className={styles.statItem}>
-            <span className={styles.statNum}>12</span>
-            <span className={styles.statLabel}>Countries Reached</span>
-          </div>
-          <div className={styles.statDivider} />
-          <div className={styles.statItem}>
-            <span className={styles.statNum}>100%</span>
-            <span className={styles.statLabel}>Remote Option</span>
-          </div>
-        </div> */}
       </section>
-
-      {/* ── PERKS ── */}
-      {/* <section className={styles.perksSection}>
-        <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>Why First Reach?</h2>
-          <p className={styles.sectionSub}>We don't do average. Here's what makes working here different.</p>
-          <div className={styles.perksGrid}>
-            {PERKS.map((p) => (
-              <div key={p.title} className={styles.perkCard}>
-                <span className={styles.perkIcon}>{p.icon}</span>
-                <h3 className={styles.perkTitle}>{p.title}</h3>
-                <p className={styles.perkDesc}>{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
 
       {/* ── OPENINGS ── */}
       <section className={styles.openingsSection} id="openings">
@@ -142,7 +103,7 @@ export default function CareersPage() {
                     <div className={styles.jobTags}>
                       {job.tags?.map((t) => <span key={t} className={styles.tag}>{t}</span>)}
                     </div>
-                    <button className={styles.applyBtn} onClick={() => setApplyJob(job)}>
+                    <button className={styles.applyBtn} onClick={() => navigate(`/careers/apply/${job._id}`)}>
                       <span className={styles.applyIcon}><FaArrowRight /></span>
                       Apply for this role
                     </button>
@@ -159,17 +120,30 @@ export default function CareersPage() {
       </section>
 
       {/* ── CTA BANNER ── */}
-      <section className={styles.ctaBanner}>
-        <div className={styles.ctaBannerGlow} />
-        <h2 className={styles.ctaTitle}>Don't see your fit?</h2>
-        <p className={styles.ctaSub}>
-          We're always looking for exceptional talent. Send us your portfolio and we'll be in touch.
-        </p>
-        <a href="mailto:careers@firstreach.in" className={styles.ctaButton}>
-          <span className={styles.ctaBtnIcon}><FaArrowRight /></span>
-          Get in Touch
-        </a>
-      </section>
+    <section className={styles.ctaBanner}>
+  <div className={styles.ctaBannerGlow} />
+  <h2 className={styles.ctaTitle}>Don't see your fit?</h2>
+  <p className={styles.ctaSub}>
+    We're always looking for exceptional talent. Send us your portfolio and we'll be in touch.
+  </p>
+
+  <a href="mailto:hr@firstreachdigital.com" className={styles.ctaButton}>
+    <span className={styles.ctaBtnIcon}><FaArrowRight /></span>
+    Get in Touch
+  </a>
+
+  <div className={styles.ctaContactRow}>
+    <a href="mailto:hr@firstreachdigital.com" className={styles.ctaContactItem}>
+      <FaEnvelope className={styles.ctaContactIcon} />
+      hr@firstreachdigital.com
+    </a>
+    <span className={styles.ctaDivider}>|</span>
+    <a href="tel:+919946618222" className={styles.ctaContactItem}>
+      <FaPhone className={styles.ctaContactIcon} />
+      +91 99466 18222
+    </a>
+  </div>
+</section>
     </main>
   );
 }

@@ -20,6 +20,7 @@ import PortfolioPage from "./pages/PortfolioPage";
 import TestimonialPage from "./pages/TestimonialPage";
 import TeamPage from "./pages/TeamPage";
 import Careers from "./pages/CareersPage";
+import CareerApplyPage from "./pages/CareerApplyPage";
 import TeamMemberPage from "./pages/TeamMemberPage";
 import BlogPage from "./pages/BlogPage";
 import GetAQuotePage from "./pages/GetAQuotePage";
@@ -54,6 +55,7 @@ function App() {
         <Route path="/mosas-babu" element={<MosasBabuPage />} />
         <Route path="/team" element={<TeamPage />} />
         <Route path="/careers" element={<Careers />} />
+        <Route path="/careers/apply/:jobId" element={<CareerApplyPage />} />
         <Route path="/team/:slug" element={<TeamMemberPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPage />} />
