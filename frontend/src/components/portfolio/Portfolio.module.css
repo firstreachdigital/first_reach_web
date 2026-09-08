@@ -102,17 +102,18 @@
 }
 
 .stats {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
   gap: 2rem;
-  flex-wrap: wrap;
 }
 
 .card {
   background: var(--stat-card-bg);
   border: 2px solid #05caf2;
   border-radius: 1.5rem;
-  padding: 2.2rem 2.8rem;
-  min-width: 170px;
+  padding: 1.6rem 1.8rem;
+  min-width: 140px;
+  text-align: center;
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   opacity: 0;
@@ -369,6 +370,7 @@
   }
 
   .stats {
+    display: flex;
     flex-direction: column;
     gap: 1.2rem;
   }

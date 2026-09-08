@@ -7,7 +7,7 @@ import API from "../../api/axios";
 const socials = [
   {
     name: "WhatsApp",
-    href: "https://wa.me/9946618222",
+    href: "https://wa.me/9207332449",
     icon: <FaWhatsapp size={20} />,
   },
   {
@@ -67,7 +67,7 @@ const contactInfo = [
     label: "24/7 Support",
     
      lines: [
-      { text: "Call +91 99466 18444", href: "tel:+919946618444" },
+      { text: "Call +91 9207332449", href: "tel:+91 9207332449" },
       { text: "info@firstreachdigital.com", href: "mailto:info@firstreachdigital.com" },
     ],
   },
@@ -227,7 +227,7 @@ export default function ConnectUs() {
       </div>
 
       {/* contct form */}
-      <div className={styles.formWrap}>
+      {/* <div className={styles.formWrap}>
         <div className={styles.formLeft}>
           <span className={styles.label}>
             <span className={styles.labelDot} />
@@ -322,7 +322,7 @@ export default function ConnectUs() {
             <p className={styles.errorMsg}> Something went wrong. Try again.</p>
           )}
         </form>
-      </div>
+      </div> */}
 
       {/* ── STATS TICKER ── */}
       <div className={styles.ticker}>

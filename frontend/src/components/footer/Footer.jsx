@@ -136,11 +136,11 @@ export default function Footer() {
         {/* COL 4 — Contact Us */}
         <div className={styles.col}>
           <h4>Contact Us</h4>
-          <a href="tel:+919946618222" className={styles.contactItem}>
+          <a href="tel:+919207332449" className={styles.contactItem}>
             <div className={styles.contactIcon}>
               <FaPhoneAlt />
             </div>
-            <span>+91 99466 18222</span>
+            <span>+91 9207332449</span>
           </a>
           <a
             href="mailto:info@firstreachdigital.com"
