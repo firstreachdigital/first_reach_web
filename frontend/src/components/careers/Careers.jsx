@@ -205,7 +205,7 @@ export default function CareersPage() {
         <p className={styles.ctaSub}>
           We're always looking for exceptional talent. Send us your portfolio and we'll be in touch.
         </p>
-        <a href="mailto:hr@firstreachdigital.com" className={styles.ctaButton}>
+        <a href="/contact" className={styles.ctaButton}>
           <span className={styles.ctaBtnIcon}><FaArrowRight /></span>
           Get in Touch
         </a>
