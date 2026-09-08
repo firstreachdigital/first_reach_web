@@ -34,7 +34,11 @@ const jobApplicationSchema = new mongoose.Schema(
       default: "",
     },
     resumeUrl: {
-      type: String, // uploaded CV file path
+      type: String,
+      default: "",
+    },
+    coverLetterUrl: {
+      type: String,
       default: "",
     },
     status: {

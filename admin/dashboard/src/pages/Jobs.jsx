@@ -46,14 +46,19 @@ function JobsInner() {
   const openEdit = (record) => {
     setEditing(record);
     form.setFieldsValue({
-      title:       record.title,
-      department:  record.department,
-      type:        record.type,
-      location:    record.location,
-      experience:  record.experience,
-      description: record.description,
-      tags:        record.tags?.join(", "),
-      isActive:    record.isActive,
+      title:           record.title,
+      department:      record.department,
+      type:            record.type,
+      location:        record.location,
+      experience:      record.experience,
+      description:     record.description,
+      qualifications:  record.qualifications,
+      salary:          record.salary,
+      benefits:        record.benefits,
+      metaTitle:       record.metaTitle,
+      metaDescription: record.metaDescription,
+      tags:            record.tags?.join(", "),
+      isActive:        record.isActive,
     });
     setModalOpen(true);
   };
@@ -155,7 +160,7 @@ function JobsInner() {
         onCancel={() => setModalOpen(false)}
         okText={editing ? "Update" : "Create"}
         confirmLoading={saving}
-        width={680}
+        width={780}
       >
         <Form form={form} layout="vertical" style={{ marginTop: 16 }}>
           <Form.Item name="title" label="Job Title" rules={[{ required: true, message: "Title is required" }]}>
@@ -182,15 +187,37 @@ function JobsInner() {
             <Form.Item name="experience" label="Experience">
               <Input placeholder="e.g. 2–4 years" />
             </Form.Item>
+
+            <Form.Item name="salary" label="Salary">
+              <Input placeholder="e.g. ₹4–6 LPA" />
+            </Form.Item>
+
+            <Form.Item name="benefits" label="Benefits">
+              <Input placeholder="e.g. Health insurance, Flexible hours" />
+            </Form.Item>
           </div>
 
           <Form.Item name="description" label="Description" rules={[{ required: true, message: "Description is required" }]}>
             <TextArea rows={4} placeholder="Job description..." />
           </Form.Item>
 
+          <Form.Item name="qualifications" label="Qualifications">
+            <TextArea rows={3} placeholder="e.g. Bachelor's degree in CS, 2+ years React experience..." />
+          </Form.Item>
+
           <Form.Item name="tags" label="Tags (comma separated)">
             <Input placeholder="e.g. React, Figma, Node.js" />
           </Form.Item>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <Form.Item name="metaTitle" label="Meta Title">
+              <Input placeholder="SEO title for this job" />
+            </Form.Item>
+
+            <Form.Item name="metaDescription" label="Meta Description">
+              <Input placeholder="SEO description for this job" />
+            </Form.Item>
+          </div>
 
           <Form.Item name="isActive" label="Active" valuePropName="checked" initialValue={true}>
             <Switch checkedChildren="Active" unCheckedChildren="Hidden" />

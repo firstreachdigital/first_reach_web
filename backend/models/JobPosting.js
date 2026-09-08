@@ -29,10 +29,35 @@ const jobPostingSchema = new mongoose.Schema(
       type: String,
       required: [true, "Job description is required"],
     },
-    tags: [{ type: String, trim: true }], // ["React", "Next.js", "TypeScript"]
+    tags: [{ type: String, trim: true }],
+    qualifications: {
+      type: String,
+      default: "",
+    },
+    salary: {
+      type: String,
+      default: "",
+    },
+    benefits: {
+      type: String,
+      default: "",
+    },
+    metaTitle: {
+      type: String,
+      default: "",
+    },
+    metaDescription: {
+      type: String,
+      default: "",
+    },
     isActive: {
       type: Boolean,
-      default: true, // admin can hide/show job
+      default: true,
+    },
+    slug: {
+      type: String,
+      unique: true,
+      trim: true,
     },
   },
   { timestamps: true }

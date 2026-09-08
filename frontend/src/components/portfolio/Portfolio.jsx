@@ -155,7 +155,7 @@ export default function Portfolio() {
       {/* ── LEFT — unchanged ── */}
       <div className={styles.content}>
         <span className={styles.sectionLabel} data-inview>
-          <span className={styles.dot}></span> &#123;04&#125; OUR PROCESS
+          {/* <span className={styles.dot}></span> &#123;04&#125; OUR PROCESS */}
         </span>
 
         <div className={styles.titleWrap}>

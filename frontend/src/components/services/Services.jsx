@@ -190,7 +190,7 @@ export default function Services() {
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           <span className={styles.label} data-sv-inview>
-            <span className={styles.labelDot} /> &#123;02&#125; Our Services
+            {/* <span className={styles.labelDot} /> &#123;02&#125; Our Services */}
           </span>
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>

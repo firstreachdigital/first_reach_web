@@ -19,13 +19,13 @@
   overflow: visible; /* important — image mel pokan */
 }
 
-.left h2 {
+/* .left h2 {
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   font-weight: 800;
   color: #000;
   line-height: 1.35;
   max-width: 380px;
-}
+} */
 
 .right {
   display: flex;
@@ -47,11 +47,11 @@
   filter: drop-shadow(0 10px 15px rgba(0,0,0,0.25));
 }
 
-.sub {
+/* .sub {
   font-size: 0.78rem;
   color: #003344;
-  margin-top: 6.5rem;   /* mascot overlap cheyyathe text push cheyyan */
-}
+  margin-top: 6.5rem;   
+} */
 
 .inputRow {
   display: flex;
@@ -89,6 +89,100 @@
   background: #1a1a1a;
 }
 
+.tagline {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: rgba(0,0,0,0.55);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.left h2 {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 800;
+  color: #000;
+  line-height: 1.35;
+  max-width: 380px;
+  margin: 0;
+}
+
+.sub {
+  font-size: 0.82rem;
+  color: rgba(0,0,0,0.65);
+  margin-top: 0.5rem;
+  max-width: 340px;
+}
+
+/* ── CENTER: Call + WhatsApp buttons ── */
+.center {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.callBtn,
+.whatsappBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 2rem;
+  padding: 0.55rem 1.3rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s ease;
+}
+
+.callBtn:hover,
+.whatsappBtn:hover {
+  transform: translateY(-2px);
+}
+
+.callBtn {
+  background: #fff;
+  color: #000;
+}
+
+.iconCircle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #05caf2;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.whatsappBtn {
+  background: #25d366;
+  color: #fff;
+}
+
+.btnText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.btnText strong {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.btnText small {
+  font-size: 0.7rem;
+  opacity: 0.75;
+  font-weight: 500;
+}
+
+.left {
+  flex: 1;
+  min-width: 0;
+}
+
 @media (max-width: 1024px) {
   .wrapper {
     padding: 0 2.5rem;
@@ -109,6 +203,15 @@
   }
   .sub {
     margin-top: 0;
+  }
+
+  .center {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+  }
+  .callBtn, .whatsappBtn {
+    justify-content: center;
   }
 }
 

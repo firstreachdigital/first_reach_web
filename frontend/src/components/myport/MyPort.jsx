@@ -84,10 +84,10 @@ export default function MyPort({ limit }) {
       {/* ── HEADER ── */}
       <div className={styles.header}>
         <div className={styles.headerLeft}>
-          <span className={styles.label} data-inview>
+          {/* <span className={styles.label} data-inview>
             <span className={styles.labelDot} />
             &#123;05&#125; PORTFOLIO
-          </span>
+          </span> */}
 
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>

@@ -82,9 +82,9 @@ export default function Blog() {
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           <span className={styles.label}>
-            <span className={styles.labelDot} />
+            {/* <span className={styles.labelDot} /> */}
             {/* &#123;{posts.length}&#125; Latest Insights */}
-            &#123;09&#125; Latest Insights
+            {/* &#123;09&#125; Latest Insights */}
           </span>
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>See What's Buzzing</h2>

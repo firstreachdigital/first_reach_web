@@ -304,7 +304,7 @@ export default function Hero() {
             </div>
             <div className={styles.socialInnerCircle}>
               <a
-                href="https://wa.me/9946618222"
+                href="https://wa.me/9207332449"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialLink}

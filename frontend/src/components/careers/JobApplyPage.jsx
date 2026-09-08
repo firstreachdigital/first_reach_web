@@ -49,9 +49,10 @@ const FEATURES = [
 ];
 
 export default function JobApplyPage() {
-  const { jobId } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const clInputRef = useRef(null);
 
   const [job, setJob] = useState(null);
   const [jobLoading, setJobLoading] = useState(true);
@@ -64,23 +65,22 @@ export default function JobApplyPage() {
     portfolio: "",
     message: "",
     cv: null,
+    coverLetter: null,
   });
   const [cvName, setCvName] = useState("");
+  const [clName, setClName] = useState("");
   const [dragActive, setDragActive] = useState(false);
+  const [clDragActive, setClDragActive] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    API.get("/careers/jobs")
-      .then((res) => {
-        const found = res.data.find((j) => j._id === jobId);
-        if (found) setJob(found);
-        else setNotFound(true);
-      })
+    API.get(`/careers/jobs/slug/${slug}`)
+      .then((res) => setJob(res.data))
       .catch(() => setNotFound(true))
       .finally(() => setJobLoading(false));
-  }, [jobId]);
+  }, [slug]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -108,12 +108,30 @@ export default function JobApplyPage() {
     setErrors((er) => ({ ...er, cv: "" }));
   };
 
+  const applyClFile = (file) => {
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      setErrors({ ...errors, coverLetter: "File must be under 5MB" });
+      return;
+    }
+    setForm((f) => ({ ...f, coverLetter: file }));
+    setClName(file.name);
+    setErrors((er) => ({ ...er, coverLetter: "" }));
+  };
+
   const handleFile = (e) => applyFile(e.target.files[0]);
+  const handleClFile = (e) => applyClFile(e.target.files[0]);
 
   const handleDrop = (e) => {
     e.preventDefault();
     setDragActive(false);
     applyFile(e.dataTransfer.files[0]);
+  };
+
+  const handleClDrop = (e) => {
+    e.preventDefault();
+    setClDragActive(false);
+    applyClFile(e.dataTransfer.files[0]);
   };
 
   const validate = () => {
@@ -143,6 +161,7 @@ export default function JobApplyPage() {
       formData.append("portfolio", form.portfolio);
       formData.append("coverNote", form.message);
       if (form.cv) formData.append("resume", form.cv);
+      if (form.coverLetter) formData.append("coverLetter", form.coverLetter);
 
       await API.post("/careers/apply", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -220,10 +239,10 @@ export default function JobApplyPage() {
           </div>
 
           <div className={styles.afdLeftFooter}>
-            <p className={styles.afdFooterBrand}>First Reach Digital</p>
-            <p className={styles.afdFooterTag}>
+            {/* <p className={styles.afdFooterBrand}>First Reach Digital</p> */}
+            {/* <p className={styles.afdFooterTag}>
               Digital Solutions for a Better Tomorrow
-            </p>
+            </p> */}
           </div>
 
           <div className={styles.afdLeftContact}>
@@ -242,9 +261,9 @@ export default function JobApplyPage() {
 
           <div className={styles.afdLeftFooter}>
             <p className={styles.afdFooterBrand}>First Reach Digital</p>
-            <p className={styles.afdFooterTag}>
+            {/* <p className={styles.afdFooterTag}>
               Digital Solutions for a Better Tomorrow
-            </p>
+            </p> */}
           </div>
         </div>
 
@@ -287,7 +306,7 @@ export default function JobApplyPage() {
               </div>
 
               <h1 className={styles.afdFormHeading}>
-                Apply for{" "}
+                Apply for {" "}
                 <span className={styles.afdAccentText}>{job.title}</span>
               </h1>
               <p className={styles.afdFormSub}>
@@ -394,7 +413,7 @@ export default function JobApplyPage() {
 
                 <div className={styles.afdField}>
                   <label className={styles.afdLabel}>
-                    Coverletter{" "}
+                    message{" "}
                     <span className={styles.afdOptional}>(optional)</span>
                   </label>
                   <div className={styles.afdTextareaWrap}>
@@ -412,6 +431,38 @@ export default function JobApplyPage() {
                   <span className={styles.afdCharCount}>
                     {form.message.length}/500
                   </span>
+                </div>
+
+                <div className={styles.afdField}>
+                  <label className={styles.afdLabel}>
+                    Cover Letter{" "}
+                    <span className={styles.afdOptional}>(optional)</span>
+                  </label>
+                  <div
+                    className={`${styles.afdDropzone} ${clDragActive ? styles.afdDropzoneActive : ""}`}
+                    onClick={() => clInputRef.current?.click()}
+                    onDragOver={(e) => { e.preventDefault(); setClDragActive(true); }}
+                    onDragLeave={() => setClDragActive(false)}
+                    onDrop={handleClDrop}
+                  >
+                    <input
+                      ref={clInputRef}
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                      className={styles.fileInput}
+                      onChange={handleClFile}
+                    />
+                    <span className={styles.afdDropzoneIcon}><FaCloudUploadAlt /></span>
+                    <div className={styles.afdDropzoneText}>
+                      <p>{clName || "Drag & drop your cover letter"}</p>
+                      <span>{clName ? "Click to change" : "or click to browse"}</span>
+                    </div>
+                    <span className={styles.fileBrowse}>Browse</span>
+                  </div>
+                  <p className={styles.afdDropzoneHint}>PDF, DOC or DOCX (Max 5MB)</p>
+                  {errors.coverLetter && (
+                    <span className={styles.errMsg}>{errors.coverLetter}</span>
+                  )}
                 </div>
 
                 <div

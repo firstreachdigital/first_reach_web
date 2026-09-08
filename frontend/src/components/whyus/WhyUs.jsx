@@ -142,7 +142,7 @@ export default function WhyUs() {
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           <span className={styles.label} data-wu-inview>
-            <span className={styles.labelDot} /> &#123;03&#125; Why Choose Us?
+            {/* <span className={styles.labelDot} /> &#123;03&#125; Why Choose Us? */}
           </span>
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>

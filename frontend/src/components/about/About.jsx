@@ -115,7 +115,7 @@ export default function About() {
       {/* LEFT — sticky */}
       <div className={styles.leftCol}>
         <span className={styles.sectionLabel} data-inview>
-          <span className={styles.labelDot} /> &#123;01&#125; About Us
+          {/* <span className={styles.labelDot} /> &#123;01&#125; About Us */}
         </span>
 
         {/* Title with fill */}

@@ -121,7 +121,7 @@ export default function WhereWeServe() {
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           <span className={styles.label} data-ws-inview>
-            <span className={styles.labelDot} /> &#123;11&#125; Where We Serve
+            {/* <span className={styles.labelDot} /> &#123;11&#125; Where We Serve */}
           </span>
           <div className={styles.titleWrap} data-ws-inview data-ws="title">
             <h2 className={styles.titleBase}>

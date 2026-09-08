@@ -2,16 +2,17 @@ const mongoose = require("mongoose");
 
 const quoteSchema = new mongoose.Schema(
   {
-    selectedServices: [{ type: String }],
-    requirements: { type: Object, default: {} },
-    businessName: { type: String, required: true },
-    websiteOrInstagram: { type: String },
-    industry: { type: String, required: true },
-    fullName: { type: String, required: true },
-    email: { type: String, required: true },
-    phone: { type: String, required: true },
-    countryCode: { type: String, default: "+91" },
-    status: { type: String, enum: ["new", "contacted", "proposal-sent", "closed"], default: "new" },
+    fullName:    { type: String, required: true, trim: true },
+    email:       { type: String, required: true, trim: true, lowercase: true },
+    phone:       { type: String, required: true, trim: true },
+    service:     { type: String, default: "" },
+    message:     { type: String, default: "" },
+    status: {
+      type: String,
+      enum: ["new", "contacted", "proposal-sent", "closed"],
+      default: "new",
+    },
+    followUpNote: { type: String, default: "" },
   },
   { timestamps: true }
 );

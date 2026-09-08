@@ -119,8 +119,26 @@ function ApplicationsInner() {
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                const url = `${BASE_URL}${r.resumeUrl}`;
-                window.open(url, "_blank");
+                window.open(`${BASE_URL}${r.resumeUrl}`, "_blank");
+              }}
+            />
+          </Tooltip>
+        )
+        : <span style={{ color: "#444" }}>—</span>,
+    },
+    {
+      title: "Cover Letter", key: "coverLetter", width: 110,
+      render: (_, r) => r.coverLetterUrl
+        ? (
+          <Tooltip title="Download Cover Letter">
+            <Button
+              type="text"
+              icon={<DownloadOutlined />}
+              style={{ color: "#a78bfa", fontSize: 20 }}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.open(`${BASE_URL}${r.coverLetterUrl}`, "_blank");
               }}
             />
           </Tooltip>
@@ -210,7 +228,7 @@ function ApplicationsInner() {
         dataSource={filtered}
         loading={loading}
         pagination={{ pageSize: 10 }}
-        scroll={{ x: 1100 }}
+        scroll={{ x: 1220 }}
         expandable={{
           expandedRowRender: (r) => (
             <div style={{ padding: "8px 16px", color: "#aaa" }}>

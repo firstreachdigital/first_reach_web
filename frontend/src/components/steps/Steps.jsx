@@ -128,8 +128,8 @@ export default function Steps() {
       {/* ── HEADER ── */}
       <div className={styles.header}>
         <span className={styles.label}>
-          <span className={styles.labelDot} />
-          &#123;06&#125; Steps
+          {/* <span className={styles.labelDot} /> */}
+          {/* &#123;06&#125; Steps */}
         </span>
 
         <div className={styles.titleWrap}>

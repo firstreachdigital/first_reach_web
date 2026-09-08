@@ -1,6 +1,13 @@
 const JobPosting = require("../models/JobPosting");
 const JobApplication = require("../models/JobApplication");
 
+const generateSlug = (title) =>
+  title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-");
+
 // ── JOB POSTINGS ──
 
 // @desc    Get all active jobs (public)
@@ -9,6 +16,18 @@ const getJobs = async (req, res) => {
   try {
     const jobs = await JobPosting.find({ isActive: true }).sort({ createdAt: -1 });
     res.json(jobs);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Get single job by slug (public)
+// @route   GET /api/careers/jobs/slug/:slug
+const getJobBySlug = async (req, res) => {
+  try {
+    const job = await JobPosting.findOne({ slug: req.params.slug, isActive: true });
+    if (!job) return res.status(404).json({ message: "Job not found" });
+    res.json(job);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -29,7 +48,8 @@ const getAllJobs = async (req, res) => {
 // @route   POST /api/careers/jobs
 const createJob = async (req, res) => {
   try {
-    const job = await JobPosting.create(req.body);
+    const slug = generateSlug(req.body.title);
+    const job = await JobPosting.create({ ...req.body, slug });
     res.status(201).json(job);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -40,6 +60,7 @@ const createJob = async (req, res) => {
 // @route   PUT /api/careers/jobs/:id
 const updateJob = async (req, res) => {
   try {
+    if (req.body.title) req.body.slug = generateSlug(req.body.title);
     const job = await JobPosting.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
@@ -72,12 +93,14 @@ const applyJob = async (req, res) => {
     const job = await JobPosting.findById(req.body.job);
     if (!job) return res.status(404).json({ message: "Job not found" });
 
-    const resumeUrl = req.file ? `/uploads/resumes/${req.file.filename}` : "";
+    const resumeUrl = req.files?.resume?.[0] ? `/uploads/resumes/${req.files.resume[0].filename}` : "";
+    const coverLetterUrl = req.files?.coverLetter?.[0] ? `/uploads/resumes/${req.files.coverLetter[0].filename}` : "";
 
     const application = await JobApplication.create({
       ...req.body,
       jobTitle: job.title,
       resumeUrl,
+      coverLetterUrl,
     });
     res.status(201).json({ message: "Application submitted!", application });
   } catch (error) {
@@ -127,6 +150,6 @@ const deleteApplication = async (req, res) => {
 };
 
 module.exports = {
-  getJobs, getAllJobs, createJob, updateJob, deleteJob,
+  getJobs, getAllJobs, getJobBySlug, createJob, updateJob, deleteJob,
   applyJob, getApplications, updateApplicationStatus, deleteApplication,
 };

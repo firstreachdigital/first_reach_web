@@ -20,15 +20,14 @@ exports.getQuotes = async (req, res) => {
   }
 };
 
-// Admin: Update quote status
+// Admin: Update quote status + followUpNote
 exports.updateQuote = async (req, res) => {
   try {
-    const { status } = req.body;
-    const quote = await Quote.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true }
-    );
+    const { status, followUpNote } = req.body;
+    const update = {};
+    if (status !== undefined) update.status = status;
+    if (followUpNote !== undefined) update.followUpNote = followUpNote;
+    const quote = await Quote.findByIdAndUpdate(req.params.id, update, { new: true });
     res.json(quote);
   } catch (err) {
     res.status(400).json({ error: err.message });

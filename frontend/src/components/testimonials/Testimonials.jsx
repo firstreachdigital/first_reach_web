@@ -88,8 +88,8 @@ export default function Testimonial() {
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           <span className={styles.label} data-inview>
-            <span className={styles.labelDot} />
-            &#123;06&#125; Testimonial
+            {/* <span className={styles.labelDot} /> */}
+            {/* &#123;06&#125; Testimonial */}
           </span>
           <div className={styles.titleWrap}>
             <h2 className={styles.titleBase}>What Our Happy Clients Say…</h2>

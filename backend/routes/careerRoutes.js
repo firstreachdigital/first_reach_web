@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const {
-  getJobs, getAllJobs, createJob, updateJob, deleteJob,
+  getJobs, getAllJobs, getJobBySlug, createJob, updateJob, deleteJob,
   applyJob, getApplications, updateApplicationStatus, deleteApplication,
 } = require("../controllers/careerController");
 const { protect } = require("../middleware/authMiddleware");
@@ -28,7 +28,11 @@ const upload = multer({
 
 // Public routes
 router.get("/jobs", getJobs);
-router.post("/apply", upload.single("resume"), applyJob);
+router.get("/jobs/slug/:slug", getJobBySlug);
+router.post("/apply", upload.fields([
+  { name: "resume", maxCount: 1 },
+  { name: "coverLetter", maxCount: 1 },
+]), applyJob);
 
 // Admin protected routes
 router.get("/jobs/all", protect, getAllJobs);

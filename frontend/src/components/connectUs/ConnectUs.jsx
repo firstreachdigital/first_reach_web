@@ -83,7 +83,7 @@ const contactInfo = [
     
      lines: [
       {
-        text: "Mon - Sat 10AM - 6PM",
+        text: "Mon - Sat 9:30AM - 6:30PM",
         href: "https://www.google.com/search?q=First+Reach+Digital+Kalamassery",
       },
      
@@ -179,8 +179,8 @@ export default function ConnectUs() {
         <div className={styles.rightCol}>
           {/* Label */}
           <span className={styles.label}>
-            <span className={styles.labelDot} />
-            &#123;10&#125; Contact Us
+            {/* <span className={styles.labelDot} /> */}
+            {/* &#123;10&#125; Contact Us */}
           </span>
 
           {/* Title */}

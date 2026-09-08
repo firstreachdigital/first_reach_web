@@ -1,33 +1,48 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Popconfirm, Select, Tag, message, Space, Card, Descriptions, Badge } from "antd";
-import { DeleteOutlined, ReloadOutlined, FileTextOutlined, ShopOutlined } from "@ant-design/icons";
+import {
+  Table, Button, Popconfirm, Select, Tag, Space,
+  Tooltip, Input, App,
+} from "antd";
+import {
+  DeleteOutlined, ReloadOutlined, SaveOutlined,
+} from "@ant-design/icons";
 import API from "../api/axios";
-import { useOutletContext } from "react-router-dom";
+
 const { Option } = Select;
+const { TextArea } = Input;
 
-export default function Quotes() {
-  const [quotes, setQuotes] = useState([]);
+const STATUS_COLORS = {
+  new: "blue",
+  contacted: "orange",
+  "proposal-sent": "purple",
+  closed: "green",
+};
+
+function QuotesInner() {
+  const { message } = App.useApp();
+  const [quotes, setQuotes]   = useState([]);
   const [loading, setLoading] = useState(false);
-  const [filter, setFilter] = useState("all");
-  const context = useOutletContext();
-  const isDark = context?.isDark ?? true;
-
-  useEffect(() => {
-    fetchQuotes();
-  }, []);
+  const [filter, setFilter]   = useState("all");
+  const [notes, setNotes]     = useState({});
 
   const fetchQuotes = async () => {
     setLoading(true);
     try {
       const { data } = await API.get("/quote");
       setQuotes(data);
-    } catch (error) {
+      const init = {};
+      data.forEach((q) => { init[q._id] = q.followUpNote || ""; });
+      setNotes(init);
+    } catch {
       message.error("Failed to fetch quotes");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
-  const handleStatusChange = async (id, status) => {
+  useEffect(() => { fetchQuotes(); }, []);
+
+  const handleStatus = async (id, status) => {
     try {
       await API.patch(`/quote/${id}`, { status });
       message.success("Status updated");
@@ -37,203 +52,134 @@ export default function Quotes() {
     }
   };
 
-  const handleDelete = async (id) => {
+  const saveNote = async (id) => {
     try {
-      await API.delete(`/quote/${id}`);
-      message.success("Quote deleted");
-      fetchQuotes();
+      await API.patch(`/quote/${id}`, { followUpNote: notes[id] });
+      message.success("Note saved");
     } catch {
-      message.error("Failed to delete quote");
+      message.error("Failed to save note");
     }
   };
 
-  const filteredQuotes = quotes.filter((q) =>
-    filter === "all" ? true : q.status === filter
-  );
+  const handleDelete = async (id) => {
+    try {
+      await API.delete(`/quote/${id}`);
+      message.success("Deleted");
+      fetchQuotes();
+    } catch {
+      message.error("Delete failed");
+    }
+  };
 
-//   const [isDark, setIsDark] = useState(
-//   document.documentElement.getAttribute("data-theme") === "dark"
-// );
-
-// useEffect(() => {
-//   const observer = new MutationObserver(() => {
-//     setIsDark(document.documentElement.getAttribute("data-theme") === "dark");
-//   });
-//   observer.observe(document.documentElement, { 
-//     attributes: true, 
-//     attributeFilter: ["data-theme"] 
-//   });
-//   return () => observer.disconnect();
-// }, []);
-
-  const expandedRowRender = (record) => (
-    <div style={{ padding: "16px 24px", background: isDark ? "#1a1a1a" : "#fafafa"  }}>
-      <Descriptions bordered size="small" column={2}
-      labelStyle={{ color: isDark ? "#888" : "#555", background: isDark ? "#141414" : "#f0f0f0" }}   
-      contentStyle={{ color: isDark ? "#e5e5e5" : "#222", background: isDark ? "#1a1a1a" : "#fff"  }} 
-      >
-        <Descriptions.Item label="Business Name" span={1}>
-          {record.businessName}
-        </Descriptions.Item>
-        <Descriptions.Item label="Industry" span={1}>
-          {record.industry}
-        </Descriptions.Item>
-        <Descriptions.Item label="Website/Instagram" span={2}>
-          {record.websiteOrInstagram || "—"}
-        </Descriptions.Item>
-        <Descriptions.Item label="Full Name" span={1}>
-          {record.fullName}
-        </Descriptions.Item>
-        <Descriptions.Item label="Email" span={1}>
-          {record.email}
-        </Descriptions.Item>
-        <Descriptions.Item label="Phone" span={2}>
-          {record.countryCode} {record.phone}
-        </Descriptions.Item>
-        <Descriptions.Item label="Selected Services" span={2}>
-          <Space wrap>
-            {record.selectedServices?.map((s, i) => (
-              <Tag key={i} color="blue">{s}</Tag>
-            ))}
-          </Space>
-        </Descriptions.Item>
-        <Descriptions.Item label="Requirements" span={2}>
-          {Object.keys(record.requirements || {}).length > 0 ? (
-            <Space direction="vertical" size="small" style={{ width: "100%" }}>
-              {Object.entries(record.requirements).map(([key, val]) => (
-                <div key={key}>
-                  <strong>{key}:</strong> {val || "—"}
-                </div>
-              ))}
-            </Space>
-          ) : (
-            "—"
-          )}
-        </Descriptions.Item>
-      </Descriptions>
-    </div>
-  );
+  const filtered = filter === "all" ? quotes : quotes.filter((q) => q.status === filter);
 
   const columns = [
+    { title: "Name",    dataIndex: "fullName", key: "fullName", width: 150 },
+    { title: "Email",   dataIndex: "email",    key: "email",    width: 200, ellipsis: true },
     {
-      title: "Business",
-      dataIndex: "businessName",
-      key: "businessName",
-      width: 180,
+      title: "Phone", key: "phone", width: 140,
+      render: (_, r) => `+91 ${r.phone}`,
     },
     {
-      title: "Contact Name",
-      dataIndex: "fullName",
-      key: "fullName",
-      width: 150,
+      title: "Service", dataIndex: "service", key: "service", width: 180,
+      render: (v) => v ? <Tag color="purple">{v}</Tag> : "—",
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      width: 200,
-    },
-    {
-      title: "Industry",
-      dataIndex: "industry",
-      key: "industry",
-      width: 130,
-    },
-    {
-      title: "Services",
-      dataIndex: "selectedServices",
-      key: "selectedServices",
-      width: 100,
-      render: (services) => (
-        <Badge count={services?.length || 0} showZero style={{ backgroundColor: "#1890ff" }} />
-      ),
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      width: 170,
-      render: (status, record) => (
-        <Select
-          value={status}
-          onChange={(val) => handleStatusChange(record._id, val)}
-          style={{ width: 150 }}
-          size="small"
-        >
-          <Option value="new">
-            <Tag color="blue">New</Tag>
-          </Option>
-          <Option value="contacted">
-            <Tag color="orange">Contacted</Tag>
-          </Option>
-          <Option value="proposal-sent">
-            <Tag color="purple">Proposal Sent</Tag>
-          </Option>
-          <Option value="closed">
-            <Tag color="green">Closed</Tag>
-          </Option>
+      title: "Status", key: "status", width: 160,
+      render: (_, r) => (
+        <Select value={r.status} onChange={(val) => handleStatus(r._id, val)} style={{ width: 145 }} size="small">
+          {Object.entries(STATUS_COLORS).map(([s, c]) => (
+            <Option key={s} value={s}><Tag color={c} style={{ margin: 0 }}>{s}</Tag></Option>
+          ))}
         </Select>
       ),
     },
     {
-      title: "Date",
-      dataIndex: "createdAt",
-      key: "createdAt",
-      width: 110,
-      render: (date) => new Date(date).toLocaleDateString(),
+      title: "Submitted", dataIndex: "createdAt", key: "createdAt", width: 120,
+      render: (v) => new Date(v).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }),
     },
     {
-      title: "Action",
-      key: "action",
-      width: 80,
-      render: (_, record) => (
-        <Popconfirm
-          title="Delete this quote?"
-          onConfirm={() => handleDelete(record._id)}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button danger size="small" icon={<DeleteOutlined />} />
+      title: "Action", key: "action", width: 70,
+      render: (_, r) => (
+        <Popconfirm title="Delete this lead?" onConfirm={() => handleDelete(r._id)} okText="Yes" cancelText="No">
+          <Tooltip title="Delete">
+            <Button type="text" danger icon={<DeleteOutlined />} style={{ fontSize: 18 }} />
+          </Tooltip>
         </Popconfirm>
       ),
     },
   ];
 
   return (
-    <div style={{ padding: "24px" }}>
-      <Card>
-        <Space style={{ marginBottom: 16 }} size="middle">
-          <h2 style={{ margin: 0 }}>
-            <FileTextOutlined /> Quote Requests
-          </h2>
-          <Button icon={<ReloadOutlined />} onClick={fetchQuotes} loading={loading}>
-            Refresh
-          </Button>
-          <Select
-            value={filter}
-            onChange={setFilter}
-            style={{ width: 180 }}
-          >
+    <div>
+      {/* Header */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, flexWrap: "wrap", gap: 12 }}>
+        <h2 style={{ margin: 0, color: "#fff" }}>Quote Requests</h2>
+        <Space wrap>
+          <Select value={filter} onChange={setFilter} style={{ width: 180 }}>
             <Option value="all">All ({quotes.length})</Option>
-            <Option value="new">New ({quotes.filter((q) => q.status === "new").length})</Option>
-            <Option value="contacted">Contacted ({quotes.filter((q) => q.status === "contacted").length})</Option>
-            <Option value="proposal-sent">Proposal Sent ({quotes.filter((q) => q.status === "proposal-sent").length})</Option>
-            <Option value="closed">Closed ({quotes.filter((q) => q.status === "closed").length})</Option>
+            {Object.entries(STATUS_COLORS).map(([s, c]) => (
+              <Option key={s} value={s}>
+                <Tag color={c}>{s}</Tag> ({quotes.filter((q) => q.status === s).length})
+              </Option>
+            ))}
           </Select>
+          <Button icon={<ReloadOutlined />} onClick={fetchQuotes} loading={loading}>Refresh</Button>
         </Space>
+      </div>
 
-        <Table
-          columns={columns}
-          dataSource={filteredQuotes}
-          rowKey="_id"
-          loading={loading}
-          pagination={{ pageSize: 10 }}
-          expandable={{
-            expandedRowRender,
-            expandRowByClick: true,
-          }}
-        />
-      </Card>
+      {/* Stats */}
+      <div style={{ display: "flex", gap: 10, marginBottom: 16, flexWrap: "wrap" }}>
+        {Object.entries(STATUS_COLORS).map(([s, c]) => (
+          <Tag key={s} color={c} style={{ padding: "4px 12px", fontSize: 13 }}>
+            {s}: {quotes.filter((q) => q.status === s).length}
+          </Tag>
+        ))}
+        <Tag style={{ padding: "4px 12px", fontSize: 13 }}>Total: {quotes.length}</Tag>
+      </div>
+
+      <Table
+        rowKey="_id"
+        columns={columns}
+        dataSource={filtered}
+        loading={loading}
+        pagination={{ pageSize: 10 }}
+        scroll={{ x: 1000 }}
+        expandable={{
+          expandedRowRender: (r) => (
+            <div style={{ padding: "12px 16px" }}>
+              {r.message && (
+                <div style={{ marginBottom: 12 }}>
+                  <strong style={{ color: "#fff" }}>Message: </strong>
+                  <span style={{ color: "#aaa" }}>{r.message}</span>
+                </div>
+              )}
+              <div>
+                <strong style={{ color: "#fff", display: "block", marginBottom: 6 }}>Follow-up Note:</strong>
+                <TextArea
+                  rows={3}
+                  value={notes[r._id] || ""}
+                  onChange={(e) => setNotes((n) => ({ ...n, [r._id]: e.target.value }))}
+                  placeholder="Add follow-up notes here..."
+                  style={{ marginBottom: 8 }}
+                />
+                <Button
+                  type="primary"
+                  size="small"
+                  icon={<SaveOutlined />}
+                  onClick={() => saveNote(r._id)}
+                >
+                  Save Note
+                </Button>
+              </div>
+            </div>
+          ),
+        }}
+      />
     </div>
   );
+}
+
+export default function Quotes() {
+  return <App><QuotesInner /></App>;
 }

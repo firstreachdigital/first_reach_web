@@ -25,6 +25,8 @@ import TeamMemberPage from "./pages/TeamMemberPage";
 import BlogPage from "./pages/BlogPage";
 import GetAQuotePage from "./pages/GetAQuotePage";
 
+import NotFound from "./pages/NotFound";
+
 //services menu
 import ReputationDetailPage from "./pages/ReputationDetailPage";
 import RecoveryDetailPage from "./pages/RecoveryDetailPage";
@@ -55,7 +57,7 @@ function App() {
         <Route path="/mosas-babu" element={<MosasBabuPage />} />
         <Route path="/team" element={<TeamPage />} />
         <Route path="/careers" element={<Careers />} />
-        <Route path="/careers/apply/:jobId" element={<CareerApplyPage />} />
+        <Route path="/careers/apply/:slug" element={<CareerApplyPage />} />
         <Route path="/team/:slug" element={<TeamMemberPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPage />} />
@@ -68,7 +70,7 @@ function App() {
         <Route path="/recovery" element={<RecoveryPage />} />
         <Route path="/recovery/:slug" element={<RecoveryDetailPage />} />
         <Route path="/removal" element={<RemovalPage />} />
-        <Route path="/removal/:slug" element={<RemovalDetailPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <CtaBanner />
       <Footer />

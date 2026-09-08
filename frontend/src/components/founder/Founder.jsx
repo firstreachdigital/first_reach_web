@@ -35,7 +35,7 @@ export default function Founder({ sectionClassName = "" }) {
     <section className={`${styles.section} ${sectionClassName}`} id="founder">
       <div className={styles.header}>
         <span className={styles.label} data-inview>
-          <span className={styles.labelDot} /> &#123;07&#125; Leadership
+          {/* <span className={styles.labelDot} /> &#123;07&#125; Leadership */}
         </span>
         <h2 className={styles.title} data-inview>
           Meet the Founder
