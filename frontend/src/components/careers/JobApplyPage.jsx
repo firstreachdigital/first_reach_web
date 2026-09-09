@@ -15,38 +15,13 @@ import {
   FaLink,
   FaFileAlt,
   FaLock,
+  FaMapMarkerAlt,
+  FaClock,
   FaUsers,
-  FaRocket,
-  FaStar,
-  FaHeart,
-  FaQuoteLeft,
   FaBriefcase,
 } from "react-icons/fa";
 import API from "../../api/axios";
 import { getCareersSeo } from "../../data/careersSeo";
-
-const FEATURES = [
-  {
-    icon: <FaUsers />,
-    title: "Collaborative Team",
-    desc: "Work with creative minds",
-  },
-  {
-    icon: <FaRocket />,
-    title: "Growth Opportunities",
-    desc: "Learn, build and advance",
-  },
-  {
-    icon: <FaStar />,
-    title: "Meaningful Work",
-    desc: "Real impact for real brands",
-  },
-  {
-    icon: <FaHeart />,
-    title: "Flexible Culture",
-    desc: "People-first environment",
-  },
-];
 
 export default function JobApplyPage() {
   const { slug } = useParams();
@@ -210,46 +185,73 @@ export default function JobApplyPage() {
           </span>
 
           <h2 className={styles.afdLeftTitle}>
-            Join Our
-            <br />
-            <span className={styles.afdAccentText}>Team</span>
+            {job.title}
           </h2>
 
-          <p className={styles.afdLeftTagline}>Build. Grow. Make an Impact.</p>
-          <p className={styles.afdLeftDesc}>
-            Be a part of a team that creates digital solutions, solves real
-            problems, and helps brands grow.
-          </p>
-
-          <ul className={styles.afdFeatureList}>
-            {FEATURES.map((f) => (
-              <li key={f.title} className={styles.afdFeatureItem}>
-                <span className={styles.afdFeatureIcon}>{f.icon}</span>
-                <div>
-                  <p className={styles.afdFeatureTitle}>{f.title}</p>
-                  <p className={styles.afdFeatureDesc}>{f.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <div className={styles.afdQuote}>
-            <FaQuoteLeft className={styles.afdQuoteIcon} />
-            <p>Great people build great things together.</p>
+          <div className={styles.afdJobMeta}>
+            {job.department && (
+              <span className={styles.afdJobMetaItem}>
+                <FaBriefcase className={styles.afdJobMetaIcon} />
+                {job.department}
+              </span>
+            )}
+            {job.type && (
+              <span className={styles.afdJobMetaItem}>
+                <FaClock className={styles.afdJobMetaIcon} />
+                {job.type}
+              </span>
+            )}
+            {job.location && (
+              <span className={styles.afdJobMetaItem}>
+                <FaMapMarkerAlt className={styles.afdJobMetaIcon} />
+                {job.location}
+              </span>
+            )}
+            {job.experience && (
+              <span className={styles.afdJobMetaItem}>
+                <FaUsers className={styles.afdJobMetaIcon} />
+                {job.experience}
+              </span>
+            )}
           </div>
 
-          <div className={styles.afdLeftFooter}>
-            {/* <p className={styles.afdFooterBrand}>First Reach Digital</p> */}
-            {/* <p className={styles.afdFooterTag}>
-              Digital Solutions for a Better Tomorrow
-            </p> */}
-          </div>
+          {job.description && (
+            <p className={styles.afdLeftDesc}>{job.description}</p>
+          )}
+
+          {job.qualifications && (
+            <div className={styles.afdJobSection}>
+              <p className={styles.afdJobSectionLabel}>Qualifications</p>
+              <p className={styles.afdLeftDesc} style={{ marginTop: 0 }}>{job.qualifications}</p>
+            </div>
+          )}
+
+          {job.tags?.length > 0 && (
+            <div className={styles.afdJobTags}>
+              {job.tags.map((t) => (
+                <span key={t} className={styles.afdJobTag}>{t}</span>
+              ))}
+            </div>
+          )}
+
+          {(job.salary || job.benefits) && (
+            <div className={styles.afdJobSection}>
+              {job.salary && (
+                <p className={styles.afdJobMetaItem}>
+                  <FaBriefcase className={styles.afdJobMetaIcon} />
+                  <strong style={{ color: "var(--text)" }}>Salary:</strong>&nbsp;{job.salary}
+                </p>
+              )}
+              {job.benefits && (
+                <p className={styles.afdJobMetaItem} style={{ marginTop: "0.4rem" }}>
+                  <strong style={{ color: "var(--text)" }}>Benefits:</strong>&nbsp;{job.benefits}
+                </p>
+              )}
+            </div>
+          )}
 
           <div className={styles.afdLeftContact}>
-            <a
-              href="mailto:hr@firstreachdigital.com"
-              className={styles.afdLeftContactItem}
-            >
+            <a href="mailto:hr@firstreachdigital.com" className={styles.afdLeftContactItem}>
               <FaEnvelope className={styles.afdLeftContactIcon} />
               hr@firstreachdigital.com
             </a>
@@ -261,9 +263,6 @@ export default function JobApplyPage() {
 
           <div className={styles.afdLeftFooter}>
             <p className={styles.afdFooterBrand}>First Reach Digital</p>
-            {/* <p className={styles.afdFooterTag}>
-              Digital Solutions for a Better Tomorrow
-            </p> */}
           </div>
         </div>
 

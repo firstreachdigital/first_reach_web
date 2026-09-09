@@ -7,6 +7,7 @@ import {
   FaFacebookSquare,
   FaPhoneAlt,
   FaEnvelope,
+  FaWhatsapp
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -149,7 +150,7 @@ export default function Footer() {
             <div className={styles.contactIcon}>
               <FaEnvelope />
             </div>
-            <span>info@firstreachdigital.com</span>
+            <span>General Enquiry</span>
           </a>
           <a
             href="mailto:sales@firstreachdigital.com"
@@ -158,7 +159,27 @@ export default function Footer() {
             <div className={styles.contactIcon}>
               <FaEnvelope />
             </div>
-            <span>sales@firstreachdigital.com</span>
+            <span>Sales Enquiry</span>
+          </a>
+          <a
+            href="mailto:hr@firstreachdigital.com"
+            className={styles.contactItem}
+          >
+            <div className={styles.contactIcon}>
+              <FaEnvelope />
+            </div>
+            <span>HR Enquiry</span>
+          </a>
+          <a
+            href="https://wa.me/919207332449"
+            className={styles.contactItem}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div className={styles.contactIcon}>
+              <FaWhatsapp size={18} />
+            </div>
+            <span>WhatsApp (Sales)</span>
           </a>
         </div>
       </div>

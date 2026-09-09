@@ -176,7 +176,7 @@ export default function Portfolio() {
          <StatCard target={95} suffix="%" label="Customer satisfaction" />
          <StatCard target={10} suffix="+"  label="Years of experience" />
          <StatCard target={390} suffix="+"  label="Projects completed" />
-         <StatCard target={3} suffix="+"  label="Countries served" />
+         <StatCard target={7} suffix="+"  label="Countries served" />
         </div>
       </div>
 

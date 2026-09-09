@@ -596,7 +596,8 @@
   border-right: 1px solid var(--border);
   padding: 2.5rem 2rem;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden; 
   display: flex;
   flex-direction: column;
 }
@@ -626,12 +627,12 @@
 
 .afdLeftTitle {
   font-family: var(--font-display, sans-serif);
-  font-size: 2.2rem;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
   font-weight: 900;
-  line-height: 1.05;
+  line-height: 1.1;
   color: var(--text);
   letter-spacing: -0.02em;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
 }
 
 .afdAccentText { color: var(--accent, #05caf2); }
@@ -987,11 +988,66 @@
   .afdLeft { padding: 1.8rem 1.5rem; }
 }
 
+.afdJobMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1.2rem;
+}
+
+.afdJobMetaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.afdJobMetaIcon {
+  font-size: 0.72rem;
+  color: var(--accent, #05caf2);
+  flex-shrink: 0;
+}
+
+.afdJobSection {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.afdJobSectionLabel {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent, #05caf2);
+  margin-bottom: 0.4rem;
+}
+
+.afdJobTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.afdJobTag {
+  font-size: 0.72rem;
+  color: var(--accent, #05caf2);
+  background: rgba(5, 202, 242, 0.08);
+  border: 1px solid rgba(5, 202, 242, 0.2);
+  padding: 0.25rem 0.65rem;
+  border-radius: 2rem;
+  font-weight: 500;
+}
+
 .afdLeftContact {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
-  margin-top: 1rem;
+  margin-top: auto;
+  padding-top: 1.2rem;
 }
 
 .afdLeftContactItem {

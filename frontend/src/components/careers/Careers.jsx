@@ -142,7 +142,10 @@ export default function CareersPage() {
                       </div>
                     </div>
 
-                    <span className={`${styles.viewDetailsIcon} ${isOpen ? styles.viewDetailsIconOpen : ""}`}>
+                    <span
+                      className={`${styles.viewDetailsIcon} ${isOpen ? styles.viewDetailsIconOpen : ""}`}
+                      onClick={(e) => { e.stopPropagation(); navigate(`/careers/apply/${job.slug}`); }}
+                    >
                       <FaArrowRight />
                     </span>
                   </div>
